@@ -1,0 +1,207 @@
+---
+const SITE_PASSWORD = import.meta.env.SITE_PASSWORD || 'viagemgarantida2026';
+
+// Handle form submission
+let error = '';
+if (Astro.request.method === 'POST') {
+    const formData = await Astro.request.formData();
+    const password = formData.get('password')?.toString() || '';
+
+    if (password === SITE_PASSWORD) {
+        // Set auth cookie
+        const token = generateToken(SITE_PASSWORD);
+        Astro.cookies.set('vg_auth', token, {
+            path: '/',
+            httpOnly: true,
+            secure: true,
+            sameSite: 'lax',
+            maxAge: 60 * 60 * 24 * 30 // 30 days
+        });
+        return Astro.redirect('/');
+    } else {
+        error = 'Password incorreta. Tente novamente.';
+    }
+}
+
+function generateToken(password: string): string {
+    let hash = 0;
+    const str = `vg_${password}_secure`;
+    for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash |= 0;
+    }
+    return Math.abs(hash).toString(36);
+}
+---
+
+<!doctype html>
+<html lang="pt">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Acesso Restrito | Viagem Garantida</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/png" href="/images/viagemgarantida_principal.png" />
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Montserrat', sans-serif;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
+                padding: 1rem;
+            }
+
+            .login-container {
+                background: white;
+                border-radius: 1.5rem;
+                padding: 3rem 2.5rem;
+                max-width: 420px;
+                width: 100%;
+                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+                text-align: center;
+            }
+
+            .logo {
+                max-width: 200px;
+                margin: 0 auto 2rem;
+            }
+
+            .badge {
+                display: inline-block;
+                background: rgba(246, 114, 128, 0.1);
+                color: #f67280;
+                font-size: 0.75rem;
+                font-weight: 600;
+                padding: 0.375rem 1rem;
+                border-radius: 9999px;
+                margin-bottom: 1.5rem;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+
+            h1 {
+                color: #2c3e50;
+                font-size: 1.5rem;
+                font-weight: 700;
+                margin-bottom: 0.5rem;
+            }
+
+            .subtitle {
+                color: #34495e;
+                font-size: 0.875rem;
+                margin-bottom: 2rem;
+                line-height: 1.6;
+            }
+
+            .form-group {
+                margin-bottom: 1.5rem;
+                text-align: left;
+            }
+
+            label {
+                display: block;
+                font-size: 0.8125rem;
+                font-weight: 600;
+                color: #2c3e50;
+                margin-bottom: 0.5rem;
+            }
+
+            input[type="password"] {
+                width: 100%;
+                padding: 0.875rem 1rem;
+                border: 2px solid #e5e7eb;
+                border-radius: 0.75rem;
+                font-family: 'Montserrat', sans-serif;
+                font-size: 0.9375rem;
+                transition: border-color 0.2s, box-shadow 0.2s;
+                outline: none;
+            }
+
+            input[type="password"]:focus {
+                border-color: #f67280;
+                box-shadow: 0 0 0 3px rgba(246, 114, 128, 0.15);
+            }
+
+            .error {
+                background: #fef2f2;
+                color: #dc2626;
+                font-size: 0.8125rem;
+                padding: 0.75rem 1rem;
+                border-radius: 0.5rem;
+                margin-bottom: 1rem;
+            }
+
+            button {
+                width: 100%;
+                padding: 0.875rem;
+                background: #f67280;
+                color: white;
+                border: none;
+                border-radius: 0.75rem;
+                font-family: 'Montserrat', sans-serif;
+                font-size: 0.9375rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: background 0.2s, transform 0.1s;
+            }
+
+            button:hover {
+                background: #e85d6b;
+                transform: translateY(-1px);
+            }
+
+            button:active {
+                transform: translateY(0);
+            }
+
+            .footer-text {
+                margin-top: 2rem;
+                font-size: 0.6875rem;
+                color: #9ca3af;
+                line-height: 1.5;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="login-container">
+            <img src="/images/viagemgarantida_principal.png" alt="Viagem Garantida" class="logo" />
+            <span class="badge">Acesso B2B</span>
+            <h1>Área Reservada</h1>
+            <p class="subtitle">
+                Este website é de acesso restrito a parceiros autorizados. Introduza a password fornecida para aceder.
+            </p>
+
+            {error && <div class="error">{error}</div>}
+
+            <form method="POST">
+                <div class="form-group">
+                    <label for="password">Password de Acesso</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Introduza a password"
+                        required
+                        autofocus
+                    />
+                </div>
+                <button type="submit">Aceder</button>
+            </form>
+
+            <p class="footer-text">
+                Viagem Garantida é marca comercial da Ownizo Unipessoal Lda<br />
+                NIF 517169029 · ASF 425591790/3
+            </p>
+        </div>
+    </body>
+</html>

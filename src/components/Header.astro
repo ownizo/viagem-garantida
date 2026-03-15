@@ -1,30 +1,65 @@
 ---
-import Logo from '../components/Logo.astro';
-
 const navItems = [
-    { linkText: 'Home', href: '/' },
-    { linkText: 'Revalidation', href: '/revalidation' },
-    { linkText: 'Image CDN', href: '/image-cdn' },
-    { linkText: 'Edge Function', href: '/edge' },
-    { linkText: 'Blobs', href: '/blobs' }
+    { linkText: 'Início', href: '/' },
+    { linkText: 'Coberturas', href: '/#coberturas' },
+    { linkText: 'Como Funciona', href: '/#como-funciona' },
+    { linkText: 'Contacto', href: '/#contacto' },
 ];
 ---
 
-<nav class="flex flex-wrap items-center gap-4 pt-6 pb-16 sm:pt-12 sm:pb-24">
-    <a href="/">
-        <Logo />
-    </a>
-    {
-        !!navItems?.length && (
-            <ul class="flex flex-wrap gap-x-4 gap-y-1">
+<nav class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+            <a href="/" class="nav-link flex-shrink-0">
+                <img
+                    src="/images/viagemgarantida_horizontal.png"
+                    alt="Viagem Garantida - Seguros de Viagem"
+                    class="h-14 w-auto"
+                />
+            </a>
+            <button id="mobile-menu-btn" class="sm:hidden p-2 rounded-lg text-dark hover:bg-cream transition" aria-label="Menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+            <ul class="hidden sm:flex items-center gap-1">
                 {navItems.map((item) => (
                     <li>
-                        <a href={item.href} class="inline-block px-1.5 py-1 sm:px-3 sm:py-2">
+                        <a href={item.href} class="nav-link px-4 py-2 rounded-lg text-dark-light font-medium hover:text-primary hover:bg-cream transition-colors text-sm">
                             {item.linkText}
                         </a>
                     </li>
                 ))}
+                <li>
+                    <a href="/#contacto" class="btn btn-primary btn-sm ml-2 text-sm px-5 py-2.5 no-underline">
+                        Pedir Proposta
+                    </a>
+                </li>
             </ul>
-        )
-    }
+        </div>
+        <div id="mobile-menu" class="hidden sm:hidden pb-4">
+            <ul class="flex flex-col gap-1">
+                {navItems.map((item) => (
+                    <li>
+                        <a href={item.href} class="nav-link block px-4 py-3 rounded-lg text-dark-light font-medium hover:text-primary hover:bg-cream transition-colors">
+                            {item.linkText}
+                        </a>
+                    </li>
+                ))}
+                <li class="mt-2">
+                    <a href="/#contacto" class="btn btn-primary w-full no-underline">
+                        Pedir Proposta
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </nav>
+
+<script>
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    btn?.addEventListener('click', () => {
+        menu?.classList.toggle('hidden');
+    });
+</script>
