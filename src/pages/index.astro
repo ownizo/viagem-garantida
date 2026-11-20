@@ -4,7 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import { SITE } from '../site';
-import { COUNTRIES } from '../lib/countries';
+import QuoteForm from '../components/QuoteForm.astro';
 
 const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const featured = posts.filter((p) => p.data.featured).slice(0, 3);
@@ -43,76 +43,30 @@ const faqLd = {
 <Layout title={SITE.name} jsonLd={faqLd}>
     <!-- HERO -->
     <section class="paper-grain relative overflow-hidden">
-        <div class="container-vg grid items-center gap-14 pb-20 pt-14 lg:grid-cols-[1.15fr_1fr] lg:pt-20">
-            <div>
+        <div class="container-vg grid items-start gap-12 pb-20 pt-12 lg:grid-cols-[0.9fr_1.25fr] lg:pt-16">
+            <div class="lg:sticky lg:top-28">
                 <span class="eyebrow">Seguros de viagem</span>
                 <h1 class="mt-6">
                     Viaje longe.<br /><span class="accent">Volte protegido.</span>
                 </h1>
-                <p class="mt-7 max-w-xl text-lg leading-relaxed text-ink-soft">
+                <p class="mt-5 max-w-xl text-base leading-relaxed text-ink-soft sm:mt-7 sm:text-lg">
                     Despesas médicas, repatriamento, cancelamento e assistência 24h, escolhidos pela qualidade da proteção e não pelo preço mais baixo. Com o aconselhamento de um mediador de seguros registado.
                 </p>
-                <div class="mt-9 flex flex-wrap gap-3">
-                    <a href="/cotacao" class="btn-primary px-7 py-4">Pedir cotação</a>
-                    <a href="/coberturas" class="btn-ghost px-7 py-4">Ver coberturas</a>
-                </div>
-                <ul class="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-sm text-ink-soft">
+                <ol class="mt-9 hidden space-y-4 text-sm leading-relaxed text-ink-soft lg:block">
+                    <li class="flex gap-3"><span class="font-serif text-2xl italic leading-none text-sunset">1</span>Indique o destino, as datas e quem viaja.</li>
+                    <li class="flex gap-3"><span class="font-serif text-2xl italic leading-none text-sunset">2</span>Compare as coberturas, ordenadas pela proteção médica ou pelo preço.</li>
+                    <li class="flex gap-3"><span class="font-serif text-2xl italic leading-none text-sunset">3</span>Escolha o seguro e conclua a subscrição online.</li>
+                </ol>
+                <ul class="mt-10 hidden flex-wrap gap-x-8 gap-y-3 text-sm text-ink-soft lg:flex">
                     <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-sea"></span>Mediador registado na ASF</li>
                     <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-sea"></span>Várias seguradoras, sem exclusividade</li>
-                    <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-sea"></span>Proposta sem compromisso</li>
+                    <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-sea"></span>Sem compromisso</li>
                 </ul>
             </div>
 
-            <!-- Cartão de embarque / mini cotação -->
-            <form action="/cotacao" method="get" class="relative rotate-[0.6deg] rounded-[2rem] bg-white shadow-[0_30px_70px_-35px_rgba(20,33,61,0.55)]">
-                <div class="flex items-center justify-between rounded-t-[2rem] bg-ink px-7 py-5 text-paper">
-                    <span class="text-xs font-semibold uppercase tracking-[0.25em]">Cartão de embarque</span>
-                    <span class="font-serif text-lg italic text-sunset">cotação</span>
-                </div>
-                <div class="space-y-5 p-7">
-                    <div class="flex items-end justify-between gap-4">
-                        <div>
-                            <p class="field-label">De</p>
-                            <p class="text-3xl font-bold tracking-tight">PT</p>
-                        </div>
-                        <span class="route-line mb-3 h-1 grow text-sunset" aria-hidden="true"></span>
-                        <svg width="22" height="22" viewBox="0 0 24 24" class="mb-1.5 text-sunset" fill="currentColor" aria-hidden="true"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5Z"></path></svg>
-                    </div>
-                    <div>
-                        <label class="field-label" for="h-destination">Para onde vai?</label>
-                        <select id="h-destination" name="destinos" class="field">
-                            <option value="">Escolha o país</option>
-                            {COUNTRIES.filter((c) => c.code !== 'PT').map((c) => <option value={c.code}>{c.name}</option>)}
-                        </select>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="field-label" for="h-dep">Partida</label>
-                            <input id="h-dep" type="date" name="departureDate" class="field" />
-                        </div>
-                        <div>
-                            <label class="field-label" for="h-ret">Regresso</label>
-                            <input id="h-ret" type="date" name="returnDate" class="field" />
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-[1fr_auto] items-end gap-4">
-                        <div>
-                            <label class="field-label" for="h-trav">Viajantes</label>
-                            <select id="h-trav" name="viajantes" class="field">
-                                {Array.from({ length: 8 }, (_, i) => <option value={i + 1}>{i + 1} {i === 0 ? 'pessoa' : 'pessoas'}</option>)}
-                            </select>
-                        </div>
-                        <label class="mb-3 flex items-center gap-2 text-sm">
-                            <input type="checkbox" name="cancelamento" value="1" class="h-4 w-4 accent-[#E2600F]" /> Cancelamento
-                        </label>
-                    </div>
-                </div>
-                <div class="relative border-t-2 border-dashed border-ink/10 p-7 pt-6">
-                    <span class="absolute -left-4 -top-4 h-8 w-8 rounded-full bg-paper" aria-hidden="true"></span>
-                    <span class="absolute -right-4 -top-4 h-8 w-8 rounded-full bg-paper" aria-hidden="true"></span>
-                    <button class="btn-sunset w-full py-4 text-base" type="submit">Continuar</button>
-                </div>
-            </form>
+            <div id="cotacao" class="scroll-mt-28">
+                <QuoteForm />
+            </div>
         </div>
     </section>
 
