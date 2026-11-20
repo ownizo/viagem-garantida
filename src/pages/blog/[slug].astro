@@ -1,0 +1,90 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import { CATEGORIES, SITE } from '../../site';
+
+export async function getStaticPaths() {
+    const posts = await getCollection('blog');
+    return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const toc = headings.filter((h) => h.depth === 2);
+const all = await getCollection('blog');
+const related = all
+    .filter((p) => p.id !== post.id)
+    .sort((a, b) => Number(b.data.category === post.data.category) - Number(a.data.category === post.data.category))
+    .slice(0, 3);
+
+const dateFmt = new Intl.DateTimeFormat('pt-PT', { day: 'numeric', month: 'long', year: 'numeric' });
+const articleLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.data.title,
+    description: post.data.description,
+    datePublished: post.data.pubDate.toISOString(),
+    dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString(),
+    inLanguage: 'pt-PT',
+    mainEntityOfPage: `${SITE.url}/blog/${post.id}`,
+    author: { '@type': 'Organization', name: SITE.name },
+    publisher: { '@type': 'Organization', name: SITE.name }
+};
+---
+
+<Layout title={post.data.title} description={post.data.description} type="article" jsonLd={articleLd}>
+    <article>
+        <header class="paper-grain">
+            <div class="container-vg pb-12 pt-14 sm:pt-20">
+                <nav class="text-sm text-ink-soft" aria-label="Navegação estrutural">
+                    <a href="/blog" class="hover:text-sunset-deep">Guias</a>
+                    <span class="mx-2">/</span>
+                    <a href={`/blog/categoria/${post.data.category}`} class="hover:text-sunset-deep">{CATEGORIES[post.data.category]}</a>
+                </nav>
+                <h1 class="mt-6 max-w-4xl !text-4xl sm:!text-[3.4rem]">{post.data.title}</h1>
+                <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">{post.data.description}</p>
+                <p class="mt-6 text-sm text-ink/50">
+                    <time datetime={post.data.pubDate.toISOString()}>{dateFmt.format(post.data.pubDate)}</time> · {post.data.readingTime} min de leitura
+                </p>
+            </div>
+        </header>
+
+        <div class="container-vg grid gap-14 lg:grid-cols-[1fr_260px]">
+            <div class="prose-vg max-w-[720px]"><Content /></div>
+            <aside class="hidden lg:block">
+                <div class="sticky top-28 space-y-6">
+                    {
+                        toc.length > 0 && (
+                            <nav aria-label="Neste artigo">
+                                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-ink/50">Neste artigo</p>
+                                <ul class="mt-4 space-y-3 border-l border-ink/10 text-sm">
+                                    {toc.map((h) => (
+                                        <li>
+                                            <a href={`#${h.slug}`} class="-ml-px block border-l border-transparent pl-4 text-ink-soft hover:border-sunset hover:text-ink">
+                                                {h.text}
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </nav>
+                        )
+                    }
+                    <div class="rounded-3xl bg-ink p-6 text-paper">
+                        <p class="font-semibold">Vai viajar em breve?</p>
+                        <p class="mt-2 text-sm text-paper/70">Receba uma proposta com as coberturas certas para a sua viagem.</p>
+                        <a href="/cotacao" class="btn-sunset mt-5 w-full">Pedir cotação</a>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </article>
+
+    <section class="container-vg mt-24">
+        <h2 class="text-2xl">Continue a ler</h2>
+        <div class="mt-8 grid gap-5 md:grid-cols-3">{related.map((p) => <ArticleCard post={p} />)}</div>
+    </section>
+
+    <CtaBanner />
+</Layout>

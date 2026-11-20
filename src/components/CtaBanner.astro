@@ -1,0 +1,23 @@
+---
+interface Props {
+    title?: string;
+    text?: string;
+}
+const {
+    title = 'Viaje com a proteção certa',
+    text = 'Diga-nos para onde vai, quando e com quem. Preparamos uma proposta com as coberturas adequadas à sua viagem.'
+} = Astro.props;
+---
+
+<section class="container-vg mt-24">
+    <div class="relative overflow-hidden rounded-[2rem] bg-ink px-8 py-14 text-paper sm:px-14">
+        <div class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-sunset/25 blur-3xl" aria-hidden="true"></div>
+        <div class="relative grid items-center gap-8 md:grid-cols-[1.5fr_auto]">
+            <div>
+                <h2 class="text-paper">{title}</h2>
+                <p class="mt-4 max-w-xl text-paper/75">{text}</p>
+            </div>
+            <a href="/cotacao" class="btn-sunset px-8 py-4 text-base">Pedir cotação</a>
+        </div>
+    </div>
+</section>

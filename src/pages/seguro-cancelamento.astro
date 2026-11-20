@@ -1,0 +1,78 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+
+const covered = [
+    'Doença grave, acidente ou falecimento do segurado ou de familiares próximos',
+    'Complicações de gravidez',
+    'Danos graves na habitação ou no local de trabalho',
+    'Convocatória judicial como testemunha ou jurado',
+    'Despedimento, em determinadas apólices',
+    'Roubo de documentos essenciais nos dias antes da partida'
+];
+const notCovered = [
+    'Mudança de planos sem motivo coberto',
+    'Doenças preexistentes que já justificavam o cancelamento',
+    'Eventos já conhecidos quando o seguro foi subscrito',
+    'Passaporte caducado ou visto recusado, salvo previsão expressa',
+    'Valores que a companhia ou a agência têm obrigação de reembolsar'
+];
+---
+
+<Layout title="Seguro de cancelamento de viagem" description="O seguro de cancelamento reembolsa as despesas já pagas quando um motivo coberto o impede de viajar. Saiba o que cobre e quando subscrever.">
+    <PageHeader eyebrow="Seguro de cancelamento" title="Se não puder ir," accent="não perde o que pagou" intro="Voos, hotéis, pacotes, cruzeiros, bilhetes para eventos. O seguro de cancelamento reembolsa as despesas não recuperáveis quando um motivo previsto na apólice o impede de viajar.">
+        <a href="/cotacao?cancelamento=1" class="btn-sunset mt-9 px-8 py-4">Pedir cotação com cancelamento</a>
+    </PageHeader>
+
+    <section class="container-vg grid gap-5 md:grid-cols-2">
+        <div class="card">
+            <h2 class="text-xl">Normalmente coberto</h2>
+            <ul class="mt-5 space-y-3 text-sm leading-relaxed text-ink-soft">
+                {covered.map((c) => <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-sea" />{c}</li>)}
+            </ul>
+        </div>
+        <div class="card">
+            <h2 class="text-xl">Normalmente excluído</h2>
+            <ul class="mt-5 space-y-3 text-sm leading-relaxed text-ink-soft">
+                {notCovered.map((c) => <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-sunset" />{c}</li>)}
+            </ul>
+        </div>
+    </section>
+
+    <section class="container-vg mt-20 grid gap-10 lg:grid-cols-3">
+        <div class="lg:col-span-1">
+            <span class="eyebrow">Três regras</span>
+            <h2 class="mt-4">Para o seguro <span class="accent">funcionar</span></h2>
+        </div>
+        <div class="grid gap-5 sm:grid-cols-3 lg:col-span-2">
+            <div class="card">
+                <p class="font-serif text-4xl italic text-sunset">1</p>
+                <h3 class="mt-3 text-base">Subscreva na reserva</h3>
+                <p class="mt-2 text-sm leading-relaxed text-ink-soft">Só estão cobertos os eventos posteriores à subscrição.</p>
+            </div>
+            <div class="card">
+                <p class="font-serif text-4xl italic text-sunset">2</p>
+                <h3 class="mt-3 text-base">Capital = valor real</h3>
+                <p class="mt-2 text-sm leading-relaxed text-ink-soft">O capital deve cobrir o custo não reembolsável da viagem, por pessoa.</p>
+            </div>
+            <div class="card">
+                <p class="font-serif text-4xl italic text-sunset">3</p>
+                <h3 class="mt-3 text-base">Cancele logo</h3>
+                <p class="mt-2 text-sm leading-relaxed text-ink-soft">O reembolso é calculado sobre as penalizações em vigor quando cancela.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container-vg mt-20">
+        <div class="rounded-[2rem] border border-ink/10 bg-sand/60 p-8 sm:p-12">
+            <h2 class="text-2xl">O seguro não substitui os seus direitos</h2>
+            <p class="mt-4 max-w-3xl leading-relaxed text-ink-soft">
+                Se for a companhia aérea a cancelar o voo, ou se ocorrerem circunstâncias inevitáveis e excecionais no destino de uma viagem organizada, o reembolso é devido pela companhia ou pela agência, nos termos da lei. O seguro de cancelamento cobre os motivos pessoais que o impedem de partir.
+            </p>
+            <a href="/blog/seguro-cancelamento-viagem-guia" class="mt-6 inline-block font-semibold text-sunset-deep underline underline-offset-4">Ler o guia completo sobre cancelamento</a>
+        </div>
+    </section>
+
+    <CtaBanner title="Proteja a viagem desde o primeiro dia" text="Indique-nos o valor da viagem por pessoa e a data de partida. Propomos o capital de cancelamento adequado." />
+</Layout>

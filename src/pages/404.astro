@@ -1,0 +1,15 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Página não encontrada" noindex>
+    <section class="container-vg flex min-h-[60vh] flex-col items-start justify-center py-20">
+        <span class="eyebrow">Erro 404</span>
+        <h1 class="mt-6">Esta rota <span class="accent">não existe</span></h1>
+        <p class="mt-6 max-w-lg text-lg text-ink-soft">A página que procura mudou de lugar ou nunca partiu. Volte ao início ou peça já a sua cotação.</p>
+        <div class="mt-8 flex gap-3">
+            <a href="/" class="btn-primary">Página inicial</a>
+            <a href="/cotacao" class="btn-ghost">Pedir cotação</a>
+        </div>
+    </section>
+</Layout>

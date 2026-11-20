@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import CategoryNav from '../../components/CategoryNav.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+
+const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const [lead, ...rest] = posts;
+---
+
+<Layout title="Guias de seguro de viagem" description="Guias práticos sobre seguros de viagem para famílias, estudantes, destinos asiáticos e sul-americanos, coberturas médicas e cancelamento.">
+    <PageHeader eyebrow="Guias" title="Tudo o que deve saber" accent="antes de partir">
+        <CategoryNav />
+    </PageHeader>
+
+    <section class="container-vg">
+        {
+            lead && (
+                <a href={`/blog/${lead.id}`} class="group mb-10 grid overflow-hidden rounded-[2rem] bg-ink text-paper md:grid-cols-[1.2fr_1fr]">
+                    <div class="p-8 sm:p-12">
+                        <span class="eyebrow !text-sunset">{lead.data.kicker ?? 'Em destaque'}</span>
+                        <h2 class="mt-5 text-paper transition group-hover:text-sunset">{lead.data.title}</h2>
+                        <p class="mt-4 max-w-xl text-paper/70">{lead.data.description}</p>
+                        <p class="mt-8 text-sm font-semibold text-sunset">Ler o guia →</p>
+                    </div>
+                    <div class="relative hidden items-center justify-center bg-gradient-to-br from-sunset/30 to-sea/30 md:flex" aria-hidden="true">
+                        <span class="route-line h-1 w-2/3 text-paper/60" />
+                    </div>
+                </a>
+            )
+        }
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {rest.map((post) => <ArticleCard post={post} />)}
+        </div>
+    </section>
+
+    <CtaBanner />
+</Layout>

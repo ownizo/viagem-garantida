@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { MEDIADOR } from '../site';
+---
+
+<Layout title="Quem somos" description="A Viagem Garantida é uma marca da Adler & Rochefort, agente de seguros registado na ASF, que seleciona seguros de viagem pela qualidade da proteção.">
+    <PageHeader eyebrow="Quem somos" title="Seguros de viagem com" accent="critério" intro="A Viagem Garantida nasceu de uma convicção simples: um seguro de viagem só vale o que vale a assistência no dia em que é preciso. Por isso escolhemos pela proteção, não pelo preço." />
+
+    <section class="container-vg grid gap-14 lg:grid-cols-2">
+        <div class="prose-vg">
+            <p>
+                Somos uma marca da <strong>{MEDIADOR.brand}</strong>, {MEDIADOR.category.toLowerCase()} registado na Autoridade de Supervisão de Seguros e Fundos de Pensões com o n.º {MEDIADOR.asfRegistration}. Trabalhamos com várias seguradoras, sem qualquer contrato de exclusividade, o que nos permite propor a solução que melhor serve cada viagem.
+            </p>
+            <p>
+                Antes de recomendar um seguro, lemos as condições: capitais, franquias, exclusões, definição de zonas geográficas, desportos cobertos, regras para doenças preexistentes e, sobretudo, a forma como a assistência funciona no destino.
+            </p>
+            <p>
+                Depois da venda, continuamos disponíveis. Se precisar de acionar a apólice, ajudamos a reunir a documentação e acompanhamos o processo junto da seguradora.
+            </p>
+        </div>
+        <div class="grid gap-5 sm:grid-cols-2">
+            <div class="card">
+                <h3 class="text-base">Mediador registado</h3>
+                <p class="mt-2 text-sm text-ink-soft">Registo verificável no <a class="font-semibold text-sunset-deep underline" href={MEDIADOR.asfUrl} target="_blank" rel="noopener">site da ASF</a>.</p>
+            </div>
+            <div class="card">
+                <h3 class="text-base">Sem exclusividade</h3>
+                <p class="mt-2 text-sm text-ink-soft">Várias seguradoras, uma única recomendação: a mais adequada.</p>
+            </div>
+            <div class="card">
+                <h3 class="text-base">Aconselhamento humano</h3>
+                <p class="mt-2 text-sm text-ink-soft">Cada proposta é revista por quem conhece as apólices.</p>
+            </div>
+            <div class="card">
+                <h3 class="text-base">Acompanhamento</h3>
+                <p class="mt-2 text-sm text-ink-soft">Apoio na participação e gestão de sinistros.</p>
+            </div>
+        </div>
+    </section>
+
+    <CtaBanner />
+</Layout>

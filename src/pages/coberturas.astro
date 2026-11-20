@@ -1,0 +1,97 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+
+const groups = [
+    {
+        title: 'Saúde e assistência',
+        intro: 'O núcleo do seguro. É aqui que se decide se a apólice funciona quando é precisa.',
+        items: [
+            ['Despesas médicas e hospitalização', 'Consultas, exames, medicamentos, cirurgia e internamento por doença súbita ou acidente durante a viagem.'],
+            ['Repatriamento e transporte sanitário', 'Transporte do doente para um hospital adequado ou para Portugal, incluindo avião-ambulância quando necessário.'],
+            ['Assistência 24 horas', 'Equipa médica e de assistência contactável a qualquer hora, com pagamento direto aos prestadores.'],
+            ['Acompanhante e visita de familiar', 'Despesas de um familiar que acompanha ou visita o segurado hospitalizado.'],
+            ['Prolongamento de estadia', 'Alojamento quando o médico não autoriza o regresso na data prevista.'],
+            ['Urgências dentárias', 'Tratamento urgente para alívio da dor durante a viagem.']
+        ]
+    },
+    {
+        title: 'Viagem e imprevistos',
+        intro: 'Coberturas que protegem o dinheiro investido na viagem e resolvem os contratempos.',
+        items: [
+            ['Cancelamento', 'Reembolso das despesas não recuperáveis quando um motivo coberto impede a viagem.'],
+            ['Interrupção de viagem', 'Reembolso da parte não usufruída quando é necessário regressar mais cedo.'],
+            ['Regresso antecipado', 'Viagem de volta por falecimento ou doença grave de familiar, ou sinistro grave na habitação.'],
+            ['Bagagem', 'Perda, roubo ou danos na bagagem, e compras de primeira necessidade em caso de atraso.'],
+            ['Atraso de voo e perda de ligação', 'Despesas de alimentação e alojamento causadas por atrasos significativos.']
+        ]
+    },
+    {
+        title: 'Responsabilidade e acidentes',
+        intro: 'Proteção perante terceiros e capitais para situações graves.',
+        items: [
+            ['Responsabilidade civil privada', 'Danos materiais ou corporais causados involuntariamente a terceiros.'],
+            ['Acidentes pessoais', 'Capitais em caso de morte ou invalidez permanente por acidente.'],
+            ['Assistência jurídica', 'Apoio e adiantamento de custos legais no estrangeiro, consoante a apólice.']
+        ]
+    }
+];
+
+const checks = [
+    'Capitais adequados ao custo dos cuidados de saúde no destino',
+    'Pagamento direto ao hospital pela assistência',
+    'Repatriamento ilimitado ou com capital muito elevado',
+    'Franquias reduzidas ou inexistentes nas coberturas médicas',
+    'Lista abrangente de causas de cancelamento',
+    'Cobertura das atividades que vai realmente fazer'
+];
+---
+
+<Layout title="Coberturas de seguro de viagem" description="Despesas médicas, repatriamento, assistência 24h, cancelamento, bagagem e responsabilidade civil. As coberturas de um seguro de viagem bem escolhido.">
+    <PageHeader eyebrow="Coberturas" title="O que fica" accent="protegido" intro="As coberturas e os capitais exatos variam de seguradora para seguradora e de plano para plano. Esta é a estrutura que usamos para avaliar cada proposta que lhe apresentamos." />
+
+    <section class="container-vg space-y-16">
+        {
+            groups.map((g) => (
+                <div class="grid gap-8 lg:grid-cols-[1fr_2fr]">
+                    <div>
+                        <h2 class="text-2xl">{g.title}</h2>
+                        <p class="mt-3 text-ink-soft">{g.intro}</p>
+                    </div>
+                    <div class="grid gap-4 sm:grid-cols-2">
+                        {g.items.map(([t, d]) => (
+                            <div class="card !p-6">
+                                <h3 class="text-base">{t}</h3>
+                                <p class="mt-2 text-sm leading-relaxed text-ink-soft">{d}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))
+        }
+    </section>
+
+    <section class="container-vg mt-24">
+        <div class="grid gap-10 rounded-[2rem] bg-ink p-8 text-paper sm:p-14 lg:grid-cols-2">
+            <div>
+                <h2 class="text-paper">O que verificamos <span class="accent !text-sunset">antes de propor</span></h2>
+                <p class="mt-5 text-paper/70">Antes de recomendar uma apólice, lemos as condições gerais e particulares. Estes são os pontos que pesam mais na nossa escolha.</p>
+                <a href="/blog/coberturas-medicas-essenciais" class="mt-8 inline-block font-semibold text-sunset underline underline-offset-4">Ler o guia das coberturas médicas</a>
+            </div>
+            <ul class="space-y-3">
+                {
+                    checks.map((c) => (
+                        <li class="flex items-start gap-3 rounded-2xl bg-paper/5 p-4">
+                            <svg class="mt-0.5 shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" stroke="#E8743B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                            <span class="text-paper/90">{c}</span>
+                        </li>
+                    ))
+                }
+            </ul>
+        </div>
+        <p class="mt-6 text-xs leading-relaxed text-ink-soft">As coberturas, capitais, franquias e exclusões aplicáveis são as que constam das condições gerais, especiais e particulares de cada apólice e do respetivo documento de informação sobre o produto de seguros (IPID).</p>
+    </section>
+
+    <CtaBanner />
+</Layout>

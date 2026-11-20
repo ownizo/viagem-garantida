@@ -1,0 +1,42 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { SITE, MEDIADOR } from '../site';
+---
+
+<Layout title="Política de privacidade" description="Como a Viagem Garantida trata os dados pessoais recolhidos nos pedidos de cotação de seguro de viagem.">
+    <PageHeader eyebrow="Privacidade" title="Política de" accent="privacidade" />
+
+    <section class="container-vg">
+        <div class="prose-vg max-w-3xl">
+            <h2>Responsável pelo tratamento</h2>
+            <p>{MEDIADOR.legalName} ({MEDIADOR.brand}), {MEDIADOR.address}. Contacto: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+
+            <h2>Dados recolhidos</h2>
+            <p>
+                No pedido de cotação recolhemos o nome, email, telemóvel (opcional), dados da viagem (destino, datas, motivo, idades dos viajantes, valor da viagem) e a informação adicional que decida partilhar. Não utilizamos cookies de publicidade nem de análise de terceiros.
+            </p>
+
+            <h2>Finalidade e fundamento</h2>
+            <p>
+                Os dados são tratados para preparar e enviar a proposta de seguro pedida e, caso a aceite, para a contratação e gestão do seguro. O fundamento é a execução de diligências pré-contratuais a seu pedido e, após a contratação, a execução do contrato e o cumprimento de obrigações legais do mediador de seguros.
+            </p>
+            <p>Se nos indicar informação de saúde nas notas do pedido, essa informação é usada apenas para avaliar a cobertura adequada, com base no seu consentimento.</p>
+
+            <h2>Destinatários</h2>
+            <p>
+                Para obter propostas, os dados estritamente necessários podem ser transmitidos às seguradoras com quem trabalhamos ou a parceiros de distribuição de seguros. Recorremos ainda a prestadores de serviços de alojamento do site e de envio de email, que atuam como subcontratantes e estão sujeitos a obrigações de confidencialidade e segurança.
+            </p>
+
+            <h2>Conservação</h2>
+            <p>
+                Os dados dos pedidos que não resultem em contrato são conservados pelo período necessário ao acompanhamento da proposta. Os dados de contratos celebrados são conservados pelos prazos exigidos por lei à atividade de mediação de seguros.
+            </p>
+
+            <h2>Os seus direitos</h2>
+            <p>
+                Pode, a qualquer momento, pedir acesso, retificação, apagamento, limitação ou portabilidade dos seus dados, opor-se ao tratamento ou retirar o consentimento, através de <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. Tem também o direito de apresentar reclamação à <a href="https://www.cnpd.pt" target="_blank" rel="noopener">Comissão Nacional de Proteção de Dados</a>.
+            </p>
+        </div>
+    </section>
+</Layout>

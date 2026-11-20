@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../../layouts/Layout.astro';
+import PageHeader from '../../../components/PageHeader.astro';
+import ArticleCard from '../../../components/ArticleCard.astro';
+import CategoryNav from '../../../components/CategoryNav.astro';
+import CtaBanner from '../../../components/CtaBanner.astro';
+import { CATEGORIES, type CategoryKey } from '../../../site';
+
+export function getStaticPaths() {
+    return Object.keys(CATEGORIES).map((category) => ({ params: { category } }));
+}
+
+const category = Astro.params.category as CategoryKey;
+const label = CATEGORIES[category];
+const posts = (await getCollection('blog', (p) => p.data.category === category)).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<Layout title={`Guias: ${label}`} description={`Guias de seguro de viagem sobre ${label.toLowerCase()}.`}>
+    <PageHeader eyebrow="Guias" title={label}>
+        <CategoryNav active={category} />
+    </PageHeader>
+    <section class="container-vg">
+        {
+            posts.length ? (
+                <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                    {posts.map((post) => <ArticleCard post={post} />)}
+                </div>
+            ) : (
+                <p class="text-ink-soft">Em breve publicaremos guias nesta categoria.</p>
+            )
+        }
+    </section>
+    <CtaBanner />
+</Layout>
