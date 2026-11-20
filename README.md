@@ -1,43 +1,25 @@
-# Astro on Netlify Platform Starter
+# Viagem Garantida
 
-[Live Demo](https://astro-platform-starter.netlify.app/)
+Site de seguros de viagem — [viagemgarantida.com](https://viagemgarantida.com). Marca da Adler & Rochefort (Ownizo, Unipessoal Lda.), agente de seguros registado na ASF.
 
-A modern starter based on Astro.js, Tailwind, and [Netlify Core Primitives](https://docs.netlify.com/core/overview/#develop) (Edge Functions, Image CDN, Blobs).
+Astro 6 + Tailwind 4, publicado na Netlify. Páginas estáticas; o endpoint `/api/quote` corre como função serverless.
 
-## Astro Commands
+## Comandos
 
-All commands are run from the root of the project, from a terminal:
+| Comando | Ação |
+| --- | --- |
+| `npm install` | Instalar dependências |
+| `npm run dev` | Servidor local em `localhost:4321` |
+| `npm run build` | Build para `./dist/` |
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Para testar o Netlify Blobs localmente use `netlify dev`.
 
-## Deploying to Netlify
+## Conteúdo
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/netlify-templates/astro-platform-starter)
+- Páginas: `src/pages/` (início, cotação, coberturas, cancelamento, quem somos, informação legal, privacidade)
+- Guias/blog: ficheiros Markdown em `src/content/blog/` — para publicar um novo artigo basta criar um `.md` com o mesmo frontmatter dos existentes (`category`: familias, estudantes, destinos, coberturas ou cancelamento)
+- Dados da marca e do mediador: `src/site.ts`
 
-## Developing Locally
+## Integração com seguradoras (fase 2)
 
-| Prerequisites                                                                |
-| :--------------------------------------------------------------------------- |
-| [Node.js](https://nodejs.org/) v18.20.8+.                                    |
-| (optional) [nvm](https://github.com/nvm-sh/nvm) for Node version management. |
-
-1. Clone this repository, then run `npm install` in its root directory.
-
-2. Recommended: link your local repository to a Netlify project. This will ensure you're using the same runtime version for both local development and your deployed project.
-
-```
-netlify link
-```
-
-3. Run the Astro.js development server:
-
-```
-npm run dev
-```
+Ver [`docs/integracao-api.md`](docs/integracao-api.md) e [`.env.example`](.env.example).

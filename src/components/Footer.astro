@@ -1,9 +1,60 @@
 ---
+import Logo from './Logo.astro';
+import { SITE, MEDIADOR, CATEGORIES } from '../site';
 
+const year = new Date().getFullYear();
 ---
 
-<footer class="pt-16 pb-12 sm:pt-24 sm:pb-16">
-    <p class="text-sm">
-        <a href="https://docs.netlify.com/frameworks/astro/" class="decoration-dashed text-primary underline-offset-8"> Astro on Netlify </a>
-    </p>
+<footer class="mt-24 bg-ink text-paper/80">
+    <div class="container-vg grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1fr]">
+        <div>
+            <Logo inverted />
+            <p class="mt-5 max-w-sm text-sm leading-relaxed text-paper/70">{SITE.tagline}</p>
+            <div class="mt-6 space-y-1 text-sm">
+                <p><a class="text-paper hover:text-sunset" href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+                <p><a class="text-paper hover:text-sunset" href={SITE.phoneHref}>{SITE.phone}</a></p>
+            </div>
+        </div>
+
+        <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-sunset">Guias</p>
+            <ul class="mt-4 space-y-2 text-sm">
+                {
+                    Object.entries(CATEGORIES).map(([key, label]) => (
+                        <li>
+                            <a class="hover:text-sunset" href={`/blog/categoria/${key}`}>
+                                {label}
+                            </a>
+                        </li>
+                    ))
+                }
+            </ul>
+        </div>
+
+        <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-sunset">Informação</p>
+            <ul class="mt-4 space-y-2 text-sm">
+                <li><a class="hover:text-sunset" href="/cotacao">Pedir cotação</a></li>
+                <li><a class="hover:text-sunset" href="/sobre">Quem somos</a></li>
+                <li><a class="hover:text-sunset" href="/informacao-legal">Informação legal</a></li>
+                <li><a class="hover:text-sunset" href="/privacidade">Política de privacidade</a></li>
+                <li>
+                    <a class="hover:text-sunset" href="https://www.livroreclamacoes.pt" target="_blank" rel="noopener">Livro de Reclamações</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="border-t border-paper/10">
+        <div class="container-vg py-8 text-xs leading-relaxed text-paper/55">
+            <p>
+                {SITE.name} é uma marca da {MEDIADOR.brand} ({MEDIADOR.legalName}), {MEDIADOR.category.toLowerCase()}
+                registado na Autoridade de Supervisão de Seguros e Fundos de Pensões (ASF) com o n.º {MEDIADOR.asfRegistration}.
+                O registo pode ser verificado em <a class="underline hover:text-sunset" href={MEDIADOR.asfUrl} target="_blank" rel="noopener">asf.com.pt</a>.
+                Sede: {MEDIADOR.address} (sem atendimento ao público). Não estamos vinculados em exclusividade a nenhuma seguradora.
+                As coberturas, capitais e exclusões de cada seguro constam das condições gerais e particulares da respetiva apólice.
+            </p>
+            <p class="mt-4">© {year} {MEDIADOR.legalName}. Todos os direitos reservados.</p>
+        </div>
+    </div>
 </footer>

@@ -1,0 +1,22 @@
+---
+import { CATEGORIES } from '../site';
+
+interface Props {
+    active?: string;
+}
+const { active } = Astro.props;
+---
+
+<nav class="mt-10 flex flex-wrap gap-2" aria-label="Categorias">
+    <a href="/blog" class:list={['rounded-full px-4 py-2 text-sm font-medium transition', !active ? 'bg-ink text-paper' : 'border border-ink/15 hover:border-ink']}>Todos</a>
+    {
+        Object.entries(CATEGORIES).map(([key, label]) => (
+            <a
+                href={`/blog/categoria/${key}`}
+                class:list={['rounded-full px-4 py-2 text-sm font-medium transition', active === key ? 'bg-ink text-paper' : 'border border-ink/15 hover:border-ink']}
+            >
+                {label}
+            </a>
+        ))
+    }
+</nav>

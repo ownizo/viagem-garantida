@@ -1,34 +1,64 @@
 ---
-import '../../src/styles/globals.css';
-import '@fontsource-variable/inter/wght.css';
-import interWoff2 from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import '../styles/globals.css';
+import '@fontsource-variable/montserrat/wght.css';
+import '@fontsource/playfair-display/400-italic.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { SITE, MEDIADOR } from '../site';
 
 interface Props {
     title: string;
+    description?: string;
+    type?: 'website' | 'article';
+    jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+    noindex?: boolean;
 }
 
-const { title } = Astro.props;
+const { title, description = SITE.description, type = 'website', jsonLd, noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, SITE.url).toString();
+const fullTitle = title === SITE.name ? `${SITE.name} — Seguros de viagem` : `${title} | ${SITE.name}`;
+
+const orgLd = {
+    '@context': 'https://schema.org',
+    '@type': 'InsuranceAgency',
+    name: SITE.name,
+    url: SITE.url,
+    email: SITE.email,
+    telephone: SITE.phone,
+    parentOrganization: { '@type': 'Organization', name: MEDIADOR.brand, legalName: MEDIADOR.legalName, url: MEDIADOR.website },
+    address: { '@type': 'PostalAddress', streetAddress: 'Av. do Atlântico 16, Esc. 5.07', postalCode: '1990-019', addressLocality: 'Lisboa', addressCountry: 'PT' },
+    areaServed: 'PT'
+};
+const ldBlocks = [orgLd, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [])];
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="pt-PT">
     <head>
         <meta charset="UTF-8" />
-        <title>{title}</title>
-        <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{fullTitle}</title>
+        <meta name="description" content={description} />
+        <link rel="canonical" href={canonical} />
+        {noindex && <meta name="robots" content="noindex" />}
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="preload" as="font" type="font/woff2" href={interWoff2} crossorigin />
+        <link rel="sitemap" href="/sitemap-index.xml" />
+        <meta name="theme-color" content="#14213D" />
+
+        <meta property="og:type" content={type} />
+        <meta property="og:locale" content="pt_PT" />
+        <meta property="og:site_name" content={SITE.name} />
+        <meta property="og:title" content={fullTitle} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonical} />
+        <meta name="twitter:card" content="summary" />
+
+        {ldBlocks.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
     </head>
-    <body class="antialiased text-white bg-complementary">
-        <div class="flex flex-col min-h-screen px-6 bg-noise sm:px-12">
-            <div class="flex flex-col w-full max-w-5xl mx-auto grow">
-                <Header />
-                <main class="grow"><slot /></main>
-                <Footer />
-            </div>
-        </div>
+    <body class="flex min-h-screen flex-col">
+        <a href="#conteudo" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-paper">Saltar para o conteúdo</a>
+        <Header />
+        <main id="conteudo" class="grow"><slot /></main>
+        <Footer />
     </body>
 </html>
