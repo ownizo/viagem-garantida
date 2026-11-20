@@ -15,7 +15,9 @@ interface Props {
 }
 
 const { title, description = SITE.description, type = 'website', jsonLd, noindex = false } = Astro.props;
-const canonical = new URL(Astro.url.pathname, SITE.url).toString();
+// Com build.format 'file' o pathname de build pode vir como /pagina.html ou /.html: normalizar para URLs limpos.
+const cleanPath = Astro.url.pathname.replace(/(index)?\.html$/, '').replace(/\/+$/, '') || '/';
+const canonical = new URL(cleanPath, SITE.url).toString().replace(/\/$/, cleanPath === '/' ? '/' : '');
 const fullTitle = title === SITE.name ? `${SITE.name} — Seguros de viagem` : `${title} | ${SITE.name}`;
 
 const orgLd = {
@@ -45,6 +47,7 @@ const ldBlocks = [orgLd, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
+        <link rel="alternate" type="text/plain" title="Resumo para modelos de linguagem" href="/llms.txt" />
         <meta property="og:image" content={new URL('/brand/logo-viagem-garantida.png', SITE.url).toString()} />
         <link rel="sitemap" href="/sitemap-index.xml" />
         <meta name="theme-color" content="#14213D" />

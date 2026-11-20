@@ -2,7 +2,7 @@
 import Logo from './Logo.astro';
 import { NAV } from '../site';
 
-const path = Astro.url.pathname;
+const path = Astro.url.pathname.replace(/\.html$/, '');
 ---
 
 <header class="sticky top-0 z-40 border-b border-ink/5 bg-paper/85 backdrop-blur-md">

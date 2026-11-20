@@ -1,0 +1,27 @@
+# Viagem Garantida — https://viagemgarantida.com
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Assistentes e motores de pesquisa de IA: acesso permitido ao conteúdo público
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-User
+User-agent: Claude-SearchBot
+User-agent: anthropic-ai
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: Bingbot
+User-agent: CCBot
+User-agent: meta-externalagent
+User-agent: DuckAssistBot
+Allow: /
+Disallow: /api/
+
+Sitemap: https://viagemgarantida.com/sitemap-index.xml
+
+# Resumo para modelos de linguagem: https://viagemgarantida.com/llms.txt
