@@ -39,6 +39,13 @@ const ldBlocks = [orgLd, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]
 <!doctype html>
 <html lang="pt-PT">
     <head>
+        <!-- Etiqueta Google (GTM-W5L5XJB4) -->
+        <script is:inline async src="https://www.googletagmanager.com/gtm.js?id=GTM-W5L5XJB4"></script>
+        <script is:inline>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+        </script>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{fullTitle}</title>
