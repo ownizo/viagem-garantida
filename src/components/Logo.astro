@@ -1,17 +1,19 @@
 ---
 interface Props {
     inverted?: boolean;
+    class?: string;
 }
-const { inverted = false } = Astro.props;
+const { inverted = false, class: className = 'h-14 w-auto' } = Astro.props;
 ---
 
-<span class="inline-flex items-center gap-2.5">
-    <svg width="34" height="34" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-        <rect width="32" height="32" rx="9" fill={inverted ? '#F6F1E7' : '#14213D'}></rect>
-        <path d="M7 21.5C10.5 12 21.5 12 25 21.5" stroke="#E8743B" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="0.1 4.2"></path>
-        <path d="M10.5 16.2l3.4 3.4 7.6-8.1" stroke={inverted ? '#14213D' : '#F6F1E7'} stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path>
-    </svg>
-    <span class:list={['text-[17px] font-bold leading-none tracking-tight', inverted ? 'text-paper' : 'text-ink']}>
-        viagem<span class="font-serif font-normal italic text-sunset"> garantida</span>
-    </span>
-</span>
+<picture>
+    {inverted ? <source srcset="/brand/logo-white.webp" type="image/webp" /> : <source srcset="/brand/logo.webp" type="image/webp" />}
+    <img
+        src={inverted ? '/brand/logo-white.png' : '/brand/logo-480.png'}
+        alt="Viagem Garantida"
+        width="480"
+        height="297"
+        class={className}
+        decoding="async"
+    />
+</picture>

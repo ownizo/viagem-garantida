@@ -1,111 +1,119 @@
 /**
  * Modelo de domínio do seguro de viagem, independente do fornecedor.
  *
- * O site e o formulário só conhecem estes tipos. Cada fornecedor (API de seguradora
- * ou agregador) tem um adapter em ./providers que traduz estes tipos de e para o
- * formato próprio da API. Assim, ligar ou trocar de fornecedor na fase 2 não obriga
- * a mexer nas páginas.
+ * O site e o formulário só conhecem estes tipos. Cada fornecedor tem um adapter em
+ * ./providers que traduz estes tipos de e para o formato da sua API (hoje: HelloSafe Atlas).
  */
 
-export type TravelRegion = 'europa' | 'mundo-sem-eua' | 'mundo-com-eua';
-
-export type TripPurpose = 'lazer' | 'estudos' | 'trabalho' | 'longa-duracao';
+export type TripPurpose = 'lazer' | 'anual' | 'estudos' | 'nomada' | 'cruzeiro' | 'expatriacao' | 'au-pair' | 'trabalho';
 
 export interface Traveller {
-    /** Idade na data de partida. Algumas APIs pedem data de nascimento: ver adapter. */
+    /** Idade na data de partida. */
     age: number;
 }
 
 export interface TravelQuoteRequest {
-    region: TravelRegion;
-    destination: string;
-    departureDate: string; // ISO yyyy-mm-dd
-    returnDate: string; // ISO yyyy-mm-dd
+    /** País de residência, ISO 3166-1 alfa-2. */
+    residence: string;
+    /** Países de destino, ISO 3166-1 alfa-2 (1 a 20). */
+    destinations: string[];
+    departureDate: string; // yyyy-mm-dd
+    returnDate: string; // yyyy-mm-dd
     purpose: TripPurpose;
     travellers: Traveller[];
-    /** Pretende cobertura de cancelamento? */
     cancellation: boolean;
-    /** Custo total da viagem por pessoa (EUR), relevante para o capital de cancelamento. */
-    tripCostPerPerson?: number;
-    contact: {
-        name: string;
-        email: string;
-        phone?: string;
-    };
+    /** Custo total da viagem para todo o grupo (EUR). Obrigatório com cancelamento. */
+    tripPrice?: number;
+    /** Data em que a viagem foi reservada (yyyy-mm-dd). */
+    tripBookedDate?: string;
+    extremeSports: boolean;
+    contact: { name: string; email: string; phone?: string };
     notes?: string;
-    consent: {
-        privacy: true;
-        acceptedAt: string; // ISO timestamp
-    };
-    /** Metadados de origem (página, UTM), úteis para atribuição. */
+    consent: { privacy: true; acceptedAt: string };
     source?: Record<string, string>;
 }
 
 export interface Money {
     amount: number;
-    currency: 'EUR';
+    currency: string;
 }
 
-export interface CoverageLine {
-    /** Código interno estável (ex.: 'medical', 'repatriation', 'cancellation'). */
-    code: string;
-    label: string;
-    limit?: Money | 'ilimitado';
-    excess?: Money;
+export type GuaranteeState =
+    | 'value'
+    | 'included'
+    | 'actual_costs'
+    | 'per_day'
+    | 'return_ticket'
+    | 'trip_price'
+    | 'studies_amount'
+    | 'unlimited'
+    | 'number'
+    | 'percentage'
+    | 'many_reasons'
+    | 'any_justified_reason'
+    | 'see_conditions'
+    | 'not_available'
+    | (string & {});
+
+export interface Guarantee {
+    state: GuaranteeState;
+    value?: number | null;
+    franchise?: number;
+    franchiseDetails?: string;
 }
 
 export interface QuoteOffer {
     provider: string;
-    /** Identificador da oferta no fornecedor, necessário para avançar para a compra. */
-    offerId: string;
+    /** Identificador da oferta no fornecedor, necessário para avançar para a subscrição. */
+    offerId: number;
     productName: string;
+    plan?: string;
     insurer: string;
-    premium: Money;
-    coverages: CoverageLine[];
-    documents: { label: string; url: string }[]; // IPID, condições gerais, etc.
-    expiresAt?: string;
+    imageUrl?: string | null;
+    price: Money & { isStartingPrice: boolean };
+    guaranteeCurrency: string;
+    guarantees: Record<string, Guarantee>;
+    highlights: { included: string[]; excluded: string[] };
+    documents: { cgvUrl?: string | null; ipidUrl?: string | null };
+    position: number;
 }
 
 export type QuoteResult =
-    | { status: 'offers'; reference: string; offers: QuoteOffer[] }
+    | {
+          status: 'offers';
+          reference: string;
+          mode: 'sandbox' | 'live';
+          offers: QuoteOffer[];
+          expiresAt?: string;
+          notice?: string;
+      }
     | { status: 'received'; reference: string };
 
-/**
- * Contrato que qualquer fornecedor tem de cumprir.
- * Na fase 1 só existe captação de pedidos (lead-capture).
- */
+/** Dados guardados apenas no servidor para retomar a sessão do fornecedor. */
+export interface ProviderSession {
+    provider: string;
+    sessionId: string;
+    trip: unknown;
+    language: string;
+    mode: 'sandbox' | 'live';
+}
+
+export interface ProviderQuote {
+    result: QuoteResult;
+    session?: ProviderSession;
+}
+
+export interface CheckoutLink {
+    url: string;
+    orderRef?: string | null;
+    mode: 'sandbox' | 'live';
+}
+
 export interface InsuranceProvider {
     readonly id: string;
-    /** true quando as variáveis de ambiente necessárias estão definidas. */
+    /** true quando as credenciais necessárias estão definidas e autorizadas neste ambiente. */
     isConfigured(): boolean;
-    quote(request: TravelQuoteRequest, reference: string): Promise<QuoteResult>;
-    /**
-     * Fase 2: emissão da apólice depois do pagamento.
-     * Opcional para que fornecedores apenas de cotação também caibam no contrato.
-     */
-    bind?(input: BindRequest): Promise<BindResult>;
-}
-
-export interface BindRequest {
-    reference: string;
-    offerId: string;
-    policyholder: {
-        firstName: string;
-        lastName: string;
-        birthDate: string;
-        email: string;
-        phone: string;
-        address: string;
-        postalCode: string;
-        city: string;
-        country: string;
-        nif?: string;
-    };
-    insured: { firstName: string; lastName: string; birthDate: string }[];
-    paymentToken?: string;
-}
-
-export interface BindResult {
-    policyNumber: string;
-    documents: { label: string; url: string }[];
+    quote(request: TravelQuoteRequest, reference: string): Promise<ProviderQuote>;
+    /** Cria o link de subscrição para a oferta escolhida. */
+    checkout?(session: ProviderSession, offerId: number, clickRef?: string): Promise<CheckoutLink>;
 }

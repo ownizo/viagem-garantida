@@ -41,7 +41,11 @@ const ldBlocks = [orgLd, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]
         <meta name="description" content={description} />
         <link rel="canonical" href={canonical} />
         {noindex && <meta name="robots" content="noindex" />}
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta property="og:image" content={new URL('/brand/logo-viagem-garantida.png', SITE.url).toString()} />
         <link rel="sitemap" href="/sitemap-index.xml" />
         <meta name="theme-color" content="#14213D" />
 

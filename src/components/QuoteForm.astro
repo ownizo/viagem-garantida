@@ -1,6 +1,7 @@
 ---
-// Formulário completo de pedido de cotação. Envia JSON para /api/quote.
-// Na fase 2, quando a API devolver ofertas (status 'offers'), são apresentadas aqui.
+import { COUNTRIES } from '../lib/countries';
+// Formulário de cotação. POST /api/quote → ofertas da API (HelloSafe Atlas) quando disponível,
+// ou confirmação de pedido para proposta manual. A escolha de uma oferta chama /api/checkout.
 ---
 
 <form id="quote-form" class="card relative space-y-8 bg-white p-6 sm:p-10" novalidate>
@@ -8,19 +9,16 @@
         <legend class="mb-4 flex items-center gap-3 text-lg font-bold">
             <span class="flex h-8 w-8 items-center justify-center rounded-full bg-sunset text-sm text-white">1</span> A viagem
         </legend>
+        <div>
+            <label class="field-label" for="dest-input">País(es) de destino</label>
+            <div class="flex gap-2">
+                <input class="field" id="dest-input" list="countries-list" placeholder="Escreva e escolha um país" autocomplete="off" />
+                <button type="button" id="dest-add" class="btn-ghost shrink-0 !px-5">Adicionar</button>
+            </div>
+            <datalist id="countries-list">{COUNTRIES.map((c) => <option value={c.name} />)}</datalist>
+            <div id="dest-chips" class="mt-3 flex flex-wrap gap-2" aria-live="polite"></div>
+        </div>
         <div class="grid gap-5 sm:grid-cols-2">
-            <div>
-                <label class="field-label" for="region">Zona de destino</label>
-                <select class="field" id="region" name="region" required>
-                    <option value="europa">Europa</option>
-                    <option value="mundo-sem-eua">Mundo (exceto EUA e Canadá)</option>
-                    <option value="mundo-com-eua">Mundo (incluindo EUA e Canadá)</option>
-                </select>
-            </div>
-            <div>
-                <label class="field-label" for="destination">País(es) de destino</label>
-                <input class="field" id="destination" name="destination" placeholder="Ex.: Japão e Coreia do Sul" required />
-            </div>
             <div>
                 <label class="field-label" for="departureDate">Partida</label>
                 <input class="field" type="date" id="departureDate" name="departureDate" required />
@@ -29,13 +27,23 @@
                 <label class="field-label" for="returnDate">Regresso</label>
                 <input class="field" type="date" id="returnDate" name="returnDate" required />
             </div>
-            <div class="sm:col-span-2">
-                <label class="field-label" for="purpose">Motivo da viagem</label>
+            <div>
+                <label class="field-label" for="purpose">Tipo de viagem</label>
                 <select class="field" id="purpose" name="purpose">
                     <option value="lazer">Férias e lazer</option>
-                    <option value="estudos">Estudos (Erasmus, intercâmbio, universidade)</option>
                     <option value="trabalho">Trabalho ou negócios</option>
-                    <option value="longa-duracao">Estadia longa (mais de 3 meses)</option>
+                    <option value="anual">Anual multiviagem</option>
+                    <option value="estudos">Estudos ou estágio</option>
+                    <option value="cruzeiro">Cruzeiro</option>
+                    <option value="nomada">Nómada digital / estadia longa</option>
+                    <option value="expatriacao">Expatriação</option>
+                    <option value="au-pair">Au pair</option>
+                </select>
+            </div>
+            <div>
+                <label class="field-label" for="residence">País de residência</label>
+                <select class="field" id="residence" name="residence">
+                    {COUNTRIES.map((c) => <option value={c.code} selected={c.code === 'PT'}>{c.name}</option>)}
                 </select>
             </div>
         </div>
@@ -48,6 +56,10 @@
         <p class="-mt-2 text-sm text-ink-soft">Indique a idade de cada viajante na data de partida.</p>
         <div id="travellers" class="flex flex-wrap gap-3"></div>
         <button type="button" id="add-traveller" class="btn-ghost !py-2 text-xs">+ Adicionar viajante</button>
+        <label class="flex cursor-pointer items-start gap-3 text-sm leading-relaxed">
+            <input type="checkbox" id="extremeSports" class="mt-1 h-5 w-5 accent-[#B4283A]" />
+            <span>Vamos praticar desportos de aventura (ski, mergulho, trekking em altitude…)</span>
+        </label>
     </fieldset>
 
     <fieldset class="space-y-5">
@@ -55,15 +67,21 @@
             <span class="flex h-8 w-8 items-center justify-center rounded-full bg-sunset text-sm text-white">3</span> Cancelamento
         </legend>
         <label class="flex cursor-pointer items-start gap-3 rounded-2xl border border-ink/10 bg-paper/60 p-4">
-            <input type="checkbox" id="cancellation" name="cancellation" class="mt-1 h-5 w-5 accent-[#e8743b]" />
+            <input type="checkbox" id="cancellation" class="mt-1 h-5 w-5 accent-[#B4283A]" />
             <span class="text-sm leading-relaxed">
                 <strong class="block text-ink">Quero cobertura de cancelamento</strong>
                 Reembolso das despesas já pagas se tiver de cancelar por um motivo coberto (doença, acidente, falecimento de familiar, entre outros).
             </span>
         </label>
-        <div id="trip-cost-wrap" class="hidden max-w-xs">
-            <label class="field-label" for="tripCostPerPerson">Custo da viagem por pessoa (€)</label>
-            <input class="field" type="number" min="0" step="50" id="tripCostPerPerson" name="tripCostPerPerson" placeholder="Ex.: 2500" />
+        <div id="cancel-wrap" class="hidden grid gap-5 sm:grid-cols-2">
+            <div>
+                <label class="field-label" for="tripPrice">Custo total da viagem (€)</label>
+                <input class="field" type="number" min="1" step="1" id="tripPrice" name="tripPrice" placeholder="Ex.: 4800, para todo o grupo" />
+            </div>
+            <div>
+                <label class="field-label" for="tripBookedDate">Data da reserva</label>
+                <input class="field" type="date" id="tripBookedDate" name="tripBookedDate" />
+            </div>
         </div>
     </fieldset>
 
@@ -86,14 +104,14 @@
             </div>
             <div class="sm:col-span-2">
                 <label class="field-label" for="notes">Informação adicional <span class="normal-case tracking-normal text-ink/40">(opcional)</span></label>
-                <textarea class="field min-h-[110px]" id="notes" name="notes" placeholder="Desportos de aventura, gravidez, condições de saúde a declarar, exigências da universidade ou do visto…"></textarea>
+                <textarea class="field min-h-[110px]" id="notes" name="notes" placeholder="Gravidez, condições de saúde a declarar, exigências da universidade ou do visto…"></textarea>
             </div>
         </div>
         <div class="hidden" aria-hidden="true">
             <label>Website <input name="website" tabindex="-1" autocomplete="off" /></label>
         </div>
         <label class="flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-ink-soft">
-            <input type="checkbox" id="privacy" name="privacy" required class="mt-1 h-5 w-5 accent-[#e8743b]" />
+            <input type="checkbox" id="privacy" required class="mt-1 h-5 w-5 accent-[#B4283A]" />
             <span>Aceito que os meus dados sejam tratados para a preparação da cotação, nos termos da <a href="/privacidade" class="font-semibold text-sunset-deep underline">política de privacidade</a>.</span>
         </label>
     </fieldset>
@@ -101,113 +119,361 @@
     <div id="form-error" class="hidden rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-800" role="alert"></div>
 
     <div class="flex flex-col gap-4 border-t border-ink/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
-        <p class="text-xs leading-relaxed text-ink-soft">Sem compromisso. A proposta é enviada por email.</p>
-        <button type="submit" class="btn-sunset px-8 py-4 text-base" id="submit-btn">Pedir cotação</button>
+        <p class="text-xs leading-relaxed text-ink-soft">Sem compromisso. Comparamos as ofertas disponíveis para a sua viagem.</p>
+        <button type="submit" class="btn-sunset px-8 py-4 text-base" id="submit-btn">Ver seguros</button>
     </div>
 </form>
 
-<div id="quote-success" class="card hidden bg-white p-10 text-center" role="status" aria-live="polite">
+<!-- Pedido recebido sem ofertas online -->
+<div id="quote-received" class="card hidden bg-white p-10 text-center" role="status" aria-live="polite">
     <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-sea/10">
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" stroke="#2A7F7A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" stroke="#1A5481" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
     </div>
     <h2 class="mt-6 text-2xl sm:text-3xl">Pedido recebido</h2>
-    <p class="mx-auto mt-3 max-w-md text-ink-soft">
-        Obrigado. Vamos analisar a sua viagem e enviar-lhe por email uma proposta com as coberturas adequadas.
-    </p>
-    <p class="mt-6 inline-block rounded-full bg-paper px-5 py-2 font-mono text-sm">Referência: <strong id="quote-ref"></strong></p>
-    <div id="quote-offers" class="mt-8 hidden space-y-4 text-left"></div>
+    <p class="mx-auto mt-3 max-w-md text-ink-soft">Obrigado. Vamos analisar a sua viagem e enviar-lhe por email uma proposta com as coberturas adequadas.</p>
+    <p class="mt-6 inline-block rounded-full bg-paper px-5 py-2 font-mono text-sm">Referência: <strong data-ref></strong></p>
 </div>
 
-<script>
-    const form = document.getElementById('quote-form') as HTMLFormElement | null;
-    const travellersBox = document.getElementById('travellers')!;
-    const addBtn = document.getElementById('add-traveller')!;
-    const cancel = document.getElementById('cancellation') as HTMLInputElement;
-    const costWrap = document.getElementById('trip-cost-wrap')!;
-    const errorBox = document.getElementById('form-error')!;
-    const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+<!-- Ofertas -->
+<section id="quote-offers" class="hidden" aria-live="polite">
+    <div id="sandbox-banner" class="mb-6 hidden rounded-2xl border-2 border-dashed border-sunset bg-sunset/5 p-4 text-sm font-semibold text-sunset-deep">
+        MODO DE TESTE — preços e seguradoras fictícios (chave sandbox). Não avance para pagamento: o link abre o funil real.
+    </div>
+    <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+            <h2 class="text-2xl sm:text-3xl"><span data-count></span> seguros para a sua viagem</h2>
+            <p class="mt-2 text-sm text-ink-soft">Referência <strong class="font-mono" data-ref></strong> · <span data-trip></span></p>
+        </div>
+        <div class="flex items-center gap-2 text-sm">
+            <span class="text-ink-soft">Ordenar por</span>
+            <button type="button" data-sort="protection" class="rounded-full bg-ink px-4 py-2 font-medium text-paper">Proteção médica</button>
+            <button type="button" data-sort="price" class="rounded-full border border-ink/15 px-4 py-2 font-medium">Preço</button>
+        </div>
+    </div>
+    <div id="offers-list" class="mt-8 space-y-5"></div>
+    <p class="mt-8 text-xs leading-relaxed text-ink-soft">
+        Os preços incluem todas as taxas e são válidos no momento da cotação. A subscrição e o pagamento são concluídos na plataforma da HelloSafe, nossa parceira na
+        distribuição de seguros de viagem. Leia o documento de informação (IPID) e as condições gerais de cada seguro antes de subscrever.
+    </p>
+    <button type="button" id="edit-trip" class="btn-ghost mt-6">Alterar os dados da viagem</button>
+</section>
 
-    const params = new URLSearchParams(location.search);
-    const today = new Date().toISOString().slice(0, 10);
+<script>
+    type Guarantee = { state: string; value?: number | null; franchise?: number; franchiseDetails?: string };
+    type Offer = {
+        offerId: number;
+        productName: string;
+        plan?: string;
+        insurer: string;
+        imageUrl?: string | null;
+        price: { amount: number; currency: string; isStartingPrice: boolean };
+        guaranteeCurrency: string;
+        guarantees: Record<string, Guarantee>;
+        highlights: { included: string[]; excluded: string[] };
+        documents: { cgvUrl?: string | null; ipidUrl?: string | null };
+        position: number;
+    };
+
+    const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+    const form = $<HTMLFormElement>('quote-form');
+    const travellersBox = $('travellers');
+    const cancel = $<HTMLInputElement>('cancellation');
+    const cancelWrap = $('cancel-wrap');
+    const errorBox = $('form-error');
+    const submitBtn = $<HTMLButtonElement>('submit-btn');
+    const destInput = $<HTMLInputElement>('dest-input');
+    const chips = $('dest-chips');
+    const residence = $<HTMLSelectElement>('residence');
+
+    // Mapa nome ↔ código a partir do select de residência (mesma lista de países)
+    const byName = new Map<string, string>();
+    const byCode = new Map<string, string>();
+    for (const o of Array.from(residence.options)) {
+        byName.set(o.text.toLocaleLowerCase('pt-PT'), o.value);
+        byCode.set(o.value, o.text);
+    }
+    const destinations: string[] = [];
+
+    function renderChips() {
+        chips.innerHTML = '';
+        for (const code of destinations) {
+            const chip = document.createElement('span');
+            chip.className = 'inline-flex items-center gap-2 rounded-full bg-ink px-4 py-1.5 text-sm text-paper';
+            chip.textContent = byCode.get(code) ?? code;
+            const x = document.createElement('button');
+            x.type = 'button';
+            x.className = 'text-paper/60 hover:text-paper';
+            x.setAttribute('aria-label', `Remover ${chip.textContent}`);
+            x.textContent = '×';
+            x.onclick = () => {
+                destinations.splice(destinations.indexOf(code), 1);
+                renderChips();
+            };
+            chip.appendChild(x);
+            chips.appendChild(chip);
+        }
+    }
+    function addDestination(value: string) {
+        const v = value.trim();
+        const code = byName.get(v.toLocaleLowerCase('pt-PT')) ?? (byCode.has(v.toUpperCase()) ? v.toUpperCase() : undefined);
+        if (!code) return false;
+        if (!destinations.includes(code) && destinations.length < 20) destinations.push(code);
+        destInput.value = '';
+        renderChips();
+        return true;
+    }
+    destInput.addEventListener('change', () => addDestination(destInput.value));
+    destInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            addDestination(destInput.value);
+        }
+    });
+    $('dest-add').addEventListener('click', () => {
+        if (!addDestination(destInput.value)) destInput.focus();
+    });
 
     function addTraveller(age = '') {
         const n = travellersBox.children.length + 1;
         const wrap = document.createElement('div');
         wrap.className = 'flex items-center gap-2 rounded-2xl border border-ink/10 bg-paper/60 py-2 pl-4 pr-2';
         wrap.innerHTML = `<label class="text-xs font-semibold text-ink-soft" for="age-${n}">Viajante ${n}</label>
-            <input id="age-${n}" class="field !w-24 !px-2 !py-2 text-center" type="number" min="0" max="99" placeholder="anos" data-age required value="${age}">
+            <input id="age-${n}" class="field !w-24 !px-2 !py-2 text-center" type="number" min="0" max="120" placeholder="anos" data-age required value="${age}">
             <button type="button" class="h-8 w-8 rounded-full text-ink/40 hover:bg-white hover:text-ink" aria-label="Remover viajante ${n}">×</button>`;
-        wrap.querySelector('button')!.addEventListener('click', () => {
-            if (travellersBox.children.length > 1) wrap.remove();
-        });
+        wrap.querySelector('button')!.addEventListener('click', () => travellersBox.children.length > 1 && wrap.remove());
         travellersBox.appendChild(wrap);
     }
 
-    if (form) {
-        // Pré-preenchimento a partir do mini-formulário da página inicial
-        const count = Math.min(Math.max(Number(params.get('viajantes')) || 1, 1), 10);
-        for (let i = 0; i < count; i++) addTraveller();
-        for (const key of ['region', 'destination', 'departureDate', 'returnDate', 'purpose'] as const) {
-            const v = params.get(key);
-            const el = form.elements.namedItem(key) as HTMLInputElement | null;
-            if (v && el) el.value = v;
+    // Pré-preenchimento (mini-formulário da página inicial ou links internos)
+    const params = new URLSearchParams(location.search);
+    const today = new Date().toISOString().slice(0, 10);
+    const count = Math.min(Math.max(Number(params.get('viajantes')) || 1, 1), 10);
+    for (let i = 0; i < count; i++) addTraveller();
+    for (const c of (params.get('destinos') ?? '').split(',')) if (c) addDestination(c);
+    for (const key of ['departureDate', 'returnDate', 'purpose'] as const) {
+        const v = params.get(key);
+        const el = form.elements.namedItem(key) as HTMLInputElement | null;
+        if (v && el) el.value = v;
+    }
+    if (params.get('cancelamento') === '1') cancel.checked = true;
+    cancelWrap.classList.toggle('hidden', !cancel.checked);
+    for (const k of ['departureDate', 'returnDate']) (form.elements.namedItem(k) as HTMLInputElement).min = today;
+    (form.elements.namedItem('tripBookedDate') as HTMLInputElement).max = today;
+    $('add-traveller').addEventListener('click', () => travellersBox.children.length < 50 && addTraveller());
+    cancel.addEventListener('change', () => cancelWrap.classList.toggle('hidden', !cancel.checked));
+
+    // ---------- Apresentação das ofertas ----------
+    const LABELS: [string, string][] = [
+        ['hospitalFeesAbroad', 'Despesas médicas no estrangeiro'],
+        ['rapatriationAssistance', 'Repatriamento'],
+        ['directBilling', 'Pagamento direto ao hospital'],
+        ['cancelTrip', 'Cancelamento'],
+        ['earlyReturn', 'Regresso antecipado'],
+        ['privateRc', 'Responsabilidade civil'],
+        ['suitcaseInsurance', 'Bagagem'],
+        ['preExistingConditions', 'Doenças preexistentes'],
+        ['extremeSports', 'Desportos radicais']
+    ];
+    const money = (v: number, cur: string) =>
+        new Intl.NumberFormat('pt-PT', { style: 'currency', currency: cur || 'EUR', maximumFractionDigits: v % 1 ? 2 : 0 }).format(v);
+
+    function guaranteeText(g: Guarantee | undefined, cur: string): { text: string; ok: boolean } {
+        if (!g) return { text: '—', ok: false };
+        switch (g.state) {
+            case 'value':
+                return g.value != null ? { text: `Até ${money(g.value, cur)}`, ok: true } : { text: 'Incluído', ok: true };
+            case 'unlimited':
+                return { text: 'Ilimitado', ok: true };
+            case 'actual_costs':
+                return { text: 'Custos reais', ok: true };
+            case 'included':
+                return { text: 'Incluído', ok: true };
+            case 'per_day':
+                return { text: g.value != null ? `${money(g.value, cur)} / dia` : 'Por dia', ok: true };
+            case 'return_ticket':
+                return { text: 'Bilhete de regresso', ok: true };
+            case 'trip_price':
+                return { text: g.value != null ? `Até ${money(g.value, cur)}` : 'Até ao custo da viagem', ok: true };
+            case 'many_reasons':
+                return { text: 'Lista de motivos', ok: true };
+            case 'any_justified_reason':
+                return { text: 'Qualquer motivo justificado', ok: true };
+            case 'number':
+                return { text: String(g.value ?? ''), ok: true };
+            case 'percentage':
+                return { text: `${g.value ?? ''}%`, ok: true };
+            case 'not_available':
+                return { text: 'Não incluído', ok: false };
+            default:
+                return { text: 'Ver condições', ok: true };
         }
-        if (params.get('cancelamento') === '1') cancel.checked = true;
-        costWrap.classList.toggle('hidden', !cancel.checked);
+    }
+    // Pontuação para ordenar por proteção médica
+    const medicalScore = (o: Offer) => {
+        const g = o.guarantees.hospitalFeesAbroad;
+        if (!g || g.state === 'not_available') return 0;
+        if (g.state === 'unlimited' || g.state === 'actual_costs') return Number.MAX_SAFE_INTEGER;
+        return g.value ?? 1;
+    };
 
-        (form.elements.namedItem('departureDate') as HTMLInputElement).min = today;
-        (form.elements.namedItem('returnDate') as HTMLInputElement).min = today;
+    let offers: Offer[] = [];
+    let reference = '';
 
-        addBtn.addEventListener('click', () => travellersBox.children.length < 10 && addTraveller());
-        cancel.addEventListener('change', () => costWrap.classList.toggle('hidden', !cancel.checked));
+    const escapeHtml = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
+    const safeUrl = (u?: string | null) => (u && /^https:\/\//.test(u) ? escapeHtml(u) : '');
 
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            errorBox.classList.add('hidden');
-            if (!form.reportValidity()) return;
-
-            const f = new FormData(form);
-            const ages = [...travellersBox.querySelectorAll<HTMLInputElement>('[data-age]')].map((i) => ({ age: Number(i.value) }));
-            const source: Record<string, string> = { page: location.pathname };
-            for (const k of ['utm_source', 'utm_medium', 'utm_campaign']) if (params.get(k)) source[k] = params.get(k)!;
-
-            const payload = {
-                region: f.get('region'),
-                destination: f.get('destination'),
-                departureDate: f.get('departureDate'),
-                returnDate: f.get('returnDate'),
-                purpose: f.get('purpose'),
-                travellers: ages,
-                cancellation: cancel.checked,
-                tripCostPerPerson: cancel.checked && f.get('tripCostPerPerson') ? Number(f.get('tripCostPerPerson')) : undefined,
-                contact: { name: f.get('name'), email: f.get('email'), phone: (f.get('phone') as string) || undefined },
-                notes: (f.get('notes') as string) || undefined,
-                privacy: (form.elements.namedItem('privacy') as HTMLInputElement).checked,
-                website: (f.get('website') as string) || undefined,
-                source
-            };
-
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'A enviar…';
-            try {
-                const res = await fetch('/api/quote', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-                const data = await res.json();
-                if (!data.ok) {
-                    const details = (data.fieldErrors ?? []).map((x: { message: string }) => x.message).join(' · ');
-                    throw new Error(details || data.error || 'Não foi possível enviar o pedido.');
-                }
-                document.getElementById('quote-ref')!.textContent = data.result.reference;
-                form.classList.add('hidden');
-                document.getElementById('quote-success')!.classList.remove('hidden');
-                document.getElementById('quote-success')!.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                // Fase 2: renderizar data.result.offers quando status === 'offers'
-            } catch (err) {
-                errorBox.textContent = (err as Error).message || 'Ocorreu um erro. Tente novamente ou contacte-nos por email.';
-                errorBox.classList.remove('hidden');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Pedir cotação';
-            }
+    function renderOffers(sort: 'protection' | 'price') {
+        const list = [...offers].sort((a, b) =>
+            sort === 'price' ? a.price.amount - b.price.amount : medicalScore(b) - medicalScore(a) || a.price.amount - b.price.amount
+        );
+        $('offers-list').innerHTML = list
+            .map((o) => {
+                const rows = LABELS.filter(([slug]) => o.guarantees[slug])
+                    .slice(0, 7)
+                    .map(([slug, label]) => {
+                        const t = guaranteeText(o.guarantees[slug], o.guaranteeCurrency);
+                        const fr = o.guarantees[slug]?.franchiseDetails;
+                        return `<li class="flex items-start justify-between gap-4 border-t border-ink/5 py-2 text-sm"><span class="text-ink-soft">${label}${
+                            fr ? `<span class="block text-xs text-ink/40">${escapeHtml(fr)}</span>` : ''
+                        }</span><span class="shrink-0 text-right font-semibold ${t.ok ? 'text-ink' : 'text-ink/35'}">${escapeHtml(t.text)}</span></li>`;
+                    })
+                    .join('');
+                const ipid = safeUrl(o.documents.ipidUrl);
+                const cgv = safeUrl(o.documents.cgvUrl);
+                const docs = [
+                    ipid ? `<a class="underline hover:text-sunset-deep" href="${ipid}" target="_blank" rel="noopener">Documento de informação (IPID)</a>` : '',
+                    cgv ? `<a class="underline hover:text-sunset-deep" href="${cgv}" target="_blank" rel="noopener">Condições gerais</a>` : ''
+                ]
+                    .filter(Boolean)
+                    .join(' · ');
+                const img = safeUrl(o.imageUrl);
+                const inc = o.highlights.included.slice(0, 3).map((h) => `<li>✓ ${escapeHtml(h)}</li>`).join('');
+                const exc = o.highlights.excluded.slice(0, 2).map((h) => `<li class="text-ink/45">✕ ${escapeHtml(h)}</li>`).join('');
+                return `<article class="grid gap-6 rounded-3xl border border-ink/10 bg-white p-6 sm:p-8 lg:grid-cols-[1.6fr_1fr]">
+                    <div>
+                        <div class="flex items-center gap-4">
+                            ${img ? `<img src="${img}" alt="" width="48" height="48" class="h-12 w-12 rounded-xl" loading="lazy">` : ''}
+                            <div>
+                                <h3 class="text-lg leading-tight">${escapeHtml(o.productName)}</h3>
+                                <p class="text-sm text-ink-soft">Seguradora: ${escapeHtml(o.insurer)}</p>
+                            </div>
+                        </div>
+                        <ul class="mt-5">${rows}</ul>
+                        ${inc || exc ? `<ul class="mt-4 space-y-1 text-xs text-ink-soft">${inc}${exc}</ul>` : ''}
+                    </div>
+                    <div class="flex flex-col justify-between gap-5 rounded-2xl bg-paper/70 p-6">
+                        <div>
+                            <p class="text-xs font-semibold uppercase tracking-[0.15em] text-ink-soft">${o.price.isStartingPrice ? 'A partir de' : 'Preço total'}</p>
+                            <p class="mt-1 text-4xl font-bold tracking-tight">${money(o.price.amount, o.price.currency)}</p>
+                            <p class="mt-1 text-xs text-ink-soft">para todos os viajantes</p>
+                        </div>
+                        <div>
+                            <button type="button" data-offer="${o.offerId}" class="btn-sunset w-full py-4">Escolher este seguro</button>
+                            ${docs ? `<p class="mt-3 text-xs leading-relaxed text-ink-soft">${docs}</p>` : ''}
+                        </div>
+                    </div>
+                </article>`;
+            })
+            .join('');
+        document.querySelectorAll<HTMLButtonElement>('[data-sort]').forEach((btn) => {
+            btn.className = `rounded-full px-4 py-2 font-medium ${btn.dataset.sort === sort ? 'bg-ink text-paper' : 'border border-ink/15'}`;
         });
     }
+
+    document.querySelectorAll<HTMLButtonElement>('[data-sort]').forEach((b) => b.addEventListener('click', () => renderOffers(b.dataset.sort as 'protection' | 'price')));
+
+    $('offers-list').addEventListener('click', async (e) => {
+        const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-offer]');
+        if (!btn) return;
+        const label = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = 'A abrir a subscrição…';
+        try {
+            const res = await fetch('/api/checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ reference, offerId: Number(btn.dataset.offer) })
+            });
+            const data = await res.json();
+            if (!data.ok) throw new Error(data.error);
+            window.location.href = data.url;
+        } catch (err) {
+            alert((err as Error).message || 'Não foi possível abrir a subscrição.');
+            btn.disabled = false;
+            btn.textContent = label;
+        }
+    });
+
+    $('edit-trip').addEventListener('click', () => {
+        $('quote-offers').classList.add('hidden');
+        form.classList.remove('hidden');
+        form.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // ---------- Envio ----------
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        errorBox.classList.add('hidden');
+        if (destInput.value) addDestination(destInput.value);
+        if (!destinations.length) {
+            errorBox.textContent = 'Indique pelo menos um país de destino.';
+            errorBox.classList.remove('hidden');
+            destInput.focus();
+            return;
+        }
+        if (!form.reportValidity()) return;
+
+        const f = new FormData(form);
+        const source: Record<string, string> = { page: location.pathname };
+        for (const k of ['utm_source', 'utm_medium', 'utm_campaign']) if (params.get(k)) source[k] = params.get(k)!;
+        const payload = {
+            residence: residence.value,
+            destinations,
+            departureDate: f.get('departureDate') as string,
+            returnDate: f.get('returnDate') as string,
+            purpose: f.get('purpose'),
+            travellers: Array.from(travellersBox.querySelectorAll<HTMLInputElement>('[data-age]')).map((i) => ({ age: Number(i.value) })),
+            cancellation: cancel.checked,
+            tripPrice: cancel.checked && f.get('tripPrice') ? Number(f.get('tripPrice')) : undefined,
+            tripBookedDate: cancel.checked && f.get('tripBookedDate') ? f.get('tripBookedDate') : undefined,
+            extremeSports: $<HTMLInputElement>('extremeSports').checked,
+            contact: { name: f.get('name'), email: f.get('email'), phone: (f.get('phone') as string) || undefined },
+            notes: (f.get('notes') as string) || undefined,
+            privacy: $<HTMLInputElement>('privacy').checked,
+            website: (f.get('website') as string) || undefined,
+            source
+        };
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'A comparar seguros…';
+        try {
+            const res = await fetch('/api/quote', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            const data = await res.json();
+            if (!data.ok) throw new Error((data.fieldErrors ?? []).map((x: { message: string }) => x.message).join(' · ') || data.error);
+
+            reference = data.result.reference;
+            document.querySelectorAll('[data-ref]').forEach((el) => (el.textContent = reference));
+            form.classList.add('hidden');
+
+            if (data.result.status === 'offers') {
+                offers = data.result.offers;
+                document.querySelector('[data-count]')!.textContent = String(offers.length);
+                const fmt = (d: string) => new Date(d + 'T12:00:00').toLocaleDateString('pt-PT', { day: 'numeric', month: 'short' });
+                document.querySelector('[data-trip]')!.textContent = `${destinations.map((c) => byCode.get(c)).join(', ')} · ${fmt(payload.departureDate)} – ${fmt(payload.returnDate)} · ${payload.travellers.length} viajante(s)`;
+                $('sandbox-banner').classList.toggle('hidden', data.result.mode !== 'sandbox');
+                renderOffers('protection');
+                $('quote-offers').classList.remove('hidden');
+                $('quote-offers').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                $('quote-received').classList.remove('hidden');
+                $('quote-received').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        } catch (err) {
+            errorBox.textContent = (err as Error).message || 'Ocorreu um erro. Tente novamente ou contacte-nos por email.';
+            errorBox.classList.remove('hidden');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Ver seguros';
+        }
+    });
 </script>
