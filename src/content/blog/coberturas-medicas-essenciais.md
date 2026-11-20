@@ -72,6 +72,6 @@ Declarar estas situações no pedido de cotação é a melhor forma de evitar um
 
 Na Europa, o CESD dá acesso ao sistema público do país visitado, mas não cobre cuidados privados, repatriamento nem o resto da assistência. É um complemento útil, não uma alternativa. Explicamos a diferença em detalhe em [Cartão Europeu de Seguro de Doença ou seguro de viagem?](/blog/cartao-europeu-seguro-doenca-vs-seguro-viagem).
 
-## Como escolhemos
+## Compare pela proteção
 
-Selecionamos seguros pela qualidade das coberturas médicas e da assistência, não pelo prémio mais baixo. [Peça uma cotação](/cotacao) ou veja o resumo das [coberturas que recomendamos](/coberturas).
+Na Viagem Garantida, as ofertas aparecem por omissão ordenadas pelo capital de despesas médicas, com o IPID e as condições gerais à vista. [Compare seguros para a sua viagem](/cotacao) ou veja o resumo das [principais coberturas](/coberturas).

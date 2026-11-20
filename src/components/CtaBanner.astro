@@ -4,8 +4,8 @@ interface Props {
     text?: string;
 }
 const {
-    title = 'Viaje com a proteção certa',
-    text = 'Diga-nos para onde vai, quando e com quem. Preparamos uma proposta com as coberturas adequadas à sua viagem.'
+    title = 'Compare antes de partir',
+    text = 'Indique para onde vai, quando e com quem, e compare as coberturas dos seguros disponíveis para a sua viagem.'
 } = Astro.props;
 ---
 
@@ -17,7 +17,7 @@ const {
                 <h2 class="text-paper">{title}</h2>
                 <p class="mt-4 max-w-xl text-paper/75">{text}</p>
             </div>
-            <a href="/cotacao" class="btn-sunset px-8 py-4 text-base">Pedir cotação</a>
+            <a href="/cotacao" class="btn-sunset px-8 py-4 text-base">Comparar seguros</a>
         </div>
     </div>
 </section>

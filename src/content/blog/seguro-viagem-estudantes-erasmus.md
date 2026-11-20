@@ -59,6 +59,6 @@ Num estágio profissional ou num programa de trabalho e estudo, confirme se a ap
 - Guardar a **apólice e o certificado em inglês** (ou na língua exigida) em formato digital.
 - Partilhar com a família o **número de assistência 24h**.
 
-## Fale connosco antes de comprar
+## Compare antes de comprar
 
-Cada programa tem requisitos próprios. [Peça uma cotação](/cotacao) indicando o país, a universidade e as datas da mobilidade, e envie-nos, se tiver, a lista de requisitos de seguro da instituição. Preparamos uma proposta que cumpre o que é exigido — e que protege o estudante de verdade.
+Cada programa tem requisitos próprios. Tenha à mão a lista de requisitos de seguro da instituição e [compare seguros para a mobilidade](/cotacao), indicando o país e as datas completas da estadia. Confirme no IPID de cada oferta que cumpre o que é exigido — e que protege o estudante de verdade.

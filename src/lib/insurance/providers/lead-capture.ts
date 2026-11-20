@@ -1,8 +1,8 @@
 import type { InsuranceProvider } from '../types';
 
 /**
- * Sem API ativa (ou em caso de falha): o pedido é registado (Blobs + email interno,
- * tratados em ../service.ts) e a proposta é preparada e enviada pelo mediador.
+ * Sem API ativa: não há ofertas a mostrar. O site não prepara propostas manuais —
+ * a venda de seguros é feita exclusivamente pela HelloSafe.
  */
 export const leadCaptureProvider: InsuranceProvider = {
     id: 'lead-capture',

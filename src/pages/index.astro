@@ -28,9 +28,9 @@ const coverages = [
 const faqs = [
     ['Preciso de seguro de viagem se tenho o Cartão Europeu de Seguro de Doença?', 'O cartão dá acesso ao sistema público dos países europeus, mas não cobre hospitais privados, repatriamento, assistência, bagagem nem cancelamento. Os dois complementam-se.'],
     ['Quando devo contratar o seguro de cancelamento?', 'No momento da reserva. A cobertura de cancelamento só protege contra eventos que ocorram depois da subscrição.'],
-    ['Que capital de despesas médicas devo escolher?', 'Depende do destino. Para os Estados Unidos, Canadá, Japão ou Suíça recomendamos capitais muito elevados; para a Europa podem ser mais moderados. Indicamos o adequado em cada proposta.'],
-    ['Os seguros cobrem doenças preexistentes?', 'Regra geral, não, ou apenas em situações de agudização súbita e com limites. Declare-as no pedido de cotação para recebermos uma proposta que as tenha em conta.'],
-    ['Quem é o mediador responsável?', 'A Viagem Garantida é uma marca da Ownizo, Unipessoal Lda., agente de seguros registado na ASF. Trabalhamos com várias seguradoras, sem exclusividade.']
+    ['Que capital de despesas médicas devo escolher?', 'Depende do destino. Nos Estados Unidos, Canadá, Japão ou Suíça os cuidados de saúde são muito caros e justificam capitais muito elevados; para a Europa podem ser mais moderados.'],
+    ['Os seguros cobrem doenças preexistentes?', 'Regra geral, não, ou apenas em situações de agudização súbita e com limites. Confirme no IPID e nas condições gerais de cada oferta e declare-as no momento da subscrição.'],
+    ['Quem vende os seguros?', 'A Viagem Garantida é uma plataforma de informação e comparação e não vende seguros. Os seguros são comercializados pela HelloSafe (HELLO SAFE SAS), intermediário de seguros registado em França no ORIAS, junto de quem se faz a subscrição, o pagamento e o apoio ao cliente.']
 ];
 
 const faqLd = {
@@ -50,16 +50,16 @@ const faqLd = {
                     Viaje longe.<br /><span class="accent">Volte protegido.</span>
                 </h1>
                 <p class="mt-5 max-w-xl text-base leading-relaxed text-ink-soft sm:mt-7 sm:text-lg">
-                    Despesas médicas, repatriamento, cancelamento e assistência 24h, escolhidos pela qualidade da proteção e não pelo preço mais baixo. Com o aconselhamento de um mediador de seguros registado.
+                    Compare seguros de viagem pelo que realmente conta — despesas médicas, repatriamento, cancelamento e assistência 24h — e não só pelo preço.
                 </p>
                 <ol class="mt-9 hidden space-y-4 text-sm leading-relaxed text-ink-soft lg:block">
                     <li class="flex gap-3"><span class="font-serif text-2xl italic leading-none text-sunset">1</span>Indique o destino, as datas e quem viaja.</li>
                     <li class="flex gap-3"><span class="font-serif text-2xl italic leading-none text-sunset">2</span>Compare as coberturas, ordenadas pela proteção médica ou pelo preço.</li>
-                    <li class="flex gap-3"><span class="font-serif text-2xl italic leading-none text-sunset">3</span>Escolha o seguro e conclua a subscrição online.</li>
+                    <li class="flex gap-3"><span class="font-serif text-2xl italic leading-none text-sunset">3</span>Escolha o seguro e conclua a subscrição na HelloSafe, que comercializa os seguros.</li>
                 </ol>
                 <ul class="mt-10 hidden flex-wrap gap-x-8 gap-y-3 text-sm text-ink-soft lg:flex">
-                    <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-sea"></span>Mediador registado na ASF</li>
-                    <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-sea"></span>Várias seguradoras, sem exclusividade</li>
+                    <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-sea"></span>Comparação gratuita</li>
+                    <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-sea"></span>Várias seguradoras</li>
                     <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-sea"></span>Sem compromisso</li>
                 </ul>
             </div>
@@ -76,17 +76,17 @@ const faqLd = {
             <div>
                 <p class="font-serif text-5xl italic text-sunset">01</p>
                 <h3 class="mt-3">Proteção antes de preço</h3>
-                <p class="mt-2 text-sm leading-relaxed text-ink-soft">Comparamos coberturas, capitais, exclusões e qualidade da assistência. O prémio mais baixo raramente é o seguro que funciona.</p>
+                <p class="mt-2 text-sm leading-relaxed text-ink-soft">Por omissão, as ofertas aparecem ordenadas pelo capital de despesas médicas. O prémio mais baixo raramente é o seguro que funciona.</p>
             </div>
             <div>
                 <p class="font-serif text-5xl italic text-sunset">02</p>
-                <h3 class="mt-3">Aconselhamento real</h3>
-                <p class="mt-2 text-sm leading-relaxed text-ink-soft">Por trás de cada proposta está um mediador de seguros registado, que lê as condições por si e responde às suas perguntas.</p>
+                <h3 class="mt-3">Coberturas lado a lado</h3>
+                <p class="mt-2 text-sm leading-relaxed text-ink-soft">Veja os capitais de cada cobertura, o documento de informação (IPID) e as condições gerais antes de decidir.</p>
             </div>
             <div>
                 <p class="font-serif text-5xl italic text-sunset">03</p>
-                <h3 class="mt-3">Acompanhamento no sinistro</h3>
-                <p class="mt-2 text-sm leading-relaxed text-ink-soft">Se algo correr mal, não fica sozinho com a seguradora. Ajudamos a acionar a apólice e a reunir a documentação.</p>
+                <h3 class="mt-3">Guias práticos</h3>
+                <p class="mt-2 text-sm leading-relaxed text-ink-soft">Famílias, estudantes, destinos de longo curso e cancelamento: o que verificar num seguro antes de partir.</p>
             </div>
         </div>
     </section>
@@ -121,7 +121,7 @@ const faqLd = {
             <div>
                 <span class="eyebrow !text-sunset">Coberturas</span>
                 <h2 class="mt-4 text-paper">O que um bom seguro de viagem <span class="accent !text-sunset">tem de fazer</span></h2>
-                <p class="mt-6 text-paper/70">Seis coberturas decidem quase tudo. É por elas que avaliamos cada apólice que propomos.</p>
+                <p class="mt-6 text-paper/70">Seis coberturas decidem quase tudo. São as que deve comparar em cada oferta.</p>
                 <a href="/coberturas" class="btn mt-8 border border-paper/30 text-paper hover:bg-paper hover:text-ink">Ver todas as coberturas</a>
             </div>
             <div class="grid gap-px overflow-hidden rounded-3xl bg-paper/10 sm:grid-cols-2">

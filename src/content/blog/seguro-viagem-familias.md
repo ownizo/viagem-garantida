@@ -69,4 +69,4 @@ Viajar grávida, ou com um filho com asma, diabetes ou outra condição crónica
 
 > O melhor seguro para uma família não é o mais barato: é o que trata do acompanhante, do regresso das crianças e do cancelamento sem surpresas.
 
-Se está a planear uma viagem em família, [peça-nos uma cotação](/cotacao) indicando as idades de todos os viajantes e o valor da viagem. Analisamos as condições e propomos a solução com as coberturas adequadas ao vosso destino.
+Se está a planear uma viagem em família, [compare seguros](/cotacao) indicando as idades de todos os viajantes e, se quiser cancelamento, o custo total da viagem. Veja lado a lado as coberturas de acompanhamento, regresso de menores e cancelamento de cada oferta.

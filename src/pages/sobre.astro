@@ -2,40 +2,40 @@
 import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import CtaBanner from '../components/CtaBanner.astro';
-import { MEDIADOR } from '../site';
+import { OPERATOR, PARTNER } from '../site';
 ---
 
-<Layout title="Quem somos" description="A Viagem Garantida é uma marca da Ownizo, Unipessoal Lda., agente de seguros registado na ASF, que seleciona seguros de viagem pela qualidade da proteção.">
-    <PageHeader eyebrow="Quem somos" title="Seguros de viagem com" accent="critério" intro="A Viagem Garantida nasceu de uma convicção simples: um seguro de viagem só vale o que vale a assistência no dia em que é preciso. Por isso escolhemos pela proteção, não pelo preço." />
+<Layout title="Quem somos" description="A Viagem Garantida é uma plataforma de informação e comparação de seguros de viagem. Os seguros são comercializados pela HelloSafe.">
+    <PageHeader eyebrow="Quem somos" title="Compare seguros de viagem com" accent="critério" intro="A Viagem Garantida nasceu de uma convicção simples: um seguro de viagem só vale o que vale a assistência no dia em que é preciso. Por isso pomos a proteção à frente do preço." />
 
     <section class="container-vg grid gap-14 lg:grid-cols-2">
         <div class="prose-vg">
             <p>
-                Somos uma marca da <strong>{MEDIADOR.legalName}</strong>, {MEDIADOR.category.toLowerCase()} registado na Autoridade de Supervisão de Seguros e Fundos de Pensões com o n.º {MEDIADOR.asfRegistration}. Trabalhamos com várias seguradoras, sem qualquer contrato de exclusividade, o que nos permite propor a solução que melhor serve cada viagem.
+                A Viagem Garantida é uma <strong>plataforma de informação e marketing</strong> sobre seguros de viagem, explorada pela {OPERATOR.legalName}. Publicamos guias práticos e permitimos comparar, numa só página, as coberturas e os preços de seguros de viagem de várias seguradoras.
             </p>
             <p>
-                Antes de recomendar um seguro, lemos as condições: capitais, franquias, exclusões, definição de zonas geográficas, desportos cobertos, regras para doenças preexistentes e, sobretudo, a forma como a assistência funciona no destino.
+                <strong>Não vendemos seguros.</strong> Os seguros apresentados são comercializados pela {PARTNER.legalName} («{PARTNER.name}»), intermediário de seguros registado em França no ORIAS com o n.º {PARTNER.orias}. Quando escolhe uma oferta, a subscrição, o pagamento e o apoio ao cliente decorrem na plataforma da {PARTNER.name}, e o contrato é celebrado com a seguradora indicada.
             </p>
             <p>
-                Depois da venda, continuamos disponíveis. Se precisar de acionar a apólice, ajudamos a reunir a documentação e acompanhamos o processo junto da seguradora.
+                Somos remunerados pela {PARTNER.name} por cada seguro subscrito a partir do site. Essa remuneração não altera a ordenação das ofertas: por omissão, aparecem ordenadas pelo capital de despesas médicas, e pode reordená-las por preço. Saiba mais nos <a href="/termos">termos e condições</a>.
             </p>
         </div>
         <div class="grid gap-5 sm:grid-cols-2">
             <div class="card">
-                <h3 class="text-base">Mediador registado</h3>
-                <p class="mt-2 text-sm text-ink-soft">Registo verificável no <a class="font-semibold text-sunset-deep underline" href={MEDIADOR.asfUrl} target="_blank" rel="noopener">site da ASF</a>.</p>
+                <h3 class="text-base">Informação independente</h3>
+                <p class="mt-2 text-sm text-ink-soft">Guias sobre coberturas, destinos e cancelamento, escritos para ajudar a comparar.</p>
             </div>
             <div class="card">
-                <h3 class="text-base">Sem exclusividade</h3>
-                <p class="mt-2 text-sm text-ink-soft">Várias seguradoras, uma única recomendação: a mais adequada.</p>
+                <h3 class="text-base">Várias seguradoras</h3>
+                <p class="mt-2 text-sm text-ink-soft">Ofertas de várias seguradoras, disponibilizadas pela {PARTNER.name}.</p>
             </div>
             <div class="card">
-                <h3 class="text-base">Aconselhamento humano</h3>
-                <p class="mt-2 text-sm text-ink-soft">Cada proposta é revista por quem conhece as apólices.</p>
+                <h3 class="text-base">Proteção à frente</h3>
+                <p class="mt-2 text-sm text-ink-soft">Ofertas ordenadas pelo capital de despesas médicas, com IPID e condições gerais à vista.</p>
             </div>
             <div class="card">
-                <h3 class="text-base">Acompanhamento</h3>
-                <p class="mt-2 text-sm text-ink-soft">Apoio na participação e gestão de sinistros.</p>
+                <h3 class="text-base">Venda pela {PARTNER.name}</h3>
+                <p class="mt-2 text-sm text-ink-soft">Subscrição, pagamento e apoio pós-venda na plataforma da {PARTNER.name}.</p>
             </div>
         </div>
     </section>

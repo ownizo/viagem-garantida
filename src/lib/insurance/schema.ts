@@ -24,13 +24,6 @@ export const quoteRequestSchema = z
         tripPrice: z.coerce.number().min(0).max(1000000).optional(),
         tripBookedDate: isoDate.optional(),
         extremeSports: z.coerce.boolean().default(false),
-        contact: z.object({
-            name: z.string().trim().min(2, 'Indique o nome').max(120),
-            email: z.string().trim().email('Email inválido').max(160),
-            phone: z.string().trim().max(30).optional()
-        }),
-        notes: z.string().trim().max(2000).optional(),
-        privacy: z.literal(true, { message: 'É necessário aceitar a política de privacidade' }),
         source: z.record(z.string(), z.string().max(200)).optional(),
         // Honeypot anti-spam: tem de chegar vazio
         website: z.string().max(0).optional()
@@ -60,9 +53,6 @@ export function toDomain(input: z.output<typeof quoteRequestSchema>): TravelQuot
         tripPrice: input.cancellation ? input.tripPrice : undefined,
         tripBookedDate: input.cancellation ? input.tripBookedDate : undefined,
         extremeSports: input.extremeSports,
-        contact: input.contact,
-        notes: input.notes || undefined,
-        consent: { privacy: true, acceptedAt: new Date().toISOString() },
         source: input.source
     };
 }

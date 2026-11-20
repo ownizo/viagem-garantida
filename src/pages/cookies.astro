@@ -1,0 +1,56 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { SITE, PARTNER, LEGAL_UPDATED } from '../site';
+---
+
+<Layout title="Política de cookies" description="Que cookies e armazenamento local usa a Viagem Garantida e como gerir as suas preferências.">
+    <PageHeader eyebrow="Cookies" title="Política de" accent="cookies" intro={`Última atualização: ${LEGAL_UPDATED}.`}>
+        <button type="button" data-cookie-settings class="btn-primary mt-8">Gerir preferências de cookies</button>
+    </PageHeader>
+
+    <section class="container-vg">
+        <div class="prose-vg max-w-3xl">
+            <h2>O que são cookies</h2>
+            <p>
+                Cookies são pequenos ficheiros que um site guarda no seu dispositivo. Tecnologias semelhantes, como o armazenamento local do navegador, funcionam da mesma forma e são tratadas aqui como cookies.
+            </p>
+
+            <h2>Que categorias usamos</h2>
+            <table>
+                <thead><tr><th>Categoria</th><th>Para que serve</th><th>Consentimento</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Estritamente necessários</strong></td>
+                        <td>Guardar as suas escolhas de cookies (armazenamento local <code>vg-consent</code>, 12 meses) e garantir o funcionamento e a segurança do site.</td>
+                        <td>Não é necessário</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Estatística</strong></td>
+                        <td>Medir de forma agregada como o site é utilizado, para o melhorar.</td>
+                        <td>Só com o seu consentimento</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Marketing</strong></td>
+                        <td>Medir campanhas e mostrar publicidade relevante noutras plataformas.</td>
+                        <td>Só com o seu consentimento</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                <strong>Neste momento o site não utiliza cookies de estatística nem de marketing.</strong> As categorias existem para que, se vierem a ser usadas ferramentas desse tipo, só sejam ativadas depois do seu consentimento. Quando isso acontecer, esta página será atualizada com a lista das ferramentas e respetivos cookies.
+            </p>
+
+            <h2>Conteúdos e sites de terceiros</h2>
+            <p>
+                Os ícones das ofertas são carregados a partir dos servidores da {PARTNER.name}, que recebem o seu endereço IP para os poder entregar. Quando escolhe uma oferta e passa para a plataforma da {PARTNER.name}, aplicam-se os cookies e a política de cookies da {PARTNER.name}.
+            </p>
+
+            <h2>Como gerir</h2>
+            <p>
+                Pode aceitar, recusar ou personalizar os cookies no banner apresentado na primeira visita e alterar a escolha a qualquer momento no botão acima ou na ligação «Definições de cookies», no rodapé. Pode também apagar ou bloquear cookies nas definições do seu navegador.
+            </p>
+            <p>Questões: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. Ver também a <a href="/privacidade">Política de privacidade</a>.</p>
+        </div>
+    </section>
+</Layout>

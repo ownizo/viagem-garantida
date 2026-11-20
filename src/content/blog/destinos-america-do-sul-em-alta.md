@@ -58,4 +58,4 @@ O deserto do Atacama, a mais de 2.000 metros, e as Torres del Paine, na Patagón
 - Leve cópias digitais do passaporte e da apólice.
 - Declare no pedido de cotação as **atividades previstas**: trekking, rafting, mergulho, ski nos Andes.
 
-[Peça a sua cotação](/cotacao) com o itinerário e as atividades. Analisamos o percurso e propomos um seguro com capitais de assistência adequados a cada etapa. Se a sua próxima viagem for a Oriente, leia também o nosso guia sobre [destinos asiáticos em alta](/blog/destinos-asiaticos-em-alta).
+[Compare seguros para a sua viagem](/cotacao) com todos os países do itinerário e as atividades previstas, e verifique os capitais de assistência e transporte sanitário de cada oferta. Se a sua próxima viagem for a Oriente, leia também o nosso guia sobre [destinos asiáticos em alta](/blog/destinos-asiaticos-em-alta).

@@ -1,13 +1,14 @@
 import { getCollection } from 'astro:content';
-import { CATEGORIES, MEDIADOR, SITE } from '../site';
+import { CATEGORIES, OPERATOR, PARTNER, SITE } from '../site';
 
 export const PAGES = [
-    { path: '/', title: 'Página inicial', desc: 'Formulário de cotação de seguro de viagem: destinos, datas, idades dos viajantes, cancelamento. Compara ofertas de várias seguradoras.' },
-    { path: '/cotacao', title: 'Pedir cotação', desc: 'Formulário completo de cotação; as ofertas podem ser ordenadas por proteção médica ou por preço e subscritas online.' },
+    { path: '/', title: 'Página inicial', desc: 'Formulário de cotação de seguro de viagem: destinos, datas, idades dos viajantes, cancelamento. Compara ofertas de várias seguradoras disponibilizadas pela HelloSafe.' },
+    { path: '/cotacao', title: 'Comparar seguros', desc: 'Formulário completo de comparação; as ofertas podem ser ordenadas por proteção médica ou por preço e subscritas online.' },
     { path: '/coberturas', title: 'Coberturas', desc: 'Despesas médicas, repatriamento, assistência 24h, cancelamento, bagagem, responsabilidade civil e acidentes pessoais.' },
     { path: '/seguro-cancelamento', title: 'Seguro de cancelamento', desc: 'O que cobre, exclusões habituais e porque deve ser subscrito no dia da reserva.' },
-    { path: '/sobre', title: 'Quem somos', desc: 'Marca da Ownizo, Unipessoal Lda., agente de seguros registado na ASF, sem exclusividade com seguradoras.' },
-    { path: '/informacao-legal', title: 'Informação legal', desc: 'Identificação do mediador, registo na ASF, remuneração e meios de reclamação.' }
+    { path: '/sobre', title: 'Quem somos', desc: 'Plataforma de informação e marketing da Ownizo, Unipessoal Lda.; os seguros são comercializados pela HelloSafe.' },
+    { path: '/termos', title: 'Termos e condições', desc: 'Natureza do serviço, quem vende os seguros, critérios de ordenação, remuneração e reclamações.' },
+    { path: '/privacidade', title: 'Política de privacidade', desc: 'Dados tratados na comparação e papel da HelloSafe como responsável independente.' }
 ];
 
 export async function posts() {
@@ -17,14 +18,15 @@ export async function posts() {
 export function header(): string {
     return `# ${SITE.name}
 
-> ${SITE.name} (${SITE.url}) é um site português de seguros de viagem. Compara seguros de viagem de várias seguradoras para residentes em Portugal — famílias, estudantes, viagens de longo curso e estadias longas — com foco na qualidade da proteção (despesas médicas, repatriamento, assistência 24h, cancelamento) e não no preço mais baixo.
+> ${SITE.name} (${SITE.url}) é uma plataforma portuguesa de informação e comparação de seguros de viagem. Compara seguros de viagem de várias seguradoras para residentes em Portugal — famílias, estudantes, viagens de longo curso e estadias longas — com foco na qualidade da proteção (despesas médicas, repatriamento, assistência 24h, cancelamento) e não no preço mais baixo.
 
-- Operador: ${MEDIADOR.legalName}, ${MEDIADOR.category.toLowerCase()} registado na Autoridade de Supervisão de Seguros e Fundos de Pensões (ASF) com o n.º ${MEDIADOR.asfRegistration} (${MEDIADOR.asfUrl}).
-- Sem contrato de exclusividade com nenhuma seguradora.
-- Sede: ${MEDIADOR.address} (sem atendimento ao público). Serviço online.
+- Operador: ${OPERATOR.legalName} (${OPERATOR.address}). Serviço online.
+- A ${SITE.name} é uma plataforma de informação e marketing: não é seguradora, não vende seguros e não atua como mediador nos contratos apresentados.
+- Os seguros são comercializados pela ${PARTNER.legalName} (${PARTNER.name}), intermediário de seguros registado em França no ORIAS com o n.º ${PARTNER.orias}; a subscrição, o pagamento e o apoio ao cliente decorrem na plataforma da ${PARTNER.name}.
+- A ${SITE.name} é remunerada pela ${PARTNER.name} por cada seguro subscrito através do site.
 - Contacto: ${SITE.email}
 - Língua: português (Portugal).
-- Cotação online em ${SITE.url}/cotacao; a subscrição e o pagamento são concluídos na plataforma da HelloSafe, parceira de distribuição.
+- Comparação online em ${SITE.url}/cotacao.
 - As coberturas, capitais e exclusões de cada seguro constam das condições gerais e particulares e do IPID de cada apólice.
 `;
 }

@@ -1,0 +1,84 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { SITE, OPERATOR, PARTNER, LEGAL_UPDATED } from '../site';
+---
+
+<Layout title="Termos e condições" description="Termos de utilização da Viagem Garantida: plataforma de informação e comparação de seguros de viagem. Os seguros são vendidos pela HelloSafe.">
+    <PageHeader eyebrow="Termos e condições" title="Termos de" accent="utilização" intro={`Última atualização: ${LEGAL_UPDATED}.`} />
+
+    <section class="container-vg">
+        <div class="prose-vg max-w-3xl">
+            <h2>1. Identificação</h2>
+            <p>
+                O site viagemgarantida.com («Viagem Garantida» ou «site») é explorado pela {OPERATOR.legalName}, com sede em {OPERATOR.address}. Contacto: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. Ao utilizar o site aceita estes termos.
+            </p>
+
+            <h2>2. O que é a Viagem Garantida</h2>
+            <p>
+                A Viagem Garantida é uma <strong>plataforma de informação e marketing</strong> sobre seguros de viagem. Publicamos guias e permitimos comparar ofertas de seguro de viagem disponibilizadas pelo nosso parceiro {PARTNER.name}.
+            </p>
+            <p>
+                <strong>A Viagem Garantida não é uma seguradora, não vende seguros, não celebra contratos de seguro e não atua como mediador ou intermediário nos contratos apresentados neste site.</strong> Não recebemos prémios de seguro, não emitimos apólices e não gerimos sinistros.
+            </p>
+            <p>
+                Os guias e demais conteúdos têm natureza geral e informativa. Não constituem aconselhamento nem recomendação personalizada sobre qualquer seguro. Antes de subscrever, leia o documento de informação sobre o produto de seguros (IPID) e as condições gerais e particulares do seguro escolhido.
+            </p>
+
+            <h2>3. Quem vende os seguros</h2>
+            <p>
+                Os seguros apresentados são comercializados pela <strong>{PARTNER.legalName}</strong> («{PARTNER.name}»), {PARTNER.registry}, com sede em {PARTNER.address}, intermediário de seguros registado em França no ORIAS com o n.º {PARTNER.orias} (verificável em <a href={PARTNER.oriasUrl} target="_blank" rel="noopener">orias.fr</a>).
+            </p>
+            <p>
+                Quando escolhe uma oferta e carrega em «Escolher este seguro», é encaminhado para a plataforma da {PARTNER.name}. É aí que lhe são prestadas as informações pré-contratuais, que se faz a subscrição e o pagamento, e que se rege a relação contratual, nos termos e condições e na política de privacidade da {PARTNER.name}. O contrato de seguro é celebrado entre si e a seguradora indicada na oferta, com a intervenção da {PARTNER.name}. Questões sobre a subscrição, o contrato, alterações, anulações ou sinistros devem ser dirigidas à {PARTNER.name} ou à seguradora.
+            </p>
+
+            <h2>4. Ofertas, preços e cobertura do mercado</h2>
+            <ul>
+                <li>As ofertas e os preços são obtidos em tempo real junto da {PARTNER.name}, com base nos dados da viagem que indicar. O preço apresentado é o preço total da oferta no momento da consulta e inclui as taxas aplicáveis.</li>
+                <li>O preço e as condições finais são os confirmados na plataforma da {PARTNER.name} no momento da subscrição, podendo ser recalculados se os dados da viagem mudarem ou se a oferta deixar de estar disponível.</li>
+                <li>A comparação inclui apenas as ofertas disponibilizadas pela {PARTNER.name} para a viagem indicada. <strong>Não abrange todos os seguros de viagem existentes no mercado.</strong></li>
+                <li>A informação sobre coberturas apresentada no site é um resumo. Em caso de divergência, prevalecem os documentos contratuais do seguro (IPID, condições gerais e particulares).</li>
+            </ul>
+
+            <h2>5. Como ordenamos as ofertas</h2>
+            <p>
+                Pode ordenar as ofertas por <strong>proteção médica</strong> (capital de despesas médicas no estrangeiro, do mais elevado para o mais baixo; em caso de empate, pelo preço) ou por <strong>preço</strong> (do mais baixo para o mais alto). A ordenação por proteção médica é a apresentada por omissão. Nenhuma posição é paga nem influenciada pela remuneração que recebemos.
+            </p>
+
+            <h2>6. A nossa remuneração</h2>
+            <p>
+                A Viagem Garantida é remunerada pela {PARTNER.name} através de uma comissão por cada seguro subscrito a partir do site. Esta remuneração está incluída no preço apresentado, que é o mesmo que paga na plataforma da {PARTNER.name}. Não cobramos qualquer valor diretamente aos utilizadores.
+            </p>
+
+            <h2>7. Responsabilidade</h2>
+            <p>
+                Procuramos que a informação do site seja exata e atual, mas não garantimos que esteja isenta de erros ou que o site funcione sem interrupções. Não somos parte nos contratos de seguro e não respondemos pela sua execução, pela subscrição, pelo pagamento ou pela regularização de sinistros, que são da responsabilidade da {PARTNER.name} e das seguradoras. Não respondemos pelos conteúdos de sites de terceiros para os quais existam ligações. Nada nestes termos exclui ou limita responsabilidades que a lei não permita excluir ou limitar, nomeadamente perante consumidores.
+            </p>
+
+            <h2>8. Utilização do site</h2>
+            <p>
+                Compromete-se a utilizar o site de forma lícita e a fornecer dados de viagem verdadeiros. Não é permitido extrair, copiar em massa, revender ou redistribuir preços e ofertas apresentados, nem utilizar meios automatizados que prejudiquem o funcionamento do site.
+            </p>
+
+            <h2>9. Propriedade intelectual</h2>
+            <p>
+                Os conteúdos do site (textos, guias, marca, logótipo e design) pertencem à {OPERATOR.legalName} ou são usados com autorização. Os nomes e logótipos de seguradoras e da {PARTNER.name} pertencem aos respetivos titulares.
+            </p>
+
+            <h2>10. Reclamações e resolução de litígios</h2>
+            <ul>
+                <li>Sobre o site: escreva-nos para <a href={`mailto:${SITE.email}`}>{SITE.email}</a> ou utilize o <a href="https://www.livroreclamacoes.pt" target="_blank" rel="noopener">Livro de Reclamações Eletrónico</a>.</li>
+                <li>Sobre a subscrição ou o contrato de seguro: dirija-se à {PARTNER.name} ou à seguradora, através dos meios de reclamação indicados na respetiva documentação.</li>
+                <li>
+                    Em caso de litígio de consumo relacionado com o site, pode recorrer a uma entidade de resolução alternativa de litígios, como o Centro de Arbitragem de Conflitos de Consumo de Lisboa (<a href="https://www.centroarbitragemlisboa.pt" target="_blank" rel="noopener">centroarbitragemlisboa.pt</a>) ou o CNIACC — Centro Nacional de Informação e Arbitragem de Conflitos de Consumo (<a href="https://www.cniacc.pt" target="_blank" rel="noopener">cniacc.pt</a>). Mais informação no <a href="https://www.consumidor.gov.pt" target="_blank" rel="noopener">Portal do Consumidor</a>.
+                </li>
+            </ul>
+
+            <h2>11. Lei aplicável e alterações</h2>
+            <p>
+                Estes termos regem-se pela lei portuguesa, sem prejuízo das normas imperativas de proteção do consumidor do país de residência do utilizador. Podemos alterar estes termos; a versão em vigor é a publicada nesta página.
+            </p>
+        </div>
+    </section>
+</Layout>

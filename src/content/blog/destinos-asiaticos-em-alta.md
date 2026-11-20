@@ -61,4 +61,4 @@ Bali reúne praia, surf, templos e retiros de yoga — e uma comunidade crescent
 
 > Numa viagem à Ásia, a pergunta não é "quanto custa o seguro?", mas "quem me tira de uma ilha a seis horas do hospital mais próximo?".
 
-[Peça-nos uma cotação](/cotacao) com o itinerário completo e as atividades previstas. Preparamos uma proposta que cobre o que vai realmente fazer.
+[Compare seguros para a sua viagem](/cotacao), indicando todos os países do itinerário e assinalando os desportos de aventura, e confirme no IPID de cada oferta que cobre o que vai realmente fazer.

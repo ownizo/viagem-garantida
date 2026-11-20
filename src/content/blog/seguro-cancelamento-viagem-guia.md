@@ -66,6 +66,6 @@ O seguro de cancelamento não substitui os direitos legais do viajante — compl
 2. Comunique à seguradora dentro do prazo indicado na apólice.
 3. Reúna os comprovativos: faturas, condições de cancelamento, relatório médico ou documento que prova a causa.
 
-## Fale connosco
+## Compare com cancelamento
 
-[Peça uma cotação](/cotacao) indicando o valor da viagem por pessoa e a data da reserva, ou veja a nossa página sobre [seguro de cancelamento](/seguro-cancelamento). Escolhemos apólices com listas de causas abrangentes e capitais que correspondem ao valor real da viagem.
+[Compare seguros com cancelamento](/cotacao?cancelamento=1) indicando o custo total da viagem e a data da reserva, ou veja a nossa página sobre [seguro de cancelamento](/seguro-cancelamento). Na comparação, confirme a lista de causas cobertas e se o capital corresponde ao valor real da viagem.

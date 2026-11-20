@@ -5,7 +5,7 @@ import QuoteForm from '../components/QuoteForm.astro';
 import { SITE } from '../site';
 ---
 
-<Layout title="Pedir cotação de seguro de viagem" description="Peça uma cotação de seguro de viagem sem compromisso. Indique destino, datas e viajantes e receba uma proposta com as coberturas adequadas.">
+<Layout title="Comparar seguros de viagem" description="Compare seguros de viagem sem compromisso: indique destino, datas e viajantes e veja as coberturas e os preços das ofertas disponíveis.">
     <PageHeader eyebrow="Cotação" title="Conte-nos sobre a" accent="sua viagem" intro="Leva cerca de dois minutos. Indique o destino, as datas e quem viaja e compare as coberturas dos seguros disponíveis para a sua viagem." />
 
     <section class="container-vg grid gap-10 lg:grid-cols-[1.7fr_1fr]">
@@ -16,12 +16,12 @@ import { SITE } from '../site';
                 <ol class="mt-5 space-y-4 text-sm leading-relaxed text-ink-soft">
                     <li class="flex gap-3"><span class="font-serif text-xl italic text-sunset">1</span>Comparamos de imediato as ofertas disponíveis para a sua viagem.</li>
                     <li class="flex gap-3"><span class="font-serif text-xl italic text-sunset">2</span>Vê as coberturas lado a lado, ordenadas pela proteção médica ou pelo preço.</li>
-                    <li class="flex gap-3"><span class="font-serif text-xl italic text-sunset">3</span>Escolhe o seguro e conclui a subscrição online. Se a sua viagem precisar de uma solução à medida, preparamos a proposta e enviamo-la por email.</li>
+                    <li class="flex gap-3"><span class="font-serif text-xl italic text-sunset">3</span>Escolhe o seguro e conclui a subscrição e o pagamento na plataforma da HelloSafe, que comercializa os seguros.</li>
                 </ol>
             </div>
             <div class="card bg-sand/60">
-                <h2 class="text-lg">Prefere escrever-nos?</h2>
-                <p class="mt-3 text-sm text-ink-soft">Envie os dados da viagem para <a class="font-semibold text-sunset-deep underline" href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+                <h2 class="text-lg">Quem vende os seguros?</h2>
+                <p class="mt-3 text-sm leading-relaxed text-ink-soft">A Viagem Garantida é uma plataforma de informação e comparação. Os seguros são comercializados pela HelloSafe, intermediário de seguros registado em França. <a class="font-semibold text-sunset-deep underline" href="/termos">Saber mais</a></p>
             </div>
         </aside>
     </section>
