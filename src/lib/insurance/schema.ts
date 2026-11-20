@@ -1,21 +1,29 @@
 import { z } from 'astro/zod';
+import { COUNTRY_CODES } from '../countries';
 import type { TravelQuoteRequest } from './types';
 
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Data inválida');
+const country = z
+    .string()
+    .trim()
+    .toUpperCase()
+    .refine((c) => COUNTRY_CODES.has(c), 'País inválido');
 
 export const quoteRequestSchema = z
     .object({
-        region: z.enum(['europa', 'mundo-sem-eua', 'mundo-com-eua']),
-        destination: z.string().trim().min(2, 'Indique o destino').max(120),
+        residence: country.default('PT'),
+        destinations: z.array(country).min(1, 'Indique pelo menos um país de destino').max(20, 'Máximo de 20 países de destino'),
         departureDate: isoDate,
         returnDate: isoDate,
-        purpose: z.enum(['lazer', 'estudos', 'trabalho', 'longa-duracao']),
+        purpose: z.enum(['lazer', 'anual', 'estudos', 'nomada', 'cruzeiro', 'expatriacao', 'au-pair', 'trabalho']),
         travellers: z
-            .array(z.object({ age: z.coerce.number().int().min(0).max(99) }))
+            .array(z.object({ age: z.coerce.number().int().min(0).max(120) }))
             .min(1, 'Indique pelo menos um viajante')
-            .max(10),
-        cancellation: z.coerce.boolean(),
-        tripCostPerPerson: z.coerce.number().min(0).max(100000).optional(),
+            .max(50),
+        cancellation: z.coerce.boolean().default(false),
+        tripPrice: z.coerce.number().min(0).max(1000000).optional(),
+        tripBookedDate: isoDate.optional(),
+        extremeSports: z.coerce.boolean().default(false),
         contact: z.object({
             name: z.string().trim().min(2, 'Indique o nome').max(120),
             email: z.string().trim().email('Email inválido').max(160),
@@ -34,23 +42,32 @@ export const quoteRequestSchema = z
     .refine((d) => d.departureDate >= new Date().toISOString().slice(0, 10), {
         message: 'A data de partida já passou',
         path: ['departureDate']
+    })
+    .refine((d) => !d.cancellation || (d.tripPrice ?? 0) > 0, {
+        message: 'Indique o custo total da viagem para a cobertura de cancelamento',
+        path: ['tripPrice']
     });
-
-export type QuoteRequestInput = z.input<typeof quoteRequestSchema>;
 
 export function toDomain(input: z.output<typeof quoteRequestSchema>): TravelQuoteRequest {
     return {
-        region: input.region,
-        destination: input.destination,
+        residence: input.residence,
+        destinations: [...new Set(input.destinations)],
         departureDate: input.departureDate,
         returnDate: input.returnDate,
         purpose: input.purpose,
         travellers: input.travellers,
         cancellation: input.cancellation,
-        tripCostPerPerson: input.cancellation ? input.tripCostPerPerson : undefined,
+        tripPrice: input.cancellation ? input.tripPrice : undefined,
+        tripBookedDate: input.cancellation ? input.tripBookedDate : undefined,
+        extremeSports: input.extremeSports,
         contact: input.contact,
         notes: input.notes || undefined,
         consent: { privacy: true, acceptedAt: new Date().toISOString() },
         source: input.source
     };
 }
+
+export const checkoutSchema = z.object({
+    reference: z.string().regex(/^VG-\d{6}-[A-Z0-9]{4}$/),
+    offerId: z.coerce.number().int().positive()
+});

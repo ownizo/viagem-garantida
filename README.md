@@ -20,6 +20,6 @@ Para testar o Netlify Blobs localmente use `netlify dev`.
 - Guias/blog: ficheiros Markdown em `src/content/blog/` — para publicar um novo artigo basta criar um `.md` com o mesmo frontmatter dos existentes (`category`: familias, estudantes, destinos, coberturas ou cancelamento)
 - Dados da marca e do mediador: `src/site.ts`
 
-## Integração com seguradoras (fase 2)
+## Integração com seguradoras
 
-Ver [`docs/integracao-api.md`](docs/integracao-api.md) e [`.env.example`](.env.example).
+Integração com a API HelloSafe Atlas: ver [`docs/integracao-api.md`](docs/integracao-api.md) e [`.env.example`](.env.example).

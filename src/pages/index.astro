@@ -4,6 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import { SITE } from '../site';
+import { COUNTRIES } from '../lib/countries';
 
 const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const featured = posts.filter((p) => p.data.featured).slice(0, 3);
@@ -12,7 +13,7 @@ const audiences = [
     { title: 'Famílias', text: 'Uma apólice para todos, com acompanhamento de menores, regresso antecipado e cancelamento à medida do valor da viagem.', href: '/blog/seguro-viagem-familias', icon: 'M7 20a3 3 0 1 1 0-6 3 3 0 0 1 0 6Zm10 0a3 3 0 1 1 0-6 3 3 0 0 1 0 6ZM12 9a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z' },
     { title: 'Estudantes', text: 'Erasmus, intercâmbio, universidade ou estágio. Seguros de longa duração que cumprem os requisitos da instituição.', href: '/blog/seguro-viagem-estudantes-erasmus', icon: 'M3 9l9-5 9 5-9 5-9-5Zm4 3v4c0 1.5 2.5 3 5 3s5-1.5 5-3v-4' },
     { title: 'Longo curso', text: 'Ásia, América do Sul, Estados Unidos. Capitais médicos elevados e transporte sanitário de qualquer ponto do mundo.', href: '/blog/destinos-asiaticos-em-alta', icon: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm-9-9h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3Z' },
-    { title: 'Estadias longas', text: 'Sabáticas, nómadas digitais e meses fora. Proteção contínua para além dos limites de um seguro de férias.', href: '/cotacao?purpose=longa-duracao', icon: 'M8 3v3m8-3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z' }
+    { title: 'Estadias longas', text: 'Sabáticas, nómadas digitais e meses fora. Proteção contínua para além dos limites de um seguro de férias.', href: '/cotacao?purpose=nomada', icon: 'M8 3v3m8-3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z' }
 ];
 
 const coverages = [
@@ -79,14 +80,9 @@ const faqLd = {
                     </div>
                     <div>
                         <label class="field-label" for="h-destination">Para onde vai?</label>
-                        <input id="h-destination" name="destination" class="field" placeholder="Ex.: Japão, Peru, Itália" />
-                    </div>
-                    <div>
-                        <label class="field-label" for="h-region">Zona</label>
-                        <select id="h-region" name="region" class="field">
-                            <option value="europa">Europa</option>
-                            <option value="mundo-sem-eua">Mundo (exceto EUA e Canadá)</option>
-                            <option value="mundo-com-eua">Mundo (incluindo EUA e Canadá)</option>
+                        <select id="h-destination" name="destinos" class="field">
+                            <option value="">Escolha o país</option>
+                            {COUNTRIES.filter((c) => c.code !== 'PT').map((c) => <option value={c.code}>{c.name}</option>)}
                         </select>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
@@ -107,7 +103,7 @@ const faqLd = {
                             </select>
                         </div>
                         <label class="mb-3 flex items-center gap-2 text-sm">
-                            <input type="checkbox" name="cancelamento" value="1" class="h-4 w-4 accent-[#e8743b]" /> Cancelamento
+                            <input type="checkbox" name="cancelamento" value="1" class="h-4 w-4 accent-[#B4283A]" /> Cancelamento
                         </label>
                     </div>
                 </div>

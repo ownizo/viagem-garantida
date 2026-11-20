@@ -1,53 +1,54 @@
-# Integração com o fornecedor de seguros (fase 2)
+# Integração HelloSafe Atlas
 
-## Estado atual (fase 1)
+API de seguros de viagem da HelloSafe (`https://atlas.hellosafe.com`, v1). Servidor a servidor: o segredo nunca chega ao browser.
 
-O site está pronto a receber pedidos de cotação, mas ainda não está ligado a nenhuma API de seguradora.
+## Fluxo
 
 ```
-Formulário (/cotacao)  ──POST JSON──▶  /api/quote  ──▶  service.requestQuote()
-                                         │                 ├─ provider.quote()   → lead-capture: { status: 'received' }
-                                         │                 ├─ saveQuote()        → Netlify Blobs, store "pedidos-cotacao"
-                                         │                 └─ notifyNewQuote()   → email interno via Resend (se configurado)
-                                         └─ validação Zod (schema.ts) + honeypot anti-spam
+/cotacao ──POST /api/quote──▶ validação (schema.ts)
+                               └▶ HelloSafe POST /api/v1/travel/quotes  → ofertas + sessionId
+                                  ├─ ofertas devolvidas ao browser (sem sessionId)
+                                  ├─ pedido + sessionId + trip guardados no Netlify Blobs ("pedidos-cotacao")
+                                  └─ email interno (Resend)
+viajante escolhe oferta ──POST /api/checkout {reference, offerId}──▶
+                               └▶ HelloSafe POST /api/v1/travel/links (sessionId, trip, offerId, clickRef = referência VG)
+                                  └─ devolve o URL → redirect para o funil HelloSafe (subscrição e pagamento)
+HelloSafe ──POST /api/webhooks/hellosafe──▶ sale.confirmed / sale.cancelled
+                               └▶ assinatura verificada, evento guardado em Blobs ("vendas") + email interno
 ```
 
-Cada pedido recebe uma referência `VG-AAMMDD-XXXX`, devolvida ao cliente e usada como chave no Blobs e como `externalReference` na API do fornecedor.
+Sem credenciais, com chave sandbox não autorizada, sem ofertas ou com erro da API, o pedido passa a tratamento manual (o cliente vê "Pedido recebido").
 
-## Estrutura
+## Ficheiros
 
 | Ficheiro | Função |
 | --- | --- |
-| `src/lib/insurance/types.ts` | Modelo de domínio (pedido, oferta, coberturas, emissão) e contrato `InsuranceProvider` |
-| `src/lib/insurance/schema.ts` | Validação do pedido que chega do browser |
-| `src/lib/insurance/service.ts` | Orquestração: escolhe o fornecedor, regista, notifica, nunca perde um pedido |
-| `src/lib/insurance/providers/lead-capture.ts` | Fornecedor da fase 1 (sem API) |
-| `src/lib/insurance/providers/partner-api.ts` | Esqueleto do adapter da fase 2 |
-| `src/lib/insurance/store.ts` | Registo em Netlify Blobs |
-| `src/lib/insurance/notify.ts` | Email interno (Resend) |
-| `src/pages/api/quote.ts` | Endpoint serverless `POST /api/quote` |
-| `src/components/QuoteForm.astro` | Formulário; já preparado para mostrar ofertas |
+| `src/lib/insurance/atlas/client.ts` | Assinatura v2 (`${ts}.${METHOD}.${pathname}.${rawBody}`), pedidos, erros, verificação de webhooks (v1) |
+| `src/lib/insurance/providers/hellosafe.ts` | Mapeamento pedido → `trip` Atlas e oferta Atlas → `QuoteOffer`; `/quotes` e `/links` |
+| `src/lib/insurance/service.ts` | Escolha do fornecedor, registo, checkout |
+| `src/pages/api/quote.ts`, `checkout.ts`, `webhooks/hellosafe.ts` | Endpoints serverless |
+| `src/components/QuoteForm.astro` | Formulário, lista de ofertas (ordenação por proteção médica ou preço), escolha |
 
-## Passos para ligar a API
+Mapeamento do tipo de viagem → `intent`: lazer/trabalho → `forTourism`, anual → `annual`, estudos → `studyInternship`, nómada → `digitalNomad`, cruzeiro → `cruise`, expatriação → `expat`, au pair → `auPair`. Língua do funil: `pt`. Moeda: `EUR`. `tripPrice` é o custo total da viagem para todo o grupo.
 
-1. **Obter do fornecedor:** documentação técnica, credenciais de sandbox, identificador de parceiro/intermediário (para comissionamento) e lista de produtos/zonas.
-2. **Mapear o pedido** em `toPartnerPayload()` (`partner-api.ts`): zonas geográficas, tipos de viagem, idades vs. datas de nascimento, país de residência, capitais de cancelamento.
-3. **Mapear a resposta** em `fromPartnerResponse()` para `QuoteOffer[]`: prémio, coberturas com capitais, documentos pré-contratuais (IPID, condições gerais) — estes documentos têm de ser apresentados ao cliente antes da compra.
-4. **Configurar variáveis** em Netlify: `INSURANCE_PROVIDER=partner-api`, `PARTNER_API_BASE_URL`, `PARTNER_API_KEY`, `PARTNER_ID`. Começar com o contexto *Deploy Previews* apontado para a sandbox.
-5. **Mostrar ofertas** em `QuoteForm.astro` quando `result.status === 'offers'` (ponto marcado com `Fase 2`).
-6. **Compra:** implementar `bind()` e um endpoint `POST /api/purchase` com os dados do tomador e das pessoas seguras. Se o fornecedor tiver checkout/pagamento próprio (redirect ou widget), usar esse fluxo em vez de tratar pagamentos no site.
-7. **Webhooks** (se existirem): endpoint `POST /api/webhooks/partner` para confirmação de emissão e envio de apólice, com verificação de assinatura.
+## Ativar
 
-## Salvaguardas já incluídas
+1. **Netlify → Environment variables**, contexto *Deploy Previews*: `ATLAS_KEY_ID` (ak_test_…), `ATLAS_SIGNING_SECRET`, `ATLAS_ALLOW_SANDBOX=true`. Testar num deploy preview — aparece a faixa "MODO DE TESTE".
+   ⚠️ O link sandbox abre o funil real da HelloSafe: qualquer pagamento é real.
+2. Para pedir a chave de produção, a HelloSafe exige 10 preços e 1 link feitos em sandbox e a conta de parceiro aprovada.
+3. Com a chave `ak_live_…`: definir `ATLAS_KEY_ID` e `ATLAS_SIGNING_SECRET` no contexto *Production* (sem `ATLAS_ALLOW_SANDBOX`).
+4. **Webhooks** (painel HelloSafe → Técnico → Webhooks): URL `https://viagemgarantida.com/api/webhooks/hellosafe`; guardar o segredo em `ATLAS_WEBHOOK_SECRET`.
 
-- Se a API falhar ou estiver em baixo, o pedido é guardado e passa a tratamento manual — o cliente recebe sempre a confirmação.
-- Se `INSURANCE_PROVIDER` apontar para um fornecedor sem credenciais, o sistema volta automaticamente a `lead-capture`.
-- Pedido e resposta ficam registados no Blobs (auditoria e reconciliação de comissões).
-- Nenhuma credencial é exposta ao browser: toda a comunicação com a API acontece no servidor.
+## Regras da HelloSafe a respeitar
 
-## Consultar pedidos guardados
+- Não guardar preços em cache por muito tempo; nome da seguradora e documentos (IPID, condições) sempre junto da oferta mostrada.
+- Nunca mostrar preços ou links sandbox a viajantes reais.
+- Quotas sandbox: 200 preços e 50 links por dia, 60 pedidos por minuto.
+
+## Consultar registos
 
 ```bash
 netlify blobs:list pedidos-cotacao
 netlify blobs:get pedidos-cotacao VG-261120-AB12
+netlify blobs:list vendas
 ```
