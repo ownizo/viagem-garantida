@@ -1,16 +1,4 @@
 import { env } from './env';
-import type { QuoteResult, TravelQuoteRequest } from './types';
-
-const PURPOSE: Record<string, string> = {
-    lazer: 'Férias e lazer',
-    anual: 'Anual multiviagem',
-    estudos: 'Estudos / estágio',
-    nomada: 'Nómada digital',
-    cruzeiro: 'Cruzeiro',
-    expatriacao: 'Expatriação',
-    'au-pair': 'Au pair',
-    trabalho: 'Trabalho / negócios'
-};
 
 function escape(s: string): string {
     return s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
@@ -36,30 +24,4 @@ export async function sendInternalEmail(subject: string, rows: [string, string][
     } catch (err) {
         console.warn('[notify] Falha ao enviar email:', (err as Error).message);
     }
-}
-
-export async function notifyNewQuote(reference: string, req: TravelQuoteRequest, result: QuoteResult): Promise<void> {
-    const outcome =
-        result.status === 'offers'
-            ? `${result.offers.length} ofertas apresentadas online${result.mode === 'sandbox' ? ' (SANDBOX)' : ''}`
-            : 'Sem ofertas online — preparar proposta manualmente';
-    await sendInternalEmail(
-        `Pedido de cotação ${reference} — ${req.destinations.join(', ')}`,
-        [
-            ['Referência', reference],
-            ['Resultado', outcome],
-            ['Nome', req.contact.name],
-            ['Email', req.contact.email],
-            ['Telefone', req.contact.phone ?? '—'],
-            ['Residência', req.residence],
-            ['Destinos', req.destinations.join(', ')],
-            ['Datas', `${req.departureDate} → ${req.returnDate}`],
-            ['Motivo', PURPOSE[req.purpose] ?? req.purpose],
-            ['Viajantes (idades)', req.travellers.map((t) => t.age).join(', ')],
-            ['Cancelamento', req.cancellation ? `Sim — ${req.tripPrice ?? '?'} € (total)` : 'Não'],
-            ['Desportos radicais', req.extremeSports ? 'Sim' : 'Não'],
-            ['Notas', req.notes ?? '—']
-        ],
-        req.contact.email
-    );
 }

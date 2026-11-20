@@ -27,9 +27,6 @@ export interface TravelQuoteRequest {
     /** Data em que a viagem foi reservada (yyyy-mm-dd). */
     tripBookedDate?: string;
     extremeSports: boolean;
-    contact: { name: string; email: string; phone?: string };
-    notes?: string;
-    consent: { privacy: true; acceptedAt: string };
     source?: Record<string, string>;
 }
 

@@ -1,42 +1,82 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
-import { SITE, MEDIADOR } from '../site';
+import { SITE, OPERATOR, PARTNER, LEGAL_UPDATED } from '../site';
 ---
 
-<Layout title="Política de privacidade" description="Como a Viagem Garantida trata os dados pessoais recolhidos nos pedidos de cotação de seguro de viagem.">
-    <PageHeader eyebrow="Privacidade" title="Política de" accent="privacidade" />
+<Layout title="Política de privacidade" description="Como a Viagem Garantida trata os dados de quem visita o site e compara seguros de viagem, e o papel da HelloSafe na subscrição.">
+    <PageHeader eyebrow="Privacidade" title="Política de" accent="privacidade" intro={`Última atualização: ${LEGAL_UPDATED}.`} />
 
     <section class="container-vg">
         <div class="prose-vg max-w-3xl">
-            <h2>Responsável pelo tratamento</h2>
-            <p>{MEDIADOR.legalName}, {MEDIADOR.address}. Contacto: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
-
-            <h2>Dados recolhidos</h2>
+            <h2>1. Quem somos</h2>
             <p>
-                No pedido de cotação recolhemos o nome, email, telemóvel (opcional), dados da viagem (destino, datas, motivo, idades dos viajantes, valor da viagem) e a informação adicional que decida partilhar. Não utilizamos cookies de publicidade nem de análise de terceiros.
+                O site viagemgarantida.com («Viagem Garantida») é explorado pela {OPERATOR.legalName}, com sede em {OPERATOR.address} («nós»). Somos responsáveis pelo tratamento dos dados recolhidos neste site. Contacto para questões de privacidade: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+            </p>
+            <p>
+                A Viagem Garantida é uma plataforma de informação e marketing sobre seguros de viagem. <strong>Não vendemos seguros nem celebramos contratos de seguro neste site.</strong> A subscrição, o pagamento e a gestão dos seguros são feitos pela {PARTNER.legalName} («{PARTNER.name}»), que trata os dados que lhe fornecer na plataforma dela como responsável pelo tratamento independente, nos termos da sua própria política de privacidade.
             </p>
 
-            <h2>Finalidade e fundamento</h2>
+            <h2>2. Que dados tratamos</h2>
+            <h3>a) Comparação de seguros</h3>
             <p>
-                Os dados são tratados para preparar e enviar a proposta de seguro pedida e, caso a aceite, para a contratação e gestão do seguro. O fundamento é a execução de diligências pré-contratuais a seu pedido e, após a contratação, a execução do contrato e o cumprimento de obrigações legais do mediador de seguros.
+                Para lhe mostrar ofertas, o formulário de comparação pede apenas os <strong>dados da viagem</strong>: país de residência, países de destino, datas, tipo de viagem, idade de cada viajante e, se o indicar, o custo total da viagem, a data da reserva e a prática de desportos de aventura. Não pedimos nome, email, telefone, morada nem dados de saúde.
             </p>
-            <p>Se nos indicar informação de saúde nas notas do pedido, essa informação é usada apenas para avaliar a cobertura adequada, com base no seu consentimento.</p>
+            <h3>b) Dados técnicos</h3>
+            <p>
+                Como qualquer site, o nosso alojamento regista dados técnicos necessários ao funcionamento e à segurança (endereço IP, tipo de navegador, páginas pedidas, data e hora), conservados por períodos curtos para diagnóstico e prevenção de abusos.
+            </p>
+            <h3>c) Contactos por email</h3>
+            <p>Se nos escrever, tratamos os dados que nos enviar (nome, email e conteúdo da mensagem) para lhe responder.</p>
+            <h3>d) Cookies e armazenamento local</h3>
+            <p>Ver a <a href="/cookies">Política de cookies</a>.</p>
 
-            <h2>Destinatários</h2>
+            <h2>3. Para que usamos os dados e com que fundamento</h2>
+            <table>
+                <thead><tr><th>Finalidade</th><th>Fundamento (RGPD)</th></tr></thead>
+                <tbody>
+                    <tr><td>Calcular e mostrar ofertas de seguro de viagem a seu pedido</td><td>Diligências a pedido do titular e interesse legítimo em prestar o serviço pedido (art. 6.º, n.º 1, al. b) e f))</td></tr>
+                    <tr><td>Encaminhar para a subscrição na {PARTNER.name} e registar a referência da comparação para atribuição e faturação da nossa remuneração</td><td>Interesse legítimo (art. 6.º, n.º 1, al. f))</td></tr>
+                    <tr><td>Funcionamento, segurança e prevenção de fraude do site</td><td>Interesse legítimo (art. 6.º, n.º 1, al. f))</td></tr>
+                    <tr><td>Responder a contactos</td><td>Interesse legítimo e diligências a pedido do titular</td></tr>
+                    <tr><td>Estatísticas de utilização e marketing (só se ativados)</td><td>Consentimento (art. 6.º, n.º 1, al. a)), dado no banner de cookies</td></tr>
+                    <tr><td>Cumprimento de obrigações legais, fiscais e contabilísticas</td><td>Obrigação legal (art. 6.º, n.º 1, al. c))</td></tr>
+                </tbody>
+            </table>
+
+            <h2>4. Com quem partilhamos</h2>
+            <ul>
+                <li>
+                    <strong>{PARTNER.name}</strong> ({PARTNER.legalName}, {PARTNER.registry}, {PARTNER.address}): recebe os dados da viagem para calcular os preços e, se escolher uma oferta, para preparar a subscrição. A partir daí, os dados que introduzir na plataforma da {PARTNER.name} (identificação, contactos, pagamento, eventuais dados de saúde) são tratados exclusivamente pela {PARTNER.name} e pelas seguradoras, nos termos das respetivas políticas de privacidade. A {PARTNER.name} informa-nos das vendas e anulações associadas à nossa referência (identificador da venda, seguradora, montantes e estado), sem dados pessoais do viajante.
+                </li>
+                <li><strong>Prestadores de serviços</strong> que atuam por nossa conta (subcontratantes): alojamento do site e funções de servidor (Netlify) e envio de emails de serviço (Resend).</li>
+                <li><strong>Autoridades</strong>, quando a lei o exigir.</li>
+            </ul>
+            <p>Não vendemos dados pessoais.</p>
+
+            <h2>5. Transferências para fora do Espaço Económico Europeu</h2>
             <p>
-                Para obter propostas, os dados estritamente necessários podem ser transmitidos às seguradoras com quem trabalhamos ou a parceiros de distribuição de seguros. Recorremos ainda a prestadores de serviços de alojamento do site e de envio de email, que atuam como subcontratantes e estão sujeitos a obrigações de confidencialidade e segurança.
+                Alguns prestadores de serviços podem tratar dados fora do EEE, nomeadamente nos Estados Unidos. Nesses casos, as transferências assentam numa decisão de adequação da Comissão Europeia (incluindo o EU-US Data Privacy Framework, quando o prestador esteja certificado) ou em cláusulas contratuais-tipo aprovadas pela Comissão.
             </p>
 
-            <h2>Conservação</h2>
+            <h2>6. Durante quanto tempo</h2>
+            <ul>
+                <li>Dados de uma comparação (viagem e referência): até 24 meses, para atribuição e reconciliação de vendas e remunerações com a {PARTNER.name}.</li>
+                <li>Registos de vendas e anulações comunicados pela {PARTNER.name}: pelo prazo legal de conservação de documentos contabilísticos (10 anos).</li>
+                <li>Emails: pelo tempo necessário para tratar o assunto e, depois, até 3 anos.</li>
+                <li>Registos técnicos do alojamento: pelos prazos do prestador, em regra curtos.</li>
+            </ul>
+
+            <h2>7. Os seus direitos</h2>
             <p>
-                Os dados dos pedidos que não resultem em contrato são conservados pelo período necessário ao acompanhamento da proposta. Os dados de contratos celebrados são conservados pelos prazos exigidos por lei à atividade de mediação de seguros.
+                Pode pedir acesso, retificação, apagamento, limitação ou portabilidade dos seus dados, opor-se a tratamentos baseados em interesse legítimo e retirar a qualquer momento o consentimento dado (sem afetar a licitude do tratamento anterior), escrevendo para <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. Para dados tratados na plataforma da {PARTNER.name}, dirija-se à {PARTNER.name}. Tem ainda o direito de apresentar reclamação à <a href="https://www.cnpd.pt" target="_blank" rel="noopener">Comissão Nacional de Proteção de Dados (CNPD)</a>.
             </p>
 
-            <h2>Os seus direitos</h2>
-            <p>
-                Pode, a qualquer momento, pedir acesso, retificação, apagamento, limitação ou portabilidade dos seus dados, opor-se ao tratamento ou retirar o consentimento, através de <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. Tem também o direito de apresentar reclamação à <a href="https://www.cnpd.pt" target="_blank" rel="noopener">Comissão Nacional de Proteção de Dados</a>.
-            </p>
+            <h2>8. Segurança</h2>
+            <p>O site usa ligação cifrada (HTTPS). As credenciais de acesso à plataforma da {PARTNER.name} ficam apenas no servidor e nunca são expostas no navegador.</p>
+
+            <h2>9. Alterações</h2>
+            <p>Podemos atualizar esta política. A versão em vigor é sempre a publicada nesta página, com a data da última atualização.</p>
         </div>
     </section>
 </Layout>

@@ -4,7 +4,8 @@ import '@fontsource-variable/montserrat/wght.css';
 import '@fontsource/playfair-display/400-italic.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE, MEDIADOR } from '../site';
+import CookieBanner from '../components/CookieBanner.astro';
+import { SITE, OPERATOR } from '../site';
 
 interface Props {
     title: string;
@@ -22,12 +23,13 @@ const fullTitle = title === SITE.name ? `${SITE.name} — Seguros de viagem` : `
 
 const orgLd = {
     '@context': 'https://schema.org',
-    '@type': 'InsuranceAgency',
+    '@type': 'Organization',
     name: SITE.name,
     url: SITE.url,
     email: SITE.email,
-    telephone: SITE.phone,
-    parentOrganization: { '@type': 'Organization', name: MEDIADOR.legalName, legalName: MEDIADOR.legalName },
+    logo: `${SITE.url}/brand/logo-viagem-garantida.png`,
+    description: 'Plataforma de informação e comparação de seguros de viagem. Os seguros são comercializados pela HelloSafe.',
+    parentOrganization: { '@type': 'Organization', name: OPERATOR.legalName, legalName: OPERATOR.legalName },
     address: { '@type': 'PostalAddress', streetAddress: 'Av. do Atlântico 16, Esc. 5.07', postalCode: '1990-019', addressLocality: 'Lisboa', addressCountry: 'PT' },
     areaServed: 'PT'
 };
@@ -67,5 +69,6 @@ const ldBlocks = [orgLd, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]
         <Header />
         <main id="conteudo" class="grow"><slot /></main>
         <Footer />
+        <CookieBanner />
     </body>
 </html>

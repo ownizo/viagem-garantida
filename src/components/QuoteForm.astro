@@ -1,7 +1,7 @@
 ---
 import { COUNTRIES } from '../lib/countries';
-// Formulário de cotação. POST /api/quote → ofertas da API (HelloSafe Atlas) quando disponível,
-// ou confirmação de pedido para proposta manual. A escolha de uma oferta chama /api/checkout.
+// Formulário de comparação. POST /api/quote → ofertas da API HelloSafe Atlas (sem dados pessoais).
+// A escolha de uma oferta chama /api/checkout e redireciona para a subscrição na HelloSafe.
 ---
 
 <form id="quote-form" class="card relative space-y-8 bg-white p-6 shadow-[0_30px_70px_-40px_rgba(20,33,61,0.45)] sm:p-10" novalidate>
@@ -85,53 +85,26 @@ import { COUNTRIES } from '../lib/countries';
         </div>
     </fieldset>
 
-    <fieldset class="space-y-5">
-        <legend class="mb-4 flex items-center gap-3 text-lg font-bold">
-            <span class="flex h-8 w-8 items-center justify-center rounded-full bg-sunset text-sm text-white">4</span> Contacto
-        </legend>
-        <div class="grid gap-5 sm:grid-cols-2">
-            <div>
-                <label class="field-label" for="name">Nome</label>
-                <input class="field" id="name" name="name" autocomplete="name" required />
-            </div>
-            <div>
-                <label class="field-label" for="email">Email</label>
-                <input class="field" type="email" id="email" name="email" autocomplete="email" required />
-            </div>
-            <div>
-                <label class="field-label" for="phone">Telemóvel <span class="normal-case tracking-normal text-ink/40">(opcional)</span></label>
-                <input class="field" type="tel" id="phone" name="phone" autocomplete="tel" />
-            </div>
-            <div class="sm:col-span-2">
-                <label class="field-label" for="notes">Informação adicional <span class="normal-case tracking-normal text-ink/40">(opcional)</span></label>
-                <textarea class="field min-h-[110px]" id="notes" name="notes" placeholder="Gravidez, condições de saúde a declarar, exigências da universidade ou do visto…"></textarea>
-            </div>
-        </div>
-        <div class="hidden" aria-hidden="true">
-            <label>Website <input name="website" tabindex="-1" autocomplete="off" /></label>
-        </div>
-        <label class="flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-ink-soft">
-            <input type="checkbox" id="privacy" required class="mt-1 h-5 w-5 accent-[#E2600F]" />
-            <span>Aceito que os meus dados sejam tratados para a preparação da cotação, nos termos da <a href="/privacidade" class="font-semibold text-sunset-deep underline">política de privacidade</a>.</span>
-        </label>
-    </fieldset>
+    <div class="hidden" aria-hidden="true">
+        <label>Website <input name="website" tabindex="-1" autocomplete="off" /></label>
+    </div>
 
     <div id="form-error" class="hidden rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-800" role="alert"></div>
 
     <div class="flex flex-col gap-4 border-t border-ink/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
-        <p class="text-xs leading-relaxed text-ink-soft">Sem compromisso. Comparamos as ofertas disponíveis para a sua viagem.</p>
+        <p class="max-w-sm text-xs leading-relaxed text-ink-soft">Comparação gratuita e sem dados pessoais. Os dados da viagem são enviados à HelloSafe para calcular os preços. <a href="/privacidade" class="underline">Privacidade</a></p>
         <button type="submit" class="btn-sunset px-8 py-4 text-base" id="submit-btn">Ver seguros</button>
     </div>
 </form>
 
-<!-- Pedido recebido sem ofertas online -->
+<!-- Sem ofertas disponíveis -->
 <div id="quote-received" class="card hidden bg-white p-10 text-center" role="status" aria-live="polite">
     <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-sea/10">
         <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" stroke="#0F3360" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
     </div>
-    <h2 class="mt-6 text-2xl sm:text-3xl">Pedido recebido</h2>
-    <p class="mx-auto mt-3 max-w-md text-ink-soft">Obrigado. Vamos analisar a sua viagem e enviar-lhe por email uma proposta com as coberturas adequadas.</p>
-    <p class="mt-6 inline-block rounded-full bg-paper px-5 py-2 font-mono text-sm">Referência: <strong data-ref></strong></p>
+    <h2 class="mt-6 text-2xl sm:text-3xl">Sem ofertas de momento</h2>
+    <p class="mx-auto mt-3 max-w-md text-ink-soft">Não foi possível obter ofertas para esta viagem neste momento. Experimente alterar as datas, os destinos ou as opções, ou tente novamente dentro de alguns minutos.</p>
+    <button type="button" id="retry-trip" class="btn-primary mt-6">Alterar os dados da viagem</button>
 </div>
 
 <!-- Ofertas -->
@@ -152,8 +125,7 @@ import { COUNTRIES } from '../lib/countries';
     </div>
     <div id="offers-list" class="mt-8 space-y-5"></div>
     <p class="mt-8 text-xs leading-relaxed text-ink-soft">
-        Os preços incluem todas as taxas e são válidos no momento da cotação. A subscrição e o pagamento são concluídos na plataforma da HelloSafe, nossa parceira na
-        distribuição de seguros de viagem. Leia o documento de informação (IPID) e as condições gerais de cada seguro antes de subscrever.
+        Ofertas e preços fornecidos em tempo real pela HelloSafe (HELLO SAFE SAS, intermediário de seguros registado em França no ORIAS n.º 21008038), que comercializa estes seguros; a subscrição e o pagamento são feitos na plataforma da HelloSafe. A Viagem Garantida não vende seguros e é remunerada pela HelloSafe por cada seguro subscrito. A comparação não abrange todos os seguros do mercado. Leia o IPID e as condições gerais antes de subscrever. <a href="/termos" class="underline">Termos</a>
     </p>
     <button type="button" id="edit-trip" class="btn-ghost mt-6">Alterar os dados da viagem</button>
 </section>
@@ -404,6 +376,11 @@ import { COUNTRIES } from '../lib/countries';
         }
     });
 
+    $('retry-trip').addEventListener('click', () => {
+        $('quote-received').classList.add('hidden');
+        form.classList.remove('hidden');
+        form.scrollIntoView({ behavior: 'smooth' });
+    });
     $('edit-trip').addEventListener('click', () => {
         $('quote-offers').classList.add('hidden');
         form.classList.remove('hidden');
@@ -437,9 +414,6 @@ import { COUNTRIES } from '../lib/countries';
             tripPrice: cancel.checked && f.get('tripPrice') ? Number(f.get('tripPrice')) : undefined,
             tripBookedDate: cancel.checked && f.get('tripBookedDate') ? f.get('tripBookedDate') : undefined,
             extremeSports: $<HTMLInputElement>('extremeSports').checked,
-            contact: { name: f.get('name'), email: f.get('email'), phone: (f.get('phone') as string) || undefined },
-            notes: (f.get('notes') as string) || undefined,
-            privacy: $<HTMLInputElement>('privacy').checked,
             website: (f.get('website') as string) || undefined,
             source
         };
@@ -469,7 +443,7 @@ import { COUNTRIES } from '../lib/countries';
                 $('quote-received').scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         } catch (err) {
-            errorBox.textContent = (err as Error).message || 'Ocorreu um erro. Tente novamente ou contacte-nos por email.';
+            errorBox.textContent = (err as Error).message || 'Ocorreu um erro. Tente novamente dentro de instantes.';
             errorBox.classList.remove('hidden');
         } finally {
             submitBtn.disabled = false;

@@ -26,7 +26,7 @@ const path = Astro.url.pathname.replace(/\.html$/, '');
         </nav>
 
         <div class="flex items-center gap-3">
-            <a href="/cotacao" class="btn-primary hidden sm:inline-flex">Pedir cotação</a>
+            <a href="/cotacao" class="btn-primary hidden sm:inline-flex">Comparar seguros</a>
             <button
                 id="menu-toggle"
                 class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 md:hidden"
@@ -44,7 +44,7 @@ const path = Astro.url.pathname.replace(/\.html$/, '');
     <div id="mobile-menu" class="hidden border-t border-ink/5 bg-paper md:hidden">
         <nav class="container-vg flex flex-col py-4" aria-label="Menu móvel">
             {NAV.map((item) => <a href={item.href} class="py-3 text-base font-medium">{item.label}</a>)}
-            <a href="/cotacao" class="btn-sunset mt-3">Pedir cotação</a>
+            <a href="/cotacao" class="btn-sunset mt-3">Comparar seguros</a>
         </nav>
     </div>
 </header>

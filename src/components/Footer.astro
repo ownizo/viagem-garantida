@@ -1,6 +1,6 @@
 ---
 import Logo from './Logo.astro';
-import { SITE, MEDIADOR, CATEGORIES } from '../site';
+import { SITE, OPERATOR, PARTNER, CATEGORIES } from '../site';
 
 const year = new Date().getFullYear();
 ---
@@ -34,10 +34,12 @@ const year = new Date().getFullYear();
         <div>
             <p class="text-xs font-semibold uppercase tracking-[0.2em] text-sunset">Informação</p>
             <ul class="mt-4 space-y-2 text-sm">
-                <li><a class="hover:text-sunset" href="/cotacao">Pedir cotação</a></li>
+                <li><a class="hover:text-sunset" href="/cotacao">Comparar seguros</a></li>
                 <li><a class="hover:text-sunset" href="/sobre">Quem somos</a></li>
-                <li><a class="hover:text-sunset" href="/informacao-legal">Informação legal</a></li>
+                <li><a class="hover:text-sunset" href="/termos">Termos e condições</a></li>
                 <li><a class="hover:text-sunset" href="/privacidade">Política de privacidade</a></li>
+                <li><a class="hover:text-sunset" href="/cookies">Política de cookies</a></li>
+                <li><button type="button" data-cookie-settings class="hover:text-sunset">Definições de cookies</button></li>
                 <li>
                     <a class="hover:text-sunset" href="https://www.livroreclamacoes.pt" target="_blank" rel="noopener">Livro de Reclamações</a>
                 </li>
@@ -48,13 +50,13 @@ const year = new Date().getFullYear();
     <div class="border-t border-paper/10">
         <div class="container-vg py-8 text-xs leading-relaxed text-paper/55">
             <p>
-                {SITE.name} é uma marca da {MEDIADOR.legalName}, {MEDIADOR.category.toLowerCase()}
-                registado na Autoridade de Supervisão de Seguros e Fundos de Pensões (ASF) com o n.º {MEDIADOR.asfRegistration}.
-                O registo pode ser verificado em <a class="underline hover:text-sunset" href={MEDIADOR.asfUrl} target="_blank" rel="noopener">asf.com.pt</a>.
-                Sede: {MEDIADOR.address} (sem atendimento ao público). Não estamos vinculados em exclusividade a nenhuma seguradora.
-                As coberturas, capitais e exclusões de cada seguro constam das condições gerais e particulares da respetiva apólice.
+                {SITE.name} é uma marca da {OPERATOR.legalName} ({OPERATOR.address}) e uma plataforma de informação e marketing sobre seguros de viagem.
+                A {SITE.name} não é seguradora, não vende seguros e não atua como mediador nos contratos apresentados.
+                Os seguros são comercializados pela {PARTNER.legalName} ({PARTNER.name}), intermediário de seguros registado em França no ORIAS com o n.º {PARTNER.orias},
+                junto de quem decorrem a subscrição, o pagamento e o apoio ao cliente. A {SITE.name} é remunerada pela {PARTNER.name} por cada seguro subscrito através do site.
+                As coberturas, capitais e exclusões de cada seguro constam do IPID e das condições gerais e particulares da respetiva apólice.
             </p>
-            <p class="mt-4">© {year} {MEDIADOR.legalName}. Todos os direitos reservados.</p>
+            <p class="mt-4">© {year} {OPERATOR.legalName}. Todos os direitos reservados.</p>
         </div>
     </div>
 </footer>

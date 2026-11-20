@@ -1,5 +1,4 @@
 import { env } from './env';
-import { notifyNewQuote } from './notify';
 import { hellosafeProvider } from './providers/hellosafe';
 import { leadCaptureProvider } from './providers/lead-capture';
 import { loadQuote, newReference, saveQuote } from './store';
@@ -12,7 +11,7 @@ const PROVIDERS: Record<string, InsuranceProvider> = {
 
 /**
  * Fornecedor ativo: INSURANCE_PROVIDER (por omissão "hellosafe").
- * Sem credenciais válidas para o ambiente, cai sempre para a captação de pedidos.
+ * Sem credenciais válidas para o ambiente, devolve "sem ofertas" (o site não faz propostas manuais).
  */
 export function activeProvider(): InsuranceProvider {
     const wanted = env('INSURANCE_PROVIDER') ?? 'hellosafe';
@@ -33,7 +32,7 @@ export async function requestQuote(request: TravelQuoteRequest): Promise<QuoteRe
         result = quote.result;
         session = quote.session;
     } catch (err) {
-        // Falha da API: o pedido não se perde, passa a tratamento manual.
+        // Falha da API: o utilizador vê "sem ofertas de momento" e pode tentar de novo.
         error = (err as Error).message;
         console.error(`[quote] ${provider.id} falhou:`, error);
     }
@@ -47,7 +46,6 @@ export async function requestQuote(request: TravelQuoteRequest): Promise<QuoteRe
         session,
         error
     });
-    await notifyNewQuote(reference, request, result);
     return result;
 }
 

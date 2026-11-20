@@ -46,8 +46,8 @@ Para mobilidades na União Europeia, as universidades aceitam geralmente o **Car
 5. **Certificado sem os dados pedidos** ou apenas em português.
 6. **Cobertura geográfica errada**: uma apólice "Europa" para uma mobilidade no Reino Unido, Suíça ou Turquia pode ter definições de zona diferentes do esperado.
 
-## Como trabalhamos com estudantes e famílias
+## Como comparar com os requisitos na mão
 
-Recebemos a lista de requisitos da universidade, confirmamos cada critério junto das condições da apólice e entregamos o certificado no formato pedido. Se a instituição recusar o documento, analisamos a recusa e ajustamos a solução.
+Antes de subscrever, tenha consigo a lista de requisitos da universidade e confirme cada critério no IPID e nas condições gerais da oferta: capitais, franquia, repatriamento, evacuação médica, duração e zona geográfica. Depois da subscrição, peça o certificado no formato exigido à HelloSafe, que comercializa os seguros apresentados na Viagem Garantida.
 
-[Peça a sua cotação](/cotacao), escolhendo "Estudos" como motivo da viagem, e indique nas notas o nome da universidade e o link para os requisitos de seguro. Para conhecer as coberturas recomendadas para estudantes, leia também [Seguro para estudantes no estrangeiro](/blog/seguro-viagem-estudantes-erasmus).
+[Compare seguros para a sua mobilidade](/cotacao), escolhendo "Estudos ou estágio" como tipo de viagem. Para conhecer as coberturas recomendadas para estudantes, leia também [Seguro para estudantes no estrangeiro](/blog/seguro-viagem-estudantes-erasmus).
