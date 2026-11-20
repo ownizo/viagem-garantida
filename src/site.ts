@@ -7,7 +7,7 @@ export const SITE = {
     tagline: 'Seguros de viagem escolhidos pela proteção, não pelo preço.',
     description:
         'Seguros de viagem para famílias, estudantes e viajantes exigentes: despesas médicas, repatriamento, cancelamento e assistência 24h, com aconselhamento de um mediador registado na ASF.',
-    email: 'insurance@adlerrochefort.com',
+    email: 'geral@viagemgarantida.com',
     phone: '+351 928 226 570',
     phoneHref: 'tel:+351928226570'
 } as const;
