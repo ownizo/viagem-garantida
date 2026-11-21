@@ -16,7 +16,7 @@ const label = CATEGORIES[category];
 const posts = (await getCollection('blog', (p) => p.data.category === category)).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<Layout title={`Guias: ${label}`} description={`Guias de seguro de viagem sobre ${label.toLowerCase()}.`}>
+<Layout title={`Seguro de viagem — guias: ${label}`} description={`Guias práticos de seguro de viagem: ${label.toLowerCase()}. O que verificar nas coberturas antes de comparar e subscrever.`}>
     <PageHeader eyebrow="Guias" title={label}>
         <CategoryNav active={category} />
     </PageHeader>

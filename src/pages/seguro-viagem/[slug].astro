@@ -1,0 +1,170 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import { REGIONS, SITE } from '../../site';
+import { breadcrumbLd, faqLd } from '../../lib/seo';
+
+export async function getStaticPaths() {
+    const list = await getCollection('destinos');
+    return list.map((d) => ({ params: { slug: d.id }, props: { d } }));
+}
+
+const { d } = Astro.props;
+const { Content, headings } = await render(d);
+const toc = headings.filter((h) => h.depth === 2);
+const all = await getCollection('destinos');
+const posts = await getCollection('blog');
+const related = d.data.related.map((id) => posts.find((p) => p.id === id)).filter(Boolean);
+const others = all.filter((x) => x.id !== d.id).sort((a, b) => Number(b.data.region === d.data.region) - Number(a.data.region === d.data.region) || a.data.order - b.data.order).slice(0, 6);
+const dateFmt = new Intl.DateTimeFormat('pt-PT', { day: 'numeric', month: 'long', year: 'numeric' });
+const quoteHref = `/cotacao?destinos=${d.data.code}`;
+
+const ld = [
+    breadcrumbLd([
+        ['Início', '/'],
+        ['Seguro de viagem por destino', '/seguro-viagem'],
+        [`Seguro de viagem ${d.data.country}`, `/seguro-viagem/${d.id}`]
+    ]),
+    {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: d.data.title,
+        description: d.data.description,
+        dateModified: d.data.updatedDate.toISOString(),
+        inLanguage: 'pt-PT',
+        about: { '@type': 'Country', name: d.data.country },
+        mainEntityOfPage: `${SITE.url}/seguro-viagem/${d.id}`,
+        author: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+        publisher: { '@type': 'Organization', name: SITE.name, logo: { '@type': 'ImageObject', url: `${SITE.url}/brand/logo-viagem-garantida.png` } }
+    },
+    ...(d.data.faqs.length ? [faqLd(d.data.faqs)] : [])
+];
+---
+
+<Layout title={d.data.title} description={d.data.description} type="article" jsonLd={ld}>
+    <article>
+        <header class="paper-grain">
+            <div class="container-vg grid gap-10 pb-12 pt-14 sm:pt-20 lg:grid-cols-[1.5fr_1fr] lg:items-end">
+                <div>
+                    <nav class="text-sm text-ink-soft" aria-label="Navegação estrutural">
+                        <a href="/seguro-viagem" class="hover:text-sunset-deep">Destinos</a>
+                        <span class="mx-2">/</span>
+                        <span>{REGIONS[d.data.region]}</span>
+                    </nav>
+                    <h1 class="mt-6 max-w-4xl !text-4xl sm:!text-[3.4rem]">{d.data.title}</h1>
+                    <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">{d.data.description}</p>
+                    <p class="mt-6 text-sm text-ink/50">Atualizado a <time datetime={d.data.updatedDate.toISOString()}>{dateFmt.format(d.data.updatedDate)}</time></p>
+                </div>
+                <div class="rounded-3xl border border-ink/10 bg-white/80 p-7">
+                    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-ink/50">Seguro obrigatório para entrar?</p>
+                    <p class:list={['mt-2 font-serif text-3xl italic', d.data.mandatory ? 'text-sunset-deep' : 'text-sea']}>{d.data.mandatory ? 'Sim' : 'Não, mas indispensável'}</p>
+                    <p class="mt-3 text-sm leading-relaxed text-ink-soft">{d.data.summary}</p>
+                    <a href={quoteHref} class="btn-sunset mt-6 w-full">Comparar seguros para {d.data.country}</a>
+                </div>
+            </div>
+        </header>
+
+        <div class="container-vg grid gap-14 lg:grid-cols-[1fr_260px]">
+            <div class="max-w-[720px]">
+                <section class="rounded-3xl bg-sand/60 p-7 sm:p-9" aria-labelledby="checklist">
+                    <h2 id="checklist" class="!mt-0 text-2xl">O que o seguro deve incluir</h2>
+                    <ul class="mt-5 space-y-3">
+                        {
+                            d.data.checklist.map((item) => (
+                                <li class="flex gap-3 leading-relaxed">
+                                    <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-sunset" aria-hidden="true" />
+                                    <span>{item}</span>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </section>
+                <div class="prose-vg mt-10"><Content /></div>
+
+                {
+                    d.data.faqs.length > 0 && (
+                        <section class="mt-16" aria-labelledby="faq">
+                            <h2 id="faq" class="text-2xl">Perguntas frequentes</h2>
+                            <div class="mt-6 divide-y divide-ink/10 border-y border-ink/10">
+                                {d.data.faqs.map(({ q, a }) => (
+                                    <details class="group py-5">
+                                        <summary class="flex cursor-pointer list-none items-center justify-between gap-6 font-semibold">
+                                            {q}
+                                            <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-ink/15 transition group-open:rotate-45">+</span>
+                                        </summary>
+                                        <p class="mt-3 leading-relaxed text-ink-soft">{a}</p>
+                                    </details>
+                                ))}
+                            </div>
+                        </section>
+                    )
+                }
+                <p class="mt-10 text-xs leading-relaxed text-ink/50">
+                    As regras de entrada podem mudar sem aviso. Antes de viajar, confirme os requisitos no Portal das Comunidades Portuguesas e junto da embaixada ou consulado do país de destino. As coberturas, capitais e exclusões de cada seguro constam do IPID e das condições gerais da apólice.
+                </p>
+            </div>
+            <aside class="hidden lg:block">
+                <div class="sticky top-28 space-y-6">
+                    {
+                        toc.length > 0 && (
+                            <nav aria-label="Nesta página">
+                                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-ink/50">Nesta página</p>
+                                <ul class="mt-4 space-y-3 border-l border-ink/10 text-sm">
+                                    {toc.map((h) => (
+                                        <li>
+                                            <a href={`#${h.slug}`} class="-ml-px block border-l border-transparent pl-4 text-ink-soft hover:border-sunset hover:text-ink">
+                                                {h.text}
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </nav>
+                        )
+                    }
+                    <div class="rounded-3xl bg-ink p-6 text-paper">
+                        <p class="font-semibold">Vai a {d.data.country}?</p>
+                        <p class="mt-2 text-sm text-paper/70">Compare as coberturas dos seguros disponíveis para a sua viagem, ordenadas pela proteção médica.</p>
+                        <a href={quoteHref} class="btn-sunset mt-5 w-full">Comparar seguros</a>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </article>
+
+    {
+        related.length > 0 && (
+            <section class="container-vg mt-20">
+                <h2 class="text-2xl">Guias relacionados</h2>
+                <ul class="mt-6 grid gap-4 md:grid-cols-3">
+                    {related.map((p) => (
+                        <li>
+                            <a href={`/blog/${p!.id}`} class="card block h-full transition hover:border-sunset/40">
+                                <p class="font-semibold leading-snug">{p!.data.title}</p>
+                                <p class="mt-2 line-clamp-2 text-sm text-ink-soft">{p!.data.description}</p>
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </section>
+        )
+    }
+
+    <section class="container-vg mt-20">
+        <h2 class="text-2xl">Outros destinos</h2>
+        <ul class="mt-6 flex flex-wrap gap-3">
+            {
+                others.map((o) => (
+                    <li>
+                        <a href={`/seguro-viagem/${o.id}`} class="inline-block rounded-full border border-ink/15 bg-white/70 px-5 py-2.5 text-sm font-medium hover:border-sunset hover:text-sunset-deep">
+                            Seguro de viagem {o.data.country}
+                        </a>
+                    </li>
+                ))
+            }
+            <li><a href="/seguro-viagem" class="inline-block rounded-full px-5 py-2.5 text-sm font-semibold text-sunset-deep">Todos os destinos →</a></li>
+        </ul>
+    </section>
+
+    <CtaBanner title={`Compare seguros para ${d.data.country}`} />
+</Layout>

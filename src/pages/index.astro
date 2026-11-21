@@ -6,13 +6,15 @@ import CtaBanner from '../components/CtaBanner.astro';
 import { SITE } from '../site';
 import QuoteForm from '../components/QuoteForm.astro';
 
+const destinos = (await getCollection('destinos')).sort((a, b) => a.data.order - b.data.order);
+
 const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const featured = posts.filter((p) => p.data.featured).slice(0, 3);
 
 const audiences = [
     { title: 'Famílias', text: 'Uma apólice para todos, com acompanhamento de menores, regresso antecipado e cancelamento à medida do valor da viagem.', href: '/blog/seguro-viagem-familias', icon: 'M7 20a3 3 0 1 1 0-6 3 3 0 0 1 0 6Zm10 0a3 3 0 1 1 0-6 3 3 0 0 1 0 6ZM12 9a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z' },
     { title: 'Estudantes', text: 'Erasmus, intercâmbio, universidade ou estágio. Seguros de longa duração que cumprem os requisitos da instituição.', href: '/blog/seguro-viagem-estudantes-erasmus', icon: 'M3 9l9-5 9 5-9 5-9-5Zm4 3v4c0 1.5 2.5 3 5 3s5-1.5 5-3v-4' },
-    { title: 'Longo curso', text: 'Ásia, América do Sul, Estados Unidos. Capitais médicos elevados e transporte sanitário de qualquer ponto do mundo.', href: '/blog/destinos-asiaticos-em-alta', icon: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm-9-9h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3Z' },
+    { title: 'Longo curso', text: 'Ásia, América do Sul, Estados Unidos. Capitais médicos elevados e transporte sanitário de qualquer ponto do mundo.', href: '/seguro-viagem', icon: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm-9-9h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3Z' },
     { title: 'Estadias longas', text: 'Sabáticas, nómadas digitais e meses fora. Proteção contínua para além dos limites de um seguro de férias.', href: '/cotacao?purpose=nomada', icon: 'M8 3v3m8-3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z' }
 ];
 
@@ -26,6 +28,9 @@ const coverages = [
 ];
 
 const faqs = [
+    ['O que é um comparador de seguros de viagem?', 'É um serviço que reúne, numa única pesquisa, as ofertas de várias seguradoras para a mesma viagem, com as coberturas e os preços lado a lado. Na Viagem Garantida, as ofertas aparecem ordenadas por omissão pelo capital de despesas médicas, para que compare primeiro a proteção e depois o preço.'],
+    ['Comparar seguros na Viagem Garantida tem custos?', 'Não. A comparação é gratuita e sem compromisso. Paga apenas o prémio do seguro que escolher, ao subscrevê-lo na HelloSafe. A Viagem Garantida é remunerada pela HelloSafe por cada seguro subscrito através do site.'],
+    ['Qual é o melhor seguro de viagem?', 'O que tem o capital de despesas médicas e de repatriamento adequado ao seu destino, a zona geográfica certa, assistência 24h com pagamento direto e exclusões compatíveis com a sua viagem. Só depois disso vale a pena comparar o preço. Explicamos os critérios no guia sobre o melhor seguro de viagem.'],
     ['Preciso de seguro de viagem se tenho o Cartão Europeu de Seguro de Doença?', 'O cartão dá acesso ao sistema público dos países europeus, mas não cobre hospitais privados, repatriamento, assistência, bagagem nem cancelamento. Os dois complementam-se.'],
     ['Quando devo contratar o seguro de cancelamento?', 'No momento da reserva. A cobertura de cancelamento só protege contra eventos que ocorram depois da subscrição.'],
     ['Que capital de despesas médicas devo escolher?', 'Depende do destino. Nos Estados Unidos, Canadá, Japão ou Suíça os cuidados de saúde são muito caros e justificam capitais muito elevados; para a Europa podem ser mais moderados.'],
@@ -45,12 +50,12 @@ const faqLd = {
     <section class="paper-grain relative overflow-hidden">
         <div class="container-vg grid items-start gap-12 pb-20 pt-12 lg:grid-cols-[0.9fr_1.25fr] lg:pt-16">
             <div class="lg:sticky lg:top-28">
-                <span class="eyebrow">Seguros de viagem</span>
+                <span class="eyebrow">Comparador de seguros de viagem</span>
                 <h1 class="mt-6">
-                    Viaje longe.<br /><span class="accent">Volte protegido.</span>
+                    Compare seguros de viagem.<br /><span class="accent">Volte protegido.</span>
                 </h1>
                 <p class="mt-5 max-w-xl text-base leading-relaxed text-ink-soft sm:mt-7 sm:text-lg">
-                    Compare seguros de viagem pelo que realmente conta — despesas médicas, repatriamento, cancelamento e assistência 24h — e não só pelo preço.
+                    O comparador que ordena as ofertas pela proteção médica, não pelo preço. Compare despesas médicas, repatriamento, cancelamento e assistência 24h de várias seguradoras — grátis e sem compromisso.
                 </p>
                 <ol class="mt-9 hidden space-y-4 text-sm leading-relaxed text-ink-soft lg:block">
                     <li class="flex gap-3"><span class="font-serif text-2xl italic leading-none text-sunset">1</span>Indique o destino, as datas e quem viaja.</li>
@@ -72,7 +77,11 @@ const faqLd = {
 
     <!-- POSICIONAMENTO -->
     <section class="border-y border-ink/10 bg-white/50">
-        <div class="container-vg grid gap-10 py-16 md:grid-cols-3">
+        <div class="container-vg pt-16">
+            <span class="eyebrow">Porquê a Viagem Garantida</span>
+            <h2 class="mt-4 max-w-3xl">Um comparador feito para <span class="accent">proteger</span>, não para vender o mais barato</h2>
+        </div>
+        <div class="container-vg grid gap-10 pb-16 pt-10 md:grid-cols-3">
             <div>
                 <p class="font-serif text-5xl italic text-sunset">01</p>
                 <h3 class="mt-3">Proteção antes de preço</h3>
@@ -85,8 +94,8 @@ const faqLd = {
             </div>
             <div>
                 <p class="font-serif text-5xl italic text-sunset">03</p>
-                <h3 class="mt-3">Guias práticos</h3>
-                <p class="mt-2 text-sm leading-relaxed text-ink-soft">Famílias, estudantes, destinos de longo curso e cancelamento: o que verificar num seguro antes de partir.</p>
+                <h3 class="mt-3">Guias por destino e por viagem</h3>
+                <p class="mt-2 text-sm leading-relaxed text-ink-soft">Regras de entrada, riscos e coberturas de cada país, e guias para famílias, estudantes, seniores, ski e cruzeiros. Tudo o que verificar antes de partir.</p>
             </div>
         </div>
     </section>
@@ -155,6 +164,22 @@ const faqLd = {
                 <p class="mt-3 max-w-md text-sm leading-relaxed text-ink-soft">Altitude, Amazónia, trilhos e grandes distâncias. As coberturas que fazem a diferença.</p>
                 <span class="mt-8 inline-block text-sm font-semibold text-sunset-deep group-hover:underline">Ler o guia →</span>
             </a>
+        </div>
+        <div class="mt-10">
+            <h3 class="text-lg">Seguro de viagem por destino</h3>
+            <ul class="mt-5 flex flex-wrap gap-3">
+                {
+                    destinos.map((d) => (
+                        <li>
+                            <a href={`/seguro-viagem/${d.id}`} class="inline-block rounded-full border border-ink/15 bg-white/70 px-5 py-2.5 text-sm font-medium hover:border-sunset hover:text-sunset-deep">
+                                {d.data.country}
+                                {d.data.mandatory && <span class="ml-2 text-[11px] font-semibold uppercase tracking-wider text-sunset-deep">obrigatório</span>}
+                            </a>
+                        </li>
+                    ))
+                }
+                <li><a href="/seguro-viagem" class="inline-block px-5 py-2.5 text-sm font-semibold text-sunset-deep">Todos os destinos →</a></li>
+            </ul>
         </div>
     </section>
 

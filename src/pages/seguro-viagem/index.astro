@@ -1,0 +1,79 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import { REGIONS } from '../../site';
+import { breadcrumbLd, faqLd } from '../../lib/seo';
+
+const list = (await getCollection('destinos')).sort((a, b) => a.data.order - b.data.order);
+const byRegion = Object.entries(REGIONS)
+    .map(([key, label]) => ({ key, label, items: list.filter((d) => d.data.region === key) }))
+    .filter((r) => r.items.length);
+
+const faqs = [
+    { q: 'Em que países é obrigatório ter seguro de viagem?', a: 'Para quem viaja com passaporte português, Cuba é o caso mais conhecido: o seguro com cobertura de despesas médicas é condição de entrada e pode ser pedido no aeroporto. Na maioria dos outros destinos não é obrigatório, mas os cuidados de saúde são pagos na totalidade pelo visitante.' },
+    { q: 'O seguro de viagem cobre vários países na mesma viagem?', a: 'Sim, desde que a zona geográfica da apólice inclua todos os países do itinerário. No comparador pode indicar até 20 destinos na mesma viagem.' },
+    { q: 'Os Estados Unidos e o Canadá precisam de um seguro diferente?', a: 'Muitas seguradoras têm uma zona "Mundo incluindo EUA e Canadá" com prémio mais elevado, porque os custos médicos nesses países são muito superiores. Confirme que a sua apólice inclui essa zona.' }
+];
+
+const ld = [breadcrumbLd([['Início', '/'], ['Seguro de viagem por destino', '/seguro-viagem']]), faqLd(faqs)];
+---
+
+<Layout
+    title="Seguro de viagem por destino: requisitos e coberturas por país"
+    description="Seguro de viagem para Estados Unidos, Brasil, Cuba, Japão, Tailândia, Cabo Verde e outros destinos: o que é obrigatório, os riscos de cada país e as coberturas a comparar."
+    jsonLd={ld}
+>
+    <PageHeader
+        eyebrow="Destinos"
+        title="Seguro de viagem"
+        accent="por destino"
+        intro="Cada país tem custos médicos, regras de entrada e riscos próprios. Escolha o destino e veja o que o seu seguro tem de incluir antes de comparar."
+    />
+
+    <section class="container-vg space-y-14">
+        {
+            byRegion.map((r) => (
+                <div>
+                    <h2 class="text-2xl">{r.label}</h2>
+                    <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                        {r.items.map((d) => (
+                            <a href={`/seguro-viagem/${d.id}`} class="card group flex flex-col transition hover:-translate-y-1 hover:border-sunset/40">
+                                <p class="font-serif text-4xl italic text-sunset/40" aria-hidden="true">{d.data.country}</p>
+                                <h3 class="mt-4 text-lg leading-snug group-hover:text-sunset-deep">Seguro de viagem {d.data.country}</h3>
+                                <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-ink-soft">{d.data.summary}</p>
+                                <span class:list={['mt-auto pt-5 text-xs font-semibold uppercase tracking-[0.15em]', d.data.mandatory ? 'text-sunset-deep' : 'text-sea']}>
+                                    {d.data.mandatory ? 'Seguro obrigatório' : 'Seguro recomendado'}
+                                </span>
+                            </a>
+                        ))}
+                    </div>
+                </div>
+            ))
+        }
+    </section>
+
+    <section class="container-vg mt-24 grid gap-12 lg:grid-cols-[1fr_1.6fr]">
+        <div>
+            <span class="eyebrow">Perguntas frequentes</span>
+            <h2 class="mt-4">Seguro e <span class="accent">destino</span></h2>
+            <p class="mt-5 text-ink-soft">Veja também o guia <a class="font-semibold text-sunset-deep hover:underline" href="/blog/paises-que-exigem-seguro-de-viagem">países que exigem seguro de viagem</a>.</p>
+        </div>
+        <div class="divide-y divide-ink/10 border-y border-ink/10">
+            {
+                faqs.map(({ q, a }) => (
+                    <details class="group py-6">
+                        <summary class="flex cursor-pointer list-none items-center justify-between gap-6 text-lg font-semibold">
+                            {q}
+                            <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-ink/15 transition group-open:rotate-45">+</span>
+                        </summary>
+                        <p class="mt-4 max-w-2xl leading-relaxed text-ink-soft">{a}</p>
+                    </details>
+                ))
+            }
+        </div>
+    </section>
+
+    <CtaBanner />
+</Layout>

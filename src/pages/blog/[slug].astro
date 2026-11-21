@@ -4,6 +4,7 @@ import Layout from '../../layouts/Layout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
 import { CATEGORIES, SITE } from '../../site';
+import { breadcrumbLd } from '../../lib/seo';
 
 export async function getStaticPaths() {
     const posts = await getCollection('blog');
@@ -29,12 +30,19 @@ const articleLd = {
     dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString(),
     inLanguage: 'pt-PT',
     mainEntityOfPage: `${SITE.url}/blog/${post.id}`,
-    author: { '@type': 'Organization', name: SITE.name },
-    publisher: { '@type': 'Organization', name: SITE.name }
+    author: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+    publisher: { '@type': 'Organization', name: SITE.name, logo: { '@type': 'ImageObject', url: `${SITE.url}/brand/logo-viagem-garantida.png` } },
+    articleSection: CATEGORIES[post.data.category]
 };
+const crumbs = breadcrumbLd([
+    ['Início', '/'],
+    ['Guias', '/blog'],
+    [CATEGORIES[post.data.category], `/blog/categoria/${post.data.category}`],
+    [post.data.title, `/blog/${post.id}`]
+]);
 ---
 
-<Layout title={post.data.title} description={post.data.description} type="article" jsonLd={articleLd}>
+<Layout title={post.data.title} description={post.data.description} type="article" jsonLd={[articleLd, crumbs]}>
     <article>
         <header class="paper-grain">
             <div class="container-vg pb-12 pt-14 sm:pt-20">

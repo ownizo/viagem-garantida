@@ -4,6 +4,7 @@ import { CATEGORIES, OPERATOR, PARTNER, SITE } from '../site';
 export const PAGES = [
     { path: '/', title: 'Página inicial', desc: 'Formulário de cotação de seguro de viagem: destinos, datas, idades dos viajantes, cancelamento. Compara ofertas de várias seguradoras disponibilizadas pela HelloSafe.' },
     { path: '/cotacao', title: 'Comparar seguros', desc: 'Formulário completo de comparação; as ofertas podem ser ordenadas por proteção médica ou por preço e subscritas online.' },
+    { path: '/seguro-viagem', title: 'Seguro de viagem por destino', desc: 'Requisitos de entrada e coberturas a comparar por país: Estados Unidos, Brasil, Cuba, Japão, Tailândia, Cabo Verde, México, Canadá, Reino Unido.' },
     { path: '/coberturas', title: 'Coberturas', desc: 'Despesas médicas, repatriamento, assistência 24h, cancelamento, bagagem, responsabilidade civil e acidentes pessoais.' },
     { path: '/seguro-cancelamento', title: 'Seguro de cancelamento', desc: 'O que cobre, exclusões habituais e porque deve ser subscrito no dia da reserva.' },
     { path: '/sobre', title: 'Quem somos', desc: 'Plataforma de informação e marketing da Ownizo, Unipessoal Lda.; os seguros são comercializados pela HelloSafe.' },
@@ -18,7 +19,7 @@ export async function posts() {
 export function header(): string {
     return `# ${SITE.name}
 
-> ${SITE.name} (${SITE.url}) é uma plataforma portuguesa de informação e comparação de seguros de viagem. Compara seguros de viagem de várias seguradoras para residentes em Portugal — famílias, estudantes, viagens de longo curso e estadias longas — com foco na qualidade da proteção (despesas médicas, repatriamento, assistência 24h, cancelamento) e não no preço mais baixo.
+> ${SITE.name} (${SITE.url}) é um comparador português de seguros de viagem. Compara seguros de viagem de várias seguradoras para residentes em Portugal — famílias, estudantes, viagens de longo curso e estadias longas — com foco na qualidade da proteção (despesas médicas, repatriamento, assistência 24h, cancelamento) e não no preço mais baixo.
 
 - Operador: ${OPERATOR.legalName} (${OPERATOR.address}). Serviço online.
 - A ${SITE.name} é uma plataforma de informação e marketing: não é seguradora, não vende seguros e não atua como mediador nos contratos apresentados.
@@ -35,10 +36,18 @@ export async function llmsIndex(): Promise<string> {
     const list = await posts();
     const pages = PAGES.map((p) => `- [${p.title}](${SITE.url}${p.path === '/' ? '' : p.path}): ${p.desc}`).join('\n');
     const guides = list.map((p) => `- [${p.data.title}](${SITE.url}/blog/${p.id}): ${p.data.description}`).join('\n');
+    const dests = (await getCollection('destinos'))
+        .sort((a, b) => a.data.order - b.data.order)
+        .map((d) => `- [${d.data.title}](${SITE.url}/seguro-viagem/${d.id}): ${d.data.mandatory ? 'Seguro obrigatório. ' : ''}${d.data.summary}`)
+        .join('\n');
     return `${header()}
 ## Páginas principais
 
 ${pages}
+
+## Seguro de viagem por destino
+
+${dests}
 
 ## Guias
 
@@ -61,5 +70,12 @@ export async function llmsFull(): Promise<string> {
                     .trim()}\n`
         )
         .join('\n');
-    return `${header()}\n${body}`;
+    const dests = (await getCollection('destinos'))
+        .sort((a, b) => a.data.order - b.data.order)
+        .map(
+            (d) =>
+                `---\n\n# ${d.data.title}\n\nURL: ${SITE.url}/seguro-viagem/${d.id}\nSeguro obrigatório para entrar: ${d.data.mandatory ? 'sim' : 'não'}\n\n> ${d.data.summary}\n\nO que o seguro deve incluir:\n${d.data.checklist.map((c) => `- ${c}`).join('\n')}\n\n${(d.body ?? '').replace(/\]\(\//g, `](${SITE.url}/`).trim()}\n`
+        )
+        .join('\n');
+    return `${header()}\n${dests}\n${body}`;
 }

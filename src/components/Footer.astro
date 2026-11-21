@@ -1,12 +1,15 @@
 ---
 import Logo from './Logo.astro';
+import { getCollection } from 'astro:content';
 import { SITE, OPERATOR, PARTNER, CATEGORIES } from '../site';
+
+const destinos = (await getCollection('destinos')).sort((a, b) => a.data.order - b.data.order).slice(0, 6);
 
 const year = new Date().getFullYear();
 ---
 
 <footer class="mt-24 bg-ink text-paper/80">
-    <div class="container-vg grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1fr]">
+    <div class="container-vg grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
             <Logo inverted class="h-24 w-auto" />
             <p class="mt-5 max-w-sm text-sm leading-relaxed text-paper/70">{SITE.tagline}</p>
@@ -28,6 +31,22 @@ const year = new Date().getFullYear();
                         </li>
                     ))
                 }
+            </ul>
+        </div>
+
+        <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-sunset">Destinos</p>
+            <ul class="mt-4 space-y-2 text-sm">
+                {
+                    destinos.map((d) => (
+                        <li>
+                            <a class="hover:text-sunset" href={`/seguro-viagem/${d.id}`}>
+                                Seguro viagem {d.data.country}
+                            </a>
+                        </li>
+                    ))
+                }
+                <li><a class="hover:text-sunset" href="/seguro-viagem">Todos os destinos</a></li>
             </ul>
         </div>
 

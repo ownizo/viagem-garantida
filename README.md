@@ -1,6 +1,6 @@
 # Viagem Garantida
 
-Site de seguros de viagem — [viagemgarantida.com](https://viagemgarantida.com). Marca da Adler & Rochefort (Ownizo, Unipessoal Lda.), agente de seguros registado na ASF.
+Comparador de seguros de viagem — [viagemgarantida.com](https://viagemgarantida.com). Marca da Ownizo, Unipessoal Lda.: plataforma de informação e marketing; os seguros são comercializados pela HelloSafe.
 
 Astro 6 + Tailwind 4, publicado na Netlify. Páginas estáticas; o endpoint `/api/quote` corre como função serverless.
 
@@ -17,7 +17,8 @@ Para testar o Netlify Blobs localmente use `netlify dev`.
 ## Conteúdo
 
 - Páginas: `src/pages/` (início, cotação, coberturas, cancelamento, quem somos, informação legal, privacidade)
-- Guias/blog: ficheiros Markdown em `src/content/blog/` — para publicar um novo artigo basta criar um `.md` com o mesmo frontmatter dos existentes (`category`: familias, estudantes, destinos, coberturas ou cancelamento)
+- Guias/blog: ficheiros Markdown em `src/content/blog/` — para publicar um novo artigo basta criar um `.md` com o mesmo frontmatter dos existentes (`category`: familias, estudantes, destinos, coberturas, cancelamento ou tipos)
+- Páginas por destino: ficheiros Markdown em `src/content/destinos/` → `/seguro-viagem/[slug]` (frontmatter com país, código ISO, checklist e FAQ)
 - Dados da marca e do mediador: `src/site.ts`
 
 ## Integração com seguradoras

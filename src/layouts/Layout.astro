@@ -20,7 +20,7 @@ const { title, description = SITE.description, type = 'website', jsonLd, noindex
 // Com build.format 'file' o pathname de build pode vir como /pagina.html ou /.html: normalizar para URLs limpos.
 const cleanPath = Astro.url.pathname.replace(/(index)?\.html$/, '').replace(/\/+$/, '') || '/';
 const canonical = new URL(cleanPath, SITE.url).toString().replace(/\/$/, cleanPath === '/' ? '/' : '');
-const fullTitle = title === SITE.name ? `${SITE.name} — Seguros de viagem` : `${title} | ${SITE.name}`;
+const fullTitle = title === SITE.name ? `Comparador de seguros de viagem | ${SITE.name}` : `${title} | ${SITE.name}`;
 
 const orgLd = {
     '@context': 'https://schema.org',
@@ -29,12 +29,24 @@ const orgLd = {
     url: SITE.url,
     email: SITE.email,
     logo: `${SITE.url}/brand/logo-viagem-garantida.png`,
-    description: 'Plataforma de informação e comparação de seguros de viagem. Os seguros são comercializados pela HelloSafe.',
+    description: 'Comparador de seguros de viagem em Portugal, com ofertas ordenadas pela proteção médica. Os seguros são comercializados pela HelloSafe.',
+    slogan: SITE.tagline,
+    knowsAbout: ['Seguro de viagem', 'Seguro de cancelamento de viagem', 'Seguro de viagem para estudantes', 'Seguro de viagem para famílias', 'Repatriamento', 'Assistência em viagem'],
     parentOrganization: { '@type': 'Organization', name: OPERATOR.legalName, legalName: OPERATOR.legalName },
     address: { '@type': 'PostalAddress', streetAddress: 'Av. do Atlântico 16, Esc. 5.07', postalCode: '1990-019', addressLocality: 'Lisboa', addressCountry: 'PT' },
     areaServed: 'PT'
 };
-const ldBlocks = [orgLd, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [])];
+const siteLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE.name,
+    alternateName: 'VG — Comparador de seguros de viagem',
+    url: SITE.url,
+    inLanguage: 'pt-PT',
+    publisher: { '@type': 'Organization', name: SITE.name }
+};
+const isHome = cleanPath === '/';
+const ldBlocks = [orgLd, ...(isHome ? [siteLd] : []), ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [])];
 ---
 
 <!doctype html>
@@ -75,6 +87,8 @@ const ldBlocks = [orgLd, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]
         <meta property="og:description" content={description} />
         <meta property="og:url" content={canonical} />
         <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={fullTitle} />
+        <meta name="twitter:description" content={description} />
 
         {ldBlocks.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
     </head>

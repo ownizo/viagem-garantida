@@ -4,9 +4,9 @@
 export const SITE = {
     name: 'Viagem Garantida',
     url: 'https://viagemgarantida.com',
-    tagline: 'Compare seguros de viagem pela proteção, não só pelo preço.',
+    tagline: 'O comparador de seguros de viagem que ordena pela proteção, não pelo preço.',
     description:
-        'Compare seguros de viagem para famílias, estudantes e viagens de longo curso: despesas médicas, repatriamento, cancelamento e assistência 24h. Guias práticos e comparação de ofertas.',
+        'Comparador de seguros de viagem em Portugal: compare online despesas médicas, repatriamento, cancelamento e assistência 24h de várias seguradoras. Grátis e sem compromisso.',
     email: 'geral@viagemgarantida.com',
     phone: '+351 928 226 570',
     phoneHref: 'tel:+351928226570'
@@ -32,6 +32,7 @@ export const PARTNER = {
 export const LEGAL_UPDATED = '20 de novembro de 2026';
 
 export const NAV = [
+    { href: '/seguro-viagem', label: 'Destinos' },
     { href: '/coberturas', label: 'Coberturas' },
     { href: '/seguro-cancelamento', label: 'Cancelamento' },
     { href: '/blog', label: 'Guias' },
@@ -43,7 +44,16 @@ export const CATEGORIES = {
     estudantes: 'Estudantes',
     destinos: 'Destinos',
     coberturas: 'Coberturas',
-    cancelamento: 'Cancelamento'
+    cancelamento: 'Cancelamento',
+    tipos: 'Tipos de seguro'
+} as const;
+
+export const REGIONS = {
+    europa: 'Europa',
+    americas: 'Américas',
+    caraibas: 'Caraíbas',
+    asia: 'Ásia',
+    africa: 'África'
 } as const;
 
 export type CategoryKey = keyof typeof CATEGORIES;
