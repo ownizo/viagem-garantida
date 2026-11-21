@@ -26,9 +26,13 @@ import { SITE, OPERATOR, PARTNER, LEGAL_UPDATED } from '../site';
             <p>
                 Como qualquer site, o nosso alojamento regista dados técnicos necessários ao funcionamento e à segurança (endereço IP, tipo de navegador, páginas pedidas, data e hora), conservados por períodos curtos para diagnóstico e prevenção de abusos.
             </p>
-            <h3>c) Contactos por email</h3>
+            <h3>c) Estatísticas de visitas</h3>
+            <p>
+                Um contador próprio, sem cookies, regista cada página vista: endereço da página, origem da visita (site de origem e parâmetros de campanha), país, tipo de dispositivo e tempo na página. Não guarda o endereço IP nem a identificação do navegador. Se aceitar a categoria «Estatística», é usado também um identificador de sessão aleatório para agrupar as páginas da mesma visita. Estes dados são guardados na base de dados interna da {OPERATOR.legalName}, alojada na União Europeia (Supabase, Irlanda), e conservados até 25 meses.
+            </p>
+            <h3>d) Contactos por email</h3>
             <p>Se nos escrever, tratamos os dados que nos enviar (nome, email e conteúdo da mensagem) para lhe responder.</p>
-            <h3>d) Cookies e armazenamento local</h3>
+            <h3>e) Cookies e armazenamento local</h3>
             <p>Ver a <a href="/cookies">Política de cookies</a>.</p>
 
             <h2>3. Para que usamos os dados e com que fundamento</h2>
@@ -39,7 +43,8 @@ import { SITE, OPERATOR, PARTNER, LEGAL_UPDATED } from '../site';
                     <tr><td>Encaminhar para a subscrição na {PARTNER.name} e registar a referência da comparação para atribuição e faturação da nossa remuneração</td><td>Interesse legítimo (art. 6.º, n.º 1, al. f))</td></tr>
                     <tr><td>Funcionamento, segurança e prevenção de fraude do site</td><td>Interesse legítimo (art. 6.º, n.º 1, al. f))</td></tr>
                     <tr><td>Responder a contactos</td><td>Interesse legítimo e diligências a pedido do titular</td></tr>
-                    <tr><td>Estatísticas de utilização e marketing (só se ativados)</td><td>Consentimento (art. 6.º, n.º 1, al. a)), dado no banner de cookies</td></tr>
+                    <tr><td>Contagem de visitas sem cookies e sem dados identificativos</td><td>Interesse legítimo em medir a audiência do site (art. 6.º, n.º 1, al. f))</td></tr>
+                    <tr><td>Identificador de sessão para estatísticas e marketing (só se ativados)</td><td>Consentimento (art. 6.º, n.º 1, al. a)), dado no banner de cookies</td></tr>
                     <tr><td>Cumprimento de obrigações legais, fiscais e contabilísticas</td><td>Obrigação legal (art. 6.º, n.º 1, al. c))</td></tr>
                 </tbody>
             </table>
@@ -49,7 +54,7 @@ import { SITE, OPERATOR, PARTNER, LEGAL_UPDATED } from '../site';
                 <li>
                     <strong>{PARTNER.name}</strong> ({PARTNER.legalName}, {PARTNER.registry}, {PARTNER.address}): recebe os dados da viagem para calcular os preços e, se escolher uma oferta, para preparar a subscrição. A partir daí, os dados que introduzir na plataforma da {PARTNER.name} (identificação, contactos, pagamento, eventuais dados de saúde) são tratados exclusivamente pela {PARTNER.name} e pelas seguradoras, nos termos das respetivas políticas de privacidade. A {PARTNER.name} informa-nos das vendas e anulações associadas à nossa referência (identificador da venda, seguradora, montantes e estado), sem dados pessoais do viajante.
                 </li>
-                <li><strong>Prestadores de serviços</strong> que atuam por nossa conta (subcontratantes): alojamento do site e funções de servidor (Netlify) e envio de emails de serviço (Resend).</li>
+                <li><strong>Prestadores de serviços</strong> que atuam por nossa conta (subcontratantes): alojamento do site e funções de servidor (Netlify), base de dados das estatísticas de visitas (Supabase), gestão de etiquetas e estatísticas com consentimento (Google Tag Manager / Google Analytics, Google Ireland Ltd.) e envio de emails de serviço (Resend).</li>
                 <li><strong>Autoridades</strong>, quando a lei o exigir.</li>
             </ul>
             <p>Não vendemos dados pessoais.</p>

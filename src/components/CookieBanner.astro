@@ -9,7 +9,7 @@
         <div id="cookie-main">
             <h2 id="cookie-title" class="text-lg">Cookies</h2>
             <p class="mt-2 text-sm leading-relaxed text-ink-soft">
-                Usamos apenas o armazenamento estritamente necessário para o site funcionar. Com a sua autorização, poderemos usar cookies de estatística e de marketing para melhorar o site e medir campanhas. Pode alterar a escolha a qualquer momento.
+                Usamos apenas o armazenamento estritamente necessário e um contador de visitas sem cookies. Com a sua autorização, guardamos também um identificador de sessão para estatísticas e poderemos usar cookies de marketing para medir campanhas. Pode alterar a escolha a qualquer momento.
                 <a href="/cookies" class="font-semibold text-sunset-deep underline">Política de cookies</a>
             </p>
             <div class="mt-5 flex flex-col gap-2 sm:flex-row sm:justify-end">
@@ -64,6 +64,11 @@
     }
     function apply(c: Consent) {
         (window as any).vgConsent = c;
+        const g = (window as any).gtag;
+        if (typeof g === 'function') {
+            const m = c.marketing ? 'granted' : 'denied';
+            g('consent', 'update', { analytics_storage: c.analytics ? 'granted' : 'denied', ad_storage: m, ad_user_data: m, ad_personalization: m });
+        }
         window.dispatchEvent(new CustomEvent('vg:consent', { detail: c }));
     }
     function save(a: boolean, m: boolean) {
