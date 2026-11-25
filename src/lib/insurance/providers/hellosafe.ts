@@ -14,15 +14,20 @@ import type { CheckoutLink, InsuranceProvider, ProviderQuote, QuoteOffer, Travel
 
 const LANGUAGE = 'pt';
 
+// Valores de Trip.intent da API Atlas (openapi.json v2.3.x).
 const INTENT: Record<TripPurpose, string> = {
     lazer: 'forTourism',
     trabalho: 'forTourism',
     anual: 'annual',
+    schengen: 'schengenArea',
+    cancelamento: 'cancellation',
     estudos: 'studyInternship',
-    nomada: 'digitalNomad',
+    'working-holiday': 'whv',
     cruzeiro: 'cruise',
+    nomada: 'digitalNomad',
     expatriacao: 'expat',
-    'au-pair': 'auPair'
+    'au-pair': 'auPair',
+    humanitaria: 'humanitarian'
 };
 
 interface AtlasOffer {
@@ -108,6 +113,8 @@ export const hellosafeProvider: InsuranceProvider = {
         const { data } = await atlasRequest<AtlasQuoteResponse>(creds, 'POST', '/api/v1/travel/quotes', { trip, language: LANGUAGE });
 
         const offers = (data.offers ?? []).map(fromAtlasOffer);
+        // Registo para diagnóstico (Netlify → Logs → Functions): modo da chave e n.º de ofertas devolvidas.
+        console.log(`[atlas] ${reference} mode=${data.mode} intent=${trip.intent} residence=${trip.countryResidence} offers=${offers.length}`);
         if (offers.length === 0) return { result: { status: 'received', reference } };
 
         return {

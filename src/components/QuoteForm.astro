@@ -1,5 +1,17 @@
 ---
 import { COUNTRIES } from '../lib/countries';
+import { TRIP_PURPOSES } from '../lib/insurance/types';
+
+// Países de residência destacados no topo da lista (mercados de língua portuguesa).
+const FEATURED = ['PT', 'BR', 'AO', 'CV', 'MZ', 'GW', 'ST', 'TL'];
+const featured = FEATURED.map((code) => COUNTRIES.find((c) => c.code === code)!).filter(Boolean);
+// Separadores rápidos (o select "Tipo de viagem" tem a lista completa).
+const TABS = [
+    { value: 'lazer', label: 'Férias' },
+    { value: 'anual', label: 'Anual multiviagem' },
+    { value: 'schengen', label: 'Visto Schengen' },
+    { value: 'cancelamento', label: 'Só cancelamento' }
+];
 // Formulário de comparação. POST /api/quote → ofertas da API HelloSafe Atlas (sem dados pessoais).
 // A escolha de uma oferta chama /api/checkout e redireciona para a subscrição na HelloSafe.
 ---
@@ -9,6 +21,18 @@ import { COUNTRIES } from '../lib/countries';
         <legend class="mb-4 flex items-center gap-3 text-lg font-bold">
             <span class="flex h-8 w-8 items-center justify-center rounded-full bg-sunset text-sm text-white">1</span> A viagem
         </legend>
+        <div class="flex flex-wrap gap-2" role="group" aria-label="Tipo de viagem">
+            {TABS.map((t) => <button type="button" data-purpose-tab={t.value} class="purpose-tab rounded-full border border-ink/15 px-4 py-2 text-sm font-medium transition">{t.label}</button>)}
+        </div>
+        <div>
+            <label class="field-label" for="residence">País de residência (origem)</label>
+            <select class="field" id="residence" name="residence" required>
+                <option value="" selected disabled>Escolha o país onde reside</option>
+                <optgroup label="Língua portuguesa">{featured.map((c) => <option value={c.code}>{c.name}</option>)}</optgroup>
+                <optgroup label="Todos os países">{COUNTRIES.map((c) => <option value={c.code}>{c.name}</option>)}</optgroup>
+            </select>
+            <p id="schengen-hint" class="mt-2 hidden text-xs leading-relaxed text-ink-soft">O seguro para visto Schengen destina-se a quem reside fora do espaço Schengen e precisa de o apresentar no consulado ou na fronteira.</p>
+        </div>
         <div>
             <label class="field-label" for="dest-input">País(es) de destino</label>
             <div class="flex gap-2">
@@ -27,23 +51,10 @@ import { COUNTRIES } from '../lib/countries';
                 <label class="field-label" for="returnDate">Regresso</label>
                 <input class="field" type="date" id="returnDate" name="returnDate" required />
             </div>
-            <div>
+            <div class="sm:col-span-2">
                 <label class="field-label" for="purpose">Tipo de viagem</label>
                 <select class="field" id="purpose" name="purpose">
-                    <option value="lazer">Férias e lazer</option>
-                    <option value="trabalho">Trabalho ou negócios</option>
-                    <option value="anual">Anual multiviagem</option>
-                    <option value="estudos">Estudos ou estágio</option>
-                    <option value="cruzeiro">Cruzeiro</option>
-                    <option value="nomada">Nómada digital / estadia longa</option>
-                    <option value="expatriacao">Expatriação</option>
-                    <option value="au-pair">Au pair</option>
-                </select>
-            </div>
-            <div>
-                <label class="field-label" for="residence">País de residência</label>
-                <select class="field" id="residence" name="residence">
-                    {COUNTRIES.map((c) => <option value={c.code} selected={c.code === 'PT'}>{c.name}</option>)}
+                    {TRIP_PURPOSES.map((p) => <option value={p.value}>{p.label}</option>)}
                 </select>
             </div>
         </div>
@@ -66,7 +77,7 @@ import { COUNTRIES } from '../lib/countries';
         <legend class="mb-4 flex items-center gap-3 text-lg font-bold">
             <span class="flex h-8 w-8 items-center justify-center rounded-full bg-sunset text-sm text-white">3</span> Cancelamento
         </legend>
-        <label class="flex cursor-pointer items-start gap-3 rounded-2xl border border-ink/10 bg-paper/60 p-4">
+        <label id="cancel-label" class="flex cursor-pointer items-start gap-3 rounded-2xl border border-ink/10 bg-paper/60 p-4">
             <input type="checkbox" id="cancellation" class="mt-1 h-5 w-5 accent-[#E2600F]" />
             <span class="text-sm leading-relaxed">
                 <strong class="block text-ink">Quero cobertura de cancelamento</strong>
@@ -161,6 +172,7 @@ import { COUNTRIES } from '../lib/countries';
     const byName = new Map<string, string>();
     const byCode = new Map<string, string>();
     for (const o of Array.from(residence.options)) {
+        if (!o.value) continue;
         byName.set(o.text.toLocaleLowerCase('pt-PT'), o.value);
         byCode.set(o.value, o.text);
     }
@@ -227,12 +239,52 @@ import { COUNTRIES } from '../lib/countries';
         const el = form.elements.namedItem(key) as HTMLInputElement | null;
         if (v && el) el.value = v;
     }
+    const resParam = (params.get('residencia') ?? '').toUpperCase();
+    if (resParam && byCode.has(resParam)) residence.value = resParam;
     if (params.get('cancelamento') === '1') cancel.checked = true;
     cancelWrap.classList.toggle('hidden', !cancel.checked);
     for (const k of ['departureDate', 'returnDate']) (form.elements.namedItem(k) as HTMLInputElement).min = today;
     (form.elements.namedItem('tripBookedDate') as HTMLInputElement).max = today;
     $('add-traveller').addEventListener('click', () => travellersBox.children.length < 50 && addTraveller());
     cancel.addEventListener('change', () => cancelWrap.classList.toggle('hidden', !cancel.checked));
+
+    // Tipo de viagem: separadores rápidos ↔ select, e regras de cada tipo
+    const purposeSel = $<HTMLSelectElement>('purpose');
+    const tripPriceInput = $<HTMLInputElement>('tripPrice');
+    const SCHENGEN = new Set(['AT', 'BE', 'BG', 'HR', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IS', 'IT', 'LV', 'LI', 'LT', 'LU', 'MT', 'NL', 'NO', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'CH']);
+    let forcedCancel = false;
+    function syncPurpose() {
+        const p = purposeSel.value;
+        document.querySelectorAll<HTMLButtonElement>('[data-purpose-tab]').forEach((b) => {
+            const on = b.dataset.purposeTab === p;
+            b.classList.toggle('bg-ink', on);
+            b.classList.toggle('text-paper', on);
+            b.classList.toggle('border-ink', on);
+            b.setAttribute('aria-pressed', String(on));
+        });
+        const onlyCancel = p === 'cancelamento';
+        if (onlyCancel && !cancel.checked) {
+            cancel.checked = true;
+            forcedCancel = true;
+        } else if (!onlyCancel && forcedCancel) {
+            cancel.checked = false;
+            forcedCancel = false;
+        }
+        cancel.disabled = onlyCancel;
+        tripPriceInput.required = cancel.checked;
+        cancelWrap.classList.toggle('hidden', !cancel.checked);
+        $('schengen-hint').classList.toggle('hidden', !(p === 'schengen' && (!residence.value || SCHENGEN.has(residence.value))));
+    }
+    document.querySelectorAll<HTMLButtonElement>('[data-purpose-tab]').forEach((b) =>
+        b.addEventListener('click', () => {
+            purposeSel.value = b.dataset.purposeTab!;
+            syncPurpose();
+        })
+    );
+    purposeSel.addEventListener('change', syncPurpose);
+    residence.addEventListener('change', syncPurpose);
+    cancel.addEventListener('change', syncPurpose);
+    syncPurpose();
 
     // ---------- Apresentação das ofertas ----------
     const LABELS: [string, string][] = [
@@ -410,7 +462,7 @@ import { COUNTRIES } from '../lib/countries';
             returnDate: f.get('returnDate') as string,
             purpose: f.get('purpose'),
             travellers: Array.from(travellersBox.querySelectorAll<HTMLInputElement>('[data-age]')).map((i) => ({ age: Number(i.value) })),
-            cancellation: cancel.checked,
+            cancellation: cancel.checked || f.get('purpose') === 'cancelamento',
             tripPrice: cancel.checked && f.get('tripPrice') ? Number(f.get('tripPrice')) : undefined,
             tripBookedDate: cancel.checked && f.get('tripBookedDate') ? f.get('tripBookedDate') : undefined,
             extremeSports: $<HTMLInputElement>('extremeSports').checked,

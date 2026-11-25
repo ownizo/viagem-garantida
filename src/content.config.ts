@@ -12,7 +12,8 @@ const blog = defineCollection({
         updatedDate: z.coerce.date().optional(),
         readingTime: z.number().int(),
         kicker: z.string().optional(),
-        featured: z.boolean().default(false)
+        featured: z.boolean().default(false),
+        faqs: z.array(z.object({ q: z.string(), a: z.string() })).default([])
     })
 });
 
@@ -22,7 +23,7 @@ const destinos = defineCollection({
     schema: z.object({
         country: z.string(),
         code: z.string().length(2),
-        region: z.enum(['europa', 'americas', 'asia', 'africa', 'caraibas']),
+        region: z.enum(['europa', 'americas', 'asia', 'africa', 'caraibas', 'medio-oriente', 'oceania']),
         title: z.string(),
         description: z.string().max(200),
         mandatory: z.boolean().default(false),

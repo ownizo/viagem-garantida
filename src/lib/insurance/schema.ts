@@ -1,6 +1,6 @@
 import { z } from 'astro/zod';
 import { COUNTRY_CODES } from '../countries';
-import type { TravelQuoteRequest } from './types';
+import { TRIP_PURPOSES, type TravelQuoteRequest, type TripPurpose } from './types';
 
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Data inválida');
 const country = z
@@ -11,11 +11,11 @@ const country = z
 
 export const quoteRequestSchema = z
     .object({
-        residence: country.default('PT'),
+        residence: z.string().trim().min(1, 'Indique o país de residência').toUpperCase().refine((c) => !c || COUNTRY_CODES.has(c), 'País de residência inválido'),
         destinations: z.array(country).min(1, 'Indique pelo menos um país de destino').max(20, 'Máximo de 20 países de destino'),
         departureDate: isoDate,
         returnDate: isoDate,
-        purpose: z.enum(['lazer', 'anual', 'estudos', 'nomada', 'cruzeiro', 'expatriacao', 'au-pair', 'trabalho']),
+        purpose: z.enum(TRIP_PURPOSES.map((p) => p.value) as [TripPurpose, ...TripPurpose[]]),
         travellers: z
             .array(z.object({ age: z.coerce.number().int().min(0).max(120) }))
             .min(1, 'Indique pelo menos um viajante')
@@ -36,12 +36,14 @@ export const quoteRequestSchema = z
         message: 'A data de partida já passou',
         path: ['departureDate']
     })
-    .refine((d) => !d.cancellation || (d.tripPrice ?? 0) > 0, {
+    .refine((d) => !(d.cancellation || d.purpose === 'cancelamento') || (d.tripPrice ?? 0) > 0, {
         message: 'Indique o custo total da viagem para a cobertura de cancelamento',
         path: ['tripPrice']
     });
 
 export function toDomain(input: z.output<typeof quoteRequestSchema>): TravelQuoteRequest {
+    // "Só cancelamento" é sempre um seguro de cancelamento: precisa do custo da viagem.
+    const cancellation = input.cancellation || input.purpose === 'cancelamento';
     return {
         residence: input.residence,
         destinations: [...new Set(input.destinations)],
@@ -49,9 +51,9 @@ export function toDomain(input: z.output<typeof quoteRequestSchema>): TravelQuot
         returnDate: input.returnDate,
         purpose: input.purpose,
         travellers: input.travellers,
-        cancellation: input.cancellation,
-        tripPrice: input.cancellation ? input.tripPrice : undefined,
-        tripBookedDate: input.cancellation ? input.tripBookedDate : undefined,
+        cancellation,
+        tripPrice: cancellation ? input.tripPrice : undefined,
+        tripBookedDate: cancellation ? input.tripBookedDate : undefined,
         extremeSports: input.extremeSports,
         source: input.source
     };

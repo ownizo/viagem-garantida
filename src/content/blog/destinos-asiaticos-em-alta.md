@@ -14,6 +14,8 @@ Em comum, todos estes destinos têm duas coisas: **ficam longe** e **não existe
 
 ## Japão
 
+*Guia completo: [seguro de viagem para o Japão](/seguro-viagem/japao).*
+
 O Japão tem medicina de excelência, mas os estrangeiros pagam o custo integral dos tratamentos e muitos hospitais pedem garantia de pagamento antes de avançar. As próprias autoridades de turismo japonesas recomendam aos visitantes que viajem com seguro.
 
 **O que procurar no seguro:**
@@ -29,6 +31,8 @@ Seul tornou-se um dos destinos urbanos mais procurados. A saúde é moderna e ef
 
 ## Tailândia
 
+*Guia completo: [seguro de viagem para a Tailândia](/seguro-viagem/tailandia).*
+
 A Tailândia continua a ser a porta de entrada do Sudeste Asiático. Os hospitais privados de Banguecoque, Phuket ou Chiang Mai têm bom nível, mas a fatura é privada e pode subir depressa em caso de internamento.
 
 **Riscos típicos e coberturas a confirmar:**
@@ -40,9 +44,13 @@ A Tailândia continua a ser a porta de entrada do Sudeste Asiático. Os hospitai
 
 ## Vietname
 
+*Guia completo: [seguro de viagem para o Vietname](/seguro-viagem/vietname).*
+
 Do norte de Hanói e da baía de Halong ao delta do Mekong, o Vietname é cada vez mais escolhido para roteiros de duas ou três semanas. Fora das grandes cidades, os cuidados de saúde são limitados e, em situações graves, pode ser necessário **evacuar o doente para outro país da região**. É precisamente aí que o capital de repatriamento e transporte sanitário faz a diferença. Também aqui as motas são o grande risco.
 
 ## Bali e Indonésia
+
+*Guia completo: [seguro de viagem para a Indonésia e Bali](/seguro-viagem/indonesia).*
 
 Bali reúne praia, surf, templos e retiros de yoga — e uma comunidade crescente de nómadas digitais. Três pontos de atenção:
 

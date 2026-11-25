@@ -29,7 +29,9 @@ Sem credenciais, com chave sandbox não autorizada, sem ofertas ou com erro da A
 | `src/pages/api/quote.ts`, `checkout.ts`, `webhooks/hellosafe.ts` | Endpoints serverless |
 | `src/components/QuoteForm.astro` | Formulário, lista de ofertas (ordenação por proteção médica ou preço), escolha |
 
-Mapeamento do tipo de viagem → `intent`: lazer/trabalho → `forTourism`, anual → `annual`, estudos → `studyInternship`, nómada → `digitalNomad`, cruzeiro → `cruise`, expatriação → `expat`, au pair → `auPair`. Língua do funil: `pt`. Moeda: `EUR`. `tripPrice` é o custo total da viagem para todo o grupo.
+Mapeamento do tipo de viagem → `intent`: lazer/trabalho → `forTourism`, anual → `annual`, schengen → `schengenArea`, cancelamento (só cancelamento, exige `tripPrice`) → `cancellation`, estudos → `studyInternship`, working-holiday → `whv`, cruzeiro → `cruise`, nómada → `digitalNomad`, expatriação → `expat`, au pair → `auPair`, humanitária → `humanitarian`. O país de residência não tem valor por omissão (o viajante escolhe; `?residencia=BR` pré-preenche). Língua do funil: `pt`. Moeda: `EUR`. `tripPrice` é o custo total da viagem para todo o grupo.
+
+Diagnóstico: cada cotação regista nos logs da função `[atlas] <ref> mode=<sandbox|live> intent=… residence=… offers=<n>`. Com uma chave sandbox, a API responde com dados fixos de uma seguradora fictícia (normalmente uma só oferta).
 
 ## Ativar
 
