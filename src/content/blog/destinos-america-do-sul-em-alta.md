@@ -35,6 +35,8 @@ Buenos Aires, Mendoza, as Cataratas do Iguaçu e a Patagónia — El Calafate, E
 
 ## Brasil
 
+*Guia completo: [seguro de viagem para o Brasil](/seguro-viagem/brasil).*
+
 O Brasil é, para muitos portugueses, quase uma segunda casa. Ainda assim, o acesso ao sistema público brasileiro não substitui um seguro de viagem: na prática, o turista recorre a hospitais privados, com custos privados. Para o Nordeste, o Pantanal ou a Amazónia, confirme a cobertura de **transporte sanitário** para um centro hospitalar de referência. Em viagens de negócios a São Paulo ou ao Rio de Janeiro, um seguro anual multiviagem pode compensar.
 
 ## Chile e Atacama

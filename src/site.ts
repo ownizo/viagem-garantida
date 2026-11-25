@@ -52,7 +52,9 @@ export const REGIONS = {
     europa: 'Europa',
     americas: 'Américas',
     caraibas: 'Caraíbas',
+    'medio-oriente': 'Médio Oriente',
     asia: 'Ásia',
+    oceania: 'Oceânia',
     africa: 'África'
 } as const;
 

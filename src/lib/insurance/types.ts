@@ -5,7 +5,35 @@
  * ./providers que traduz estes tipos de e para o formato da sua API (hoje: HelloSafe Atlas).
  */
 
-export type TripPurpose = 'lazer' | 'anual' | 'estudos' | 'nomada' | 'cruzeiro' | 'expatriacao' | 'au-pair' | 'trabalho';
+export type TripPurpose =
+    | 'lazer'
+    | 'trabalho'
+    | 'anual'
+    | 'schengen'
+    | 'cancelamento'
+    | 'estudos'
+    | 'working-holiday'
+    | 'cruzeiro'
+    | 'nomada'
+    | 'expatriacao'
+    | 'au-pair'
+    | 'humanitaria';
+
+/** Tipos de viagem por ordem de apresentação no formulário. */
+export const TRIP_PURPOSES: { value: TripPurpose; label: string }[] = [
+    { value: 'lazer', label: 'Férias e lazer' },
+    { value: 'trabalho', label: 'Trabalho ou negócios' },
+    { value: 'anual', label: 'Anual multiviagem' },
+    { value: 'schengen', label: 'Visto Schengen (viagem à Europa)' },
+    { value: 'cancelamento', label: 'Só cancelamento' },
+    { value: 'estudos', label: 'Estudos ou estágio' },
+    { value: 'working-holiday', label: 'Working Holiday (visto férias-trabalho)' },
+    { value: 'cruzeiro', label: 'Cruzeiro' },
+    { value: 'nomada', label: 'Nómada digital / estadia longa' },
+    { value: 'expatriacao', label: 'Expatriação' },
+    { value: 'au-pair', label: 'Au pair' },
+    { value: 'humanitaria', label: 'Missão humanitária / voluntariado' }
+];
 
 export interface Traveller {
     /** Idade na data de partida. */
