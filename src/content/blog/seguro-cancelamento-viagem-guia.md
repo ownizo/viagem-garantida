@@ -32,7 +32,7 @@ A lista exata depende da apólice, mas as causas mais comuns são:
 - **Convocatória para exames** de recurso ou para um novo emprego, em apólices mais completas.
 - **Roubo de documentos** essenciais nos dias anteriores à partida.
 
-As apólices mais abrangentes acrescentam causas como o cancelamento do acompanhante de viagem também segurado, ou mesmo coberturas de **"cancelamento por qualquer motivo"**, com reembolso parcial.
+As apólices mais abrangentes acrescentam causas como o cancelamento do acompanhante de viagem também segurado, ou mesmo coberturas de **"cancelamento por qualquer motivo"**, com reembolso parcial. Explicamos como funcionam no guia do [cancelamento por qualquer motivo](/blog/seguro-cancelamento-qualquer-motivo) e comparamos as três formas de cobertura em [lista de motivos ou qualquer motivo justificado](/blog/cancelamento-lista-de-motivos-ou-motivo-justificado).
 
 ## O que normalmente não está coberto
 

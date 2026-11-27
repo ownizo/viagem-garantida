@@ -40,7 +40,7 @@ O seguro reembolsa as despesas **já pagas e não recuperáveis** se tiver de ca
 - convocatória judicial ou para exames oficiais;
 - despedimento, em algumas apólices.
 
-As apólices mais completas aceitam **qualquer motivo justificado** e documentado. Detalhamos as diferenças no [guia de seguro de cancelamento](/blog/seguro-cancelamento-viagem-guia).
+As apólices mais completas aceitam **qualquer motivo justificado** e documentado. Detalhamos as diferenças no [guia de seguro de cancelamento](/blog/seguro-cancelamento-viagem-guia). E se quer poder cancelar sem justificação, veja como funciona o [cancelamento por qualquer motivo](/blog/seguro-cancelamento-qualquer-motivo).
 
 ## O capital: indique o custo total
 
