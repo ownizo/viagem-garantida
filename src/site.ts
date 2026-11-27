@@ -12,6 +12,9 @@ export const SITE = {
     phoneHref: 'tel:+351928226570'
 } as const;
 
+/** Redes sociais oficiais (ícones no rodapé e sameAs nos dados estruturados). */
+export const SOCIAL = [{ network: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/viagem.garantida.seguros/' }] as const;
+
 /** Entidade que explora a plataforma (marketing e informação; não vende seguros neste site). */
 export const OPERATOR = {
     legalName: 'Ownizo, Unipessoal Lda.',

@@ -6,7 +6,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CookieBanner from '../components/CookieBanner.astro';
 import VisitTracker from '../components/VisitTracker.astro';
-import { SITE, OPERATOR } from '../site';
+import { SITE, OPERATOR, SOCIAL } from '../site';
 
 interface Props {
     title: string;
@@ -32,6 +32,7 @@ const orgLd = {
     description: 'Comparador de seguros de viagem em Portugal, com ofertas ordenadas pela proteção médica. Os seguros são comercializados pela HelloSafe.',
     slogan: SITE.tagline,
     knowsAbout: ['Seguro de viagem', 'Seguro de cancelamento de viagem', 'Seguro de viagem para estudantes', 'Seguro de viagem para famílias', 'Repatriamento', 'Assistência em viagem'],
+    sameAs: SOCIAL.map((s) => s.href),
     parentOrganization: { '@type': 'Organization', name: OPERATOR.legalName, legalName: OPERATOR.legalName },
     address: { '@type': 'PostalAddress', streetAddress: 'Av. do Atlântico 16, Esc. 5.07', postalCode: '1990-019', addressLocality: 'Lisboa', addressCountry: 'PT' },
     areaServed: 'PT'
