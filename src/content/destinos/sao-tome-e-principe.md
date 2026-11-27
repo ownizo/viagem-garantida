@@ -3,6 +3,7 @@ country: 'São Tomé e Príncipe'
 code: 'ST'
 region: africa
 title: 'Seguro de viagem para São Tomé e Príncipe: ilhas remotas e evacuação médica'
+seoTitle: "Seguro de viagem para São Tomé e Príncipe"
 description: 'Seguro de viagem para São Tomé e Príncipe: isenção de visto até 15 dias, recursos de saúde limitados, malária, evacuação médica e as coberturas a comparar.'
 mandatory: false
 summary: 'Não é exigido para entrar. Os portugueses estão isentos de visto até 15 dias. Mas os recursos de saúde são limitados e um caso grave exige quase sempre evacuação para Portugal.'

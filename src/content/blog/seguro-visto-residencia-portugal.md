@@ -1,6 +1,7 @@
 ---
 title: 'Seguro para visto de residência em Portugal: estudo, trabalho, D7 e nómadas'
-description: 'Que seguro pede o consulado para um visto de estudo, trabalho, D7 ou nómada digital em Portugal? O que deve cobrir, a dispensa da CPLP e o que fazer depois de chegar.'
+seoTitle: "Seguro para visto de residência em Portugal"
+description: "Seguro para visto de residência em Portugal: o que pedem os consulados para estudo, trabalho, D7 e nómadas digitais, e como escolher a apólice certa."
 category: tipos
 pubDate: 2026-11-25
 readingTime: 7

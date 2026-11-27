@@ -1,6 +1,7 @@
 ---
 title: 'Seguro viagem Europa para brasileiros: é obrigatório? 30 mil euros, ETIAS e PB4'
-description: 'Brasileiro precisa de seguro viagem para a Europa? A regra dos 30 mil euros, o que a fronteira pode pedir, o EES, o ETIAS, o PB4 e como escolher o seguro certo.'
+seoTitle: "Seguro viagem Europa para brasileiros: é obrigatório?"
+description: "Seguro viagem Europa para brasileiros: quando é obrigatório, a regra dos 30 mil euros, o ETIAS e o PB4. O que precisa para entrar sem problemas."
 category: destinos
 pubDate: 2026-11-25
 readingTime: 8

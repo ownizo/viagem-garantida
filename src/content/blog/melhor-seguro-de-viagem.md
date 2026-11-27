@@ -1,6 +1,7 @@
 ---
 title: 'Qual é o melhor seguro de viagem? Os 7 critérios que realmente contam'
-description: 'Não existe um melhor seguro de viagem para todos — existe o melhor para a sua viagem. Os critérios para comparar e escolher, do capital médico às exclusões.'
+seoTitle: "Qual é o melhor seguro de viagem? 7 critérios"
+description: "Capital médico, repatriamento, cancelamento, franquias e assistência: os 7 critérios que realmente contam para escolher o melhor seguro de viagem."
 category: tipos
 pubDate: 2026-11-21
 readingTime: 9

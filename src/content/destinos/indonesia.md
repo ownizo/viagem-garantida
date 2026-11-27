@@ -3,6 +3,7 @@ country: 'Indonésia'
 code: 'ID'
 region: asia
 title: 'Seguro de viagem para Bali e Indonésia: scooters, vulcões e evacuação'
+seoTitle: "Seguro de viagem para Bali e Indonésia"
 description: 'Seguro de viagem para Bali e Indonésia: visto à chegada, taxa turística de Bali, scooters sem carta, trekking em vulcões, mergulho e evacuação médica.'
 mandatory: false
 summary: 'Não é exigido para entrar. Mas os acidentes de scooter são a primeira causa de problemas em Bali, e fora das zonas turísticas um caso grave pode exigir evacuação para Singapura ou Austrália.'

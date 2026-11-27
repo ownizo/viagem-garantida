@@ -1,6 +1,6 @@
 ---
 title: 'Seguro de viagem para ski e neve: o que cobre e o que exclui'
-description: 'Vai fazer ski na Serra Nevada, nos Alpes, em Andorra ou no Japão? O que deve ter o seguro: resgate em pista, fora-de-pista, material e cancelamento por falta de neve.'
+description: "Seguro de viagem para ski e neve: resgate na montanha, fora de pista, equipamento e responsabilidade civil. O que cobre e o que costuma ficar de fora."
 category: tipos
 pubDate: 2026-11-21
 readingTime: 7

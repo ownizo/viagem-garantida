@@ -1,6 +1,7 @@
 ---
 title: 'Coberturas médicas essenciais num seguro de viagem — e porque importam'
-description: 'Despesas médicas, hospitalização, repatriamento, transporte sanitário e assistência 24h. As coberturas que decidem se um seguro de viagem funciona quando é preciso.'
+seoTitle: "Coberturas médicas essenciais num seguro de viagem"
+description: "Despesas médicas, repatriamento, pagamento direto ao hospital e assistência 24h: as coberturas médicas que mais contam e os capitais a escolher."
 category: coberturas
 pubDate: 2026-11-15
 readingTime: 8

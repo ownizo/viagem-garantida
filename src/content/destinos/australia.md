@@ -3,7 +3,8 @@ country: 'Austrália'
 code: 'AU'
 region: oceania
 title: 'Seguro de viagem para a Austrália: eVisitor, Medicare e longas distâncias'
-description: 'Seguro de viagem para a Austrália: eVisitor gratuito para portugueses, porque o Medicare não cobre turistas, distâncias enormes, mergulho e as coberturas a comparar.'
+seoTitle: "Seguro de viagem para a Austrália: o que cobrir"
+description: "Seguro de viagem para a Austrália: eVisitor, o que o Medicare não cobre a turistas e as coberturas certas para uma viagem de longa distância."
 mandatory: false
 summary: 'Não é exigido para turismo. Mas os portugueses não têm acesso ao sistema público australiano, os custos médicos são elevados e as distâncias tornam o transporte sanitário muito caro.'
 checklist:

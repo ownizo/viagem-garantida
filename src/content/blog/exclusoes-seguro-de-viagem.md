@@ -1,6 +1,7 @@
 ---
 title: 'Exclusões do seguro de viagem: o que fica de fora e como evitar surpresas'
-description: 'Doenças preexistentes, álcool, desportos de risco, tratamentos planeados e destinos desaconselhados. As exclusões mais comuns e o que verificar antes de partir.'
+seoTitle: "Exclusões do seguro de viagem: o que fica de fora"
+description: "Doenças preexistentes, desportos de risco, álcool, países desaconselhados: as exclusões mais comuns do seguro de viagem e como evitar surpresas."
 category: coberturas
 pubDate: 2026-11-25
 readingTime: 8

@@ -3,7 +3,8 @@ country: 'Vietname'
 code: 'VN'
 region: asia
 title: 'Seguro de viagem para o Vietname: e-visa, motas e hospitais internacionais'
-description: 'Seguro de viagem para o Vietname: e-visa para portugueses, condução de mota, hospitais internacionais em Hanói e Ho Chi Minh, Ha Long e as coberturas a comparar.'
+seoTitle: "Seguro de viagem para o Vietname: o que cobrir"
+description: "Seguro de viagem para o Vietname: e-visa, motas, hospitais internacionais e evacuação médica. As coberturas a escolher antes de viajar."
 mandatory: false
 summary: 'Não é exigido para entrar. Os portugueses precisam de e-visa. Os bons hospitais concentram-se em Hanói e Ho Chi Minh, e os acidentes de mota são o risco número um.'
 checklist:

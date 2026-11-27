@@ -3,6 +3,7 @@ country: 'Estados Unidos'
 code: 'US'
 region: americas
 title: 'Seguro de viagem para os Estados Unidos: o que precisa de saber'
+seoTitle: "Seguro de viagem para os Estados Unidos"
 description: 'Seguro de viagem para os EUA: porque os capitais médicos têm de ser muito elevados, o que confirmar na zona geográfica e como preparar a viagem com ESTA.'
 mandatory: false
 summary: 'Não é exigido para entrar, mas os EUA têm os cuidados de saúde mais caros do mundo e o visitante paga tudo. Um internamento pode custar dezenas de milhares de euros.'

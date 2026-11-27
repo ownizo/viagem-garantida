@@ -3,6 +3,7 @@ country: 'Tailândia'
 code: 'TH'
 region: asia
 title: 'Seguro de viagem para a Tailândia: motas, ilhas e hospitais privados'
+seoTitle: "Seguro de viagem para a Tailândia: o que cobrir"
 description: 'Seguro de viagem para a Tailândia: a discussão sobre seguro obrigatório, acidentes de scooter, mergulho, hospitais privados e as coberturas a confirmar.'
 mandatory: false
 summary: 'À data desta atualização não é exigido, mas o governo tailandês tem em discussão tornar obrigatório um seguro para turistas. Os hospitais privados faturam ao preço internacional.'

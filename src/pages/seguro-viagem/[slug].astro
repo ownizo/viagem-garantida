@@ -42,7 +42,7 @@ const ld = [
 ];
 ---
 
-<Layout title={d.data.title} description={d.data.description} type="article" jsonLd={ld}>
+<Layout title={d.data.seoTitle ?? d.data.title} description={d.data.description} type="article" jsonLd={ld}>
     <article>
         <header class="paper-grain">
             <div class="container-vg grid gap-10 pb-12 pt-14 sm:pt-20 lg:grid-cols-[1.5fr_1fr] lg:items-end">

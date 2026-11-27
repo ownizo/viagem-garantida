@@ -3,6 +3,7 @@ country: 'Japão'
 code: 'JP'
 region: asia
 title: 'Seguro de viagem para o Japão: medicina excelente, mas paga por inteiro'
+seoTitle: "Seguro de viagem para o Japão: o que cobrir"
 description: 'Seguro de viagem para o Japão: porque os hospitais pedem garantia de pagamento, a barreira linguística, ski em Hokkaido e as coberturas a comparar.'
 mandatory: false
 summary: 'Não é exigido para entrar, mas as autoridades japonesas recomendam-no. O visitante paga o custo integral dos tratamentos e muitos hospitais pedem garantia de pagamento.'

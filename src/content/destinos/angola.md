@@ -3,7 +3,8 @@ country: 'Angola'
 code: 'AO'
 region: africa
 title: 'Seguro de viagem para Angola: isenção de visto, saúde privada e evacuação'
-description: 'Seguro de viagem para Angola: isenção de visto de turismo para portugueses, clínicas privadas em Luanda, malária, evacuação médica e as coberturas a comparar.'
+seoTitle: "Seguro de viagem para Angola: saúde e evacuação"
+description: "Seguro de viagem para Angola: isenção de visto, saúde privada em Luanda e evacuação médica. As coberturas a escolher antes de viajar."
 mandatory: false
 summary: 'Não é exigido para entrar. Os portugueses estão isentos de visto de turismo até 30 dias por entrada. Mas a saúde de qualidade é privada e cara, e um caso grave pode exigir evacuação para Portugal ou para a África do Sul.'
 checklist:

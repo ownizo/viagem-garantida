@@ -3,6 +3,7 @@ country: 'Turquia'
 code: 'TR'
 region: medio-oriente
 title: 'Seguro de viagem para a Turquia: Istambul, Capadócia e hospitais privados'
+seoTitle: "Seguro de viagem para a Turquia: o que cobrir"
 description: 'Seguro de viagem para a Turquia: hospitais privados caros para turistas, balões na Capadócia, turismo de saúde e as coberturas a comparar antes de partir.'
 mandatory: false
 summary: 'Não é exigido aos portugueses, que entram sem visto em estadias turísticas curtas. Mas o Cartão Europeu não funciona e os hospitais privados que atendem turistas cobram valores elevados.'

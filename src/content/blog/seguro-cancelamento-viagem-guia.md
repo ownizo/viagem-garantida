@@ -1,5 +1,6 @@
 ---
 title: 'Seguro de cancelamento de viagem: quando reembolsa, quando não, e quando subscrever'
+seoTitle: "Seguro de cancelamento de viagem: guia completo"
 description: 'Causas cobertas, exclusões, o momento certo para subscrever e a diferença entre o seguro e os direitos que já tem perante a companhia aérea ou a agência.'
 category: cancelamento
 pubDate: 2026-11-14

@@ -3,6 +3,7 @@ country: 'Cabo Verde'
 code: 'CV'
 region: africa
 title: 'Seguro de viagem para Cabo Verde: ilhas, praias e evacuação médica'
+seoTitle: "Seguro de viagem para Cabo Verde: o que cobrir"
 description: 'Seguro de viagem para Cabo Verde: pré-registo EASE, recursos de saúde limitados nas ilhas turísticas, evacuação médica e as coberturas a comparar.'
 mandatory: false
 summary: 'Não é exigido para entrar. Mas nas ilhas turísticas os recursos hospitalares são limitados e um caso grave pode exigir evacuação para outra ilha ou para a Europa.'

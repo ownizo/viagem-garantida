@@ -1,6 +1,7 @@
 ---
 title: 'Seguro de viagem para a Europa: Cartão Europeu, Schengen e países fora da UE'
-description: 'Seguro de viagem para a Europa: quando o Cartão Europeu chega e quando não, Reino Unido e Suíça, roteiros por vários países, neve e a regra dos 30 000 € para quem vem de fora.'
+seoTitle: "Seguro de viagem para a Europa: o que precisa"
+description: "Seguro de viagem para a Europa: o que o Cartão Europeu de Seguro de Doença cobre, as regras do visto Schengen e os países fora da UE."
 category: destinos
 pubDate: 2026-11-25
 readingTime: 6

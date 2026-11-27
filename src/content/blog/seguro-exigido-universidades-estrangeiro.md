@@ -1,5 +1,6 @@
 ---
 title: 'Seguros exigidos pelas universidades estrangeiras: como cumprir sem pagar a mais'
+seoTitle: "Seguro exigido por universidades estrangeiras"
 description: 'Requisitos mínimos, waivers, certificados em inglês e vistos de estudante. O que as universidades pedem e como provar que o seu seguro cumpre.'
 category: estudantes
 pubDate: 2026-11-18

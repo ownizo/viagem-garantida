@@ -3,7 +3,8 @@ country: 'República Dominicana'
 code: 'DO'
 region: caraibas
 title: 'Seguro de viagem para a República Dominicana: Punta Cana sem surpresas'
-description: 'Seguro de viagem para a República Dominicana: e-Ticket obrigatório, clínicas privadas em Punta Cana, época de furacões, excursões e as coberturas a comparar.'
+seoTitle: "Seguro de viagem para a República Dominicana"
+description: "Seguro de viagem para a República Dominicana e Punta Cana: hospitais privados, atividades na água e as coberturas que evitam surpresas."
 mandatory: false
 summary: 'Não é exigido para entrar. Mas em Punta Cana e nas outras zonas de resort o atendimento é privado e caro, e a época de furacões pode afetar a viagem.'
 checklist:

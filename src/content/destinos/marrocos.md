@@ -3,7 +3,8 @@ country: 'Marrocos'
 code: 'MA'
 region: africa
 title: 'Seguro de viagem para Marrocos: deserto, Atlas e clínicas privadas'
-description: 'Seguro de viagem para Marrocos: porque o Cartão Europeu não funciona, clínicas privadas nas cidades, excursões ao deserto e ao Atlas e as coberturas a comparar.'
+seoTitle: "Seguro de viagem para Marrocos: o que cobrir"
+description: "Seguro de viagem para Marrocos: deserto, Atlas e clínicas privadas. As coberturas médicas e de repatriamento a escolher antes de viajar."
 mandatory: false
 summary: 'Não é exigido para entrar. Marrocos está fora da União Europeia: o Cartão Europeu não serve e o turista recorre a clínicas privadas, que pedem pagamento ou garantia antes de tratar.'
 checklist:

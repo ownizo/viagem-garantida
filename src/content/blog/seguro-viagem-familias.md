@@ -1,5 +1,6 @@
 ---
 title: 'Seguro de viagem para famílias: o que proteger quando viajam todos juntos'
+seoTitle: "Seguro de viagem para famílias: o que proteger"
 description: 'Crianças, avós e muitas reservas no mesmo nome. Guia prático para escolher um seguro de viagem familiar com as coberturas que realmente contam.'
 category: familias
 pubDate: 2026-11-20

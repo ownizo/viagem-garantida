@@ -3,6 +3,7 @@ country: 'Brasil'
 code: 'BR'
 region: americas
 title: 'Seguro de viagem para o Brasil: SUS, hospitais privados e o que cobrir'
+seoTitle: "Seguro de viagem para o Brasil: SUS e hospitais"
 description: 'Seguro de viagem para o Brasil: o acesso ao SUS pelo acordo luso-brasileiro, porque os hospitais privados exigem seguro e as coberturas a confirmar.'
 mandatory: false
 summary: 'Não é exigido para entrar. O acordo de segurança social dá acesso ao SUS, mas os hospitais privados — onde a maioria dos turistas é tratada — cobram tudo.'

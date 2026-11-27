@@ -1,5 +1,6 @@
 ---
 title: 'Seguro de viagem para cruzeiros: o que muda quando a viagem é no mar'
+seoTitle: "Seguro de viagem para cruzeiros: o que muda"
 description: 'Num cruzeiro, o centro médico de bordo fatura à parte e uma evacuação no mar é cara. O que deve ter o seguro, do desembarque médico às escalas perdidas.'
 category: tipos
 pubDate: 2026-11-21

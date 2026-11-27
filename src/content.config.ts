@@ -6,6 +6,8 @@ const blog = defineCollection({
     loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
     schema: z.object({
         title: z.string(),
+        /** Título curto para o Google (máx. 60 caracteres); o H1 mantém `title`. */
+        seoTitle: z.string().max(60).optional(),
         description: z.string().max(200),
         category: z.enum(['familias', 'estudantes', 'destinos', 'coberturas', 'cancelamento', 'tipos']),
         pubDate: z.coerce.date(),
@@ -25,6 +27,7 @@ const destinos = defineCollection({
         code: z.string().length(2),
         region: z.enum(['europa', 'americas', 'asia', 'africa', 'caraibas', 'medio-oriente', 'oceania']),
         title: z.string(),
+        seoTitle: z.string().max(60).optional(),
         description: z.string().max(200),
         mandatory: z.boolean().default(false),
         summary: z.string(),

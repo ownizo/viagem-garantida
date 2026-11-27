@@ -1,6 +1,7 @@
 ---
 title: 'Países que exigem seguro de viagem: a lista para quem viaja com passaporte português'
-description: 'Em que países o seguro de viagem é obrigatório para portugueses, onde está em discussão e onde, não sendo obrigatório, é indispensável. Atualizado em novembro de 2026.'
+seoTitle: "Países que exigem seguro de viagem: a lista"
+description: "Os países que exigem seguro de viagem a quem viaja com passaporte português, o que pedem à chegada e os destinos onde é fortemente recomendado."
 category: destinos
 pubDate: 2026-11-21
 readingTime: 7

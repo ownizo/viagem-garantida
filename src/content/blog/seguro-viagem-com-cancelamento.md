@@ -1,5 +1,6 @@
 ---
 title: 'Seguro de viagem com cancelamento incluído: como funciona e quanto cobre'
+seoTitle: "Seguro de viagem com cancelamento: como funciona"
 description: 'Seguro de viagem completo com cancelamento ou só seguro de cancelamento? Quando subscrever, que capital indicar, que motivos são aceites e como comparar.'
 category: cancelamento
 pubDate: 2026-11-25

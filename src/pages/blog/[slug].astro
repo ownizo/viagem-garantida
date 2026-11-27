@@ -42,7 +42,7 @@ const crumbs = breadcrumbLd([
 ]);
 ---
 
-<Layout title={post.data.title} description={post.data.description} type="article" jsonLd={[articleLd, crumbs, ...(post.data.faqs.length ? [faqLd(post.data.faqs)] : [])]}>
+<Layout title={post.data.seoTitle ?? post.data.title} description={post.data.description} type="article" jsonLd={[articleLd, crumbs, ...(post.data.faqs.length ? [faqLd(post.data.faqs)] : [])]}>
     <article>
         <header class="paper-grain">
             <div class="container-vg pb-12 pt-14 sm:pt-20">

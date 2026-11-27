@@ -3,6 +3,7 @@ country: 'Cuba'
 code: 'CU'
 region: caraibas
 title: 'Seguro de viagem para Cuba: é obrigatório e é verificado à chegada'
+seoTitle: "Seguro de viagem para Cuba: é obrigatório"
 description: 'O seguro de viagem é obrigatório para entrar em Cuba. O que deve constar do certificado, o que acontece se chegar sem seguro e as coberturas a comparar.'
 mandatory: true
 summary: 'Sim. Desde 2010, Cuba exige a todos os turistas um seguro com cobertura de despesas médicas durante toda a estadia. Pode ser pedido no aeroporto.'

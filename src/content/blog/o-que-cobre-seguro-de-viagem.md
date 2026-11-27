@@ -1,6 +1,7 @@
 ---
 title: 'O que cobre um seguro de viagem? Todas as coberturas explicadas'
-description: 'Despesas médicas, repatriamento, cancelamento, bagagem, atrasos e responsabilidade civil. O que cada cobertura de um seguro de viagem paga e quando faz falta.'
+seoTitle: "O que cobre um seguro de viagem? Coberturas explicadas"
+description: "Despesas médicas, repatriamento, cancelamento, bagagem, responsabilidade civil e assistência: o que cobre um seguro de viagem e o que verificar."
 category: coberturas
 pubDate: 2026-11-25
 readingTime: 9

@@ -3,6 +3,7 @@ country: 'Egito'
 code: 'EG'
 region: africa
 title: 'Seguro de viagem para o Egito: cruzeiro no Nilo, Mar Vermelho e mergulho'
+seoTitle: "Seguro de viagem para o Egito: Nilo e mergulho"
 description: 'Seguro de viagem para o Egito: visto à chegada ou e-visa, hospitais privados, cruzeiros no Nilo, mergulho no Mar Vermelho e as coberturas a comparar.'
 mandatory: false
 summary: 'Não é exigido para entrar. Mas o turista recorre a hospitais privados, os circuitos levam a zonas remotas e o mergulho no Mar Vermelho exige uma cobertura própria.'

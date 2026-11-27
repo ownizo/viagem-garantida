@@ -6,7 +6,7 @@ export const SITE = {
     url: 'https://viagemgarantida.com',
     tagline: 'O comparador de seguros de viagem que ordena pela proteção, não pelo preço.',
     description:
-        'Comparador de seguros de viagem em Portugal: compare online despesas médicas, repatriamento, cancelamento e assistência 24h de várias seguradoras. Grátis e sem compromisso.',
+        'Comparador de seguros de viagem: compare online despesas médicas, repatriamento, cancelamento e assistência 24h de várias seguradoras. Grátis.',
     email: 'geral@viagemgarantida.com',
     phone: '+351 928 226 570',
     phoneHref: 'tel:+351928226570'

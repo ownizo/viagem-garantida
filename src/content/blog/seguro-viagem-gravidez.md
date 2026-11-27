@@ -1,6 +1,7 @@
 ---
 title: 'Seguro de viagem na gravidez: até quando está coberta e o que confirmar'
-description: 'Viajar grávida com seguro: limites de semanas de gestação, complicações cobertas, parto prematuro, regras das companhias aéreas e cancelamento por gravidez.'
+seoTitle: "Seguro de viagem na gravidez: até quando cobre"
+description: "Seguro de viagem na gravidez: até que semana está coberta, complicações e parto prematuro, e o que confirmar na apólice antes de viajar."
 category: coberturas
 pubDate: 2026-11-21
 readingTime: 6

@@ -1,5 +1,6 @@
 ---
 title: 'Seguro de viagem anual (multiviagem): quando compensa e o que verificar'
+seoTitle: "Seguro de viagem anual multiviagem: compensa?"
 description: 'Viaja várias vezes por ano? O seguro anual multiviagem pode sair mais barato e mais simples. Quando compensa, os limites por viagem e as armadilhas.'
 category: tipos
 pubDate: 2026-11-21

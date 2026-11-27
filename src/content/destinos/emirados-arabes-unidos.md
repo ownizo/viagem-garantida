@@ -3,6 +3,7 @@ country: 'Emirados Árabes Unidos'
 code: 'AE'
 region: medio-oriente
 title: 'Seguro de viagem para o Dubai e os Emirados: saúde privada e regras de medicamentos'
+seoTitle: "Seguro de viagem para o Dubai e os Emirados"
 description: 'Seguro de viagem para o Dubai e Abu Dhabi: hospitais privados caros, regras para levar medicamentos, escalas longas, deserto e as coberturas a comparar.'
 mandatory: false
 summary: 'Não é exigido aos portugueses para estadias turísticas. Mas a saúde é privada e cara, e alguns medicamentos comuns na Europa estão sujeitos a regras estritas.'

@@ -1,5 +1,6 @@
 ---
 title: 'América do Sul em alta: Peru, Colômbia, Argentina, Brasil e Patagónia'
+seoTitle: "Seguro de viagem América do Sul: destinos em alta"
 description: 'Altitude, Amazónia, trilhos e longas distâncias. O que cada destino sul-americano da moda exige de um seguro de viagem bem feito.'
 category: destinos
 pubDate: 2026-11-16

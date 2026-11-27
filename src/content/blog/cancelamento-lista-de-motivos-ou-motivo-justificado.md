@@ -1,5 +1,6 @@
 ---
 title: 'Cancelamento: lista de motivos, qualquer motivo justificado ou sem motivo?'
+seoTitle: "Cancelamento: lista de motivos ou motivo justificado?"
 description: 'As três formas de cobertura de cancelamento comparadas: o que reembolsa cada uma, franquia, comprovativos pedidos e como escolher.'
 category: cancelamento
 pubDate: 2026-11-27

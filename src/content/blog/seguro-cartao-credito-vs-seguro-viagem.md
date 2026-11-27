@@ -1,6 +1,7 @@
 ---
 title: 'O seguro do cartão de crédito chega? Cartão vs seguro de viagem'
-description: 'Muitos cartões de crédito incluem seguro de viagem. O que costumam cobrir, as condições de ativação, os limites e quando é preciso um seguro de viagem próprio.'
+seoTitle: "Seguro do cartão de crédito ou seguro de viagem?"
+description: "O seguro do cartão de crédito chega para viajar? O que costuma cobrir, as condições de pagamento com o cartão e as lacunas face a um seguro de viagem."
 category: coberturas
 pubDate: 2026-11-21
 readingTime: 6

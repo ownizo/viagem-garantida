@@ -3,7 +3,8 @@ country: 'Moçambique'
 code: 'MZ'
 region: africa
 title: 'Seguro de viagem para Moçambique: ETA, malária, mergulho e evacuação'
-description: 'Seguro de viagem para Moçambique: isenção de visto com autorização eletrónica (ETA), malária, mergulho no Tofo e Bazaruto, evacuação médica e coberturas a comparar.'
+seoTitle: "Seguro de viagem para Moçambique: o que cobrir"
+description: "Seguro de viagem para Moçambique: ETA, malária, mergulho e evacuação médica. As coberturas a escolher antes de viajar."
 mandatory: false
 summary: 'Não é exigido para entrar. Os portugueses estão isentos de visto até 30 dias, mas precisam de autorização eletrónica. Fora de Maputo, os recursos de saúde são limitados e a evacuação pode ser necessária.'
 checklist:

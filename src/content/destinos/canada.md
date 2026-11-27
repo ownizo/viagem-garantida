@@ -3,6 +3,7 @@ country: 'Canadá'
 code: 'CA'
 region: americas
 title: 'Seguro de viagem para o Canadá: custos médicos ao nível dos EUA'
+seoTitle: "Seguro de viagem para o Canadá: custos médicos"
 description: 'Seguro de viagem para o Canadá: porque o sistema público não cobre turistas, o eTA, desportos de inverno e as coberturas a comparar.'
 mandatory: false
 summary: 'Não é exigido para turismo, mas o sistema de saúde público canadiano não cobre visitantes e os custos médicos são muito elevados.'

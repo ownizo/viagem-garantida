@@ -20,7 +20,9 @@ const { title, description = SITE.description, type = 'website', jsonLd, noindex
 // Com build.format 'file' o pathname de build pode vir como /pagina.html ou /.html: normalizar para URLs limpos.
 const cleanPath = Astro.url.pathname.replace(/(index)?\.html$/, '').replace(/\/+$/, '') || '/';
 const canonical = new URL(cleanPath, SITE.url).toString().replace(/\/$/, cleanPath === '/' ? '/' : '');
-const fullTitle = title === SITE.name ? `Comparador de seguros de viagem | ${SITE.name}` : `${title} | ${SITE.name}`;
+// Nome da marca no fim só quando o título completo ainda cabe nos ~60 caracteres que o Google mostra.
+const fullTitle =
+    title === SITE.name ? `Comparador de seguros de viagem | ${SITE.name}` : title.length + SITE.name.length + 3 > 60 ? title : `${title} | ${SITE.name}`;
 
 const orgLd = {
     '@context': 'https://schema.org',

@@ -1,6 +1,7 @@
 ---
 title: 'Seguro para estudantes no estrangeiro: Erasmus, intercâmbio e estágios'
-description: 'Um semestre fora é diferente de umas férias. Saiba que coberturas exige uma estadia académica longa e porque o Cartão Europeu de Seguro de Doença não chega.'
+seoTitle: "Seguro para estudantes: Erasmus, intercâmbio, estágios"
+description: "Seguro para estudantes no estrangeiro: o que exigem as universidades, Erasmus, intercâmbio e estágios, e como ter cobertura médica sem pagar a mais."
 category: estudantes
 pubDate: 2026-11-19
 readingTime: 7

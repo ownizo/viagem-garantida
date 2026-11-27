@@ -3,7 +3,8 @@ country: 'Portugal'
 code: 'PT'
 region: europa
 title: 'Seguro viagem para Portugal: o que é exigido a quem vem do Brasil e de fora da Europa'
-description: 'Seguro viagem para Portugal: a referência dos 30 000 €, o que a fronteira pode pedir a brasileiros, o PB4, o visto Schengen para residentes em África e as coberturas a comparar.'
+seoTitle: "Seguro viagem para Portugal: o que é exigido"
+description: "Seguro viagem para Portugal: o que é exigido a quem vem do Brasil e de fora da Europa e as coberturas a verificar antes de viajar."
 mandatory: false
 summary: 'Para quem vem de fora da Europa, é a referência de entrada: quem precisa de visto Schengen tem de ter seguro com pelo menos 30 000 €, e a fronteira pode pedi-lo a quem está isento, como os brasileiros.'
 checklist:

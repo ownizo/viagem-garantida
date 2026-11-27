@@ -1,5 +1,6 @@
 ---
 title: 'Seguro de cancelamento por qualquer motivo (cancel for any reason): como funciona'
+seoTitle: "Seguro de cancelamento por qualquer motivo (CFAR)"
 description: 'O que reembolsa o cancelamento por qualquer motivo (CFAR), os prazos para subscrever e para cancelar, quanto custa e quando compensa.'
 category: cancelamento
 pubDate: 2026-11-27

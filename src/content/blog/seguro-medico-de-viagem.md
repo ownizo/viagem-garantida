@@ -1,5 +1,6 @@
 ---
 title: 'Seguro médico de viagem: como funciona numa emergência no estrangeiro'
+seoTitle: "Seguro médico de viagem: como funciona"
 description: 'O que é um seguro médico de viagem, a diferença para o seguro de saúde, que capital escolher por destino e o que acontece quando é preciso ir ao hospital.'
 category: coberturas
 pubDate: 2026-11-25

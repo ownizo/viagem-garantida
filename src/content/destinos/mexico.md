@@ -3,6 +3,7 @@ country: 'México'
 code: 'MX'
 region: americas
 title: 'Seguro de viagem para o México: Riviera Maya, cenotes e hospitais privados'
+seoTitle: "Seguro de viagem para o México: o que cobrir"
 description: 'Seguro de viagem para o México: hospitais privados caros na Riviera Maya, mergulho em cenotes, furacões e as coberturas a confirmar antes de partir.'
 mandatory: false
 summary: 'Não é exigido para entrar. Nas zonas turísticas, os turistas são tratados em hospitais privados que faturam ao preço norte-americano ou perto disso.'

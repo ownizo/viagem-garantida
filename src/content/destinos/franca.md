@@ -3,7 +3,8 @@ country: 'França'
 code: 'FR'
 region: europa
 title: 'Seguro de viagem para França: Paris, Alpes e o que o Cartão Europeu não paga'
-description: 'Seguro de viagem para França: como funciona o Cartão Europeu de Seguro de Doença no sistema francês, ski nos Alpes, eventos em Paris e as coberturas a comparar.'
+seoTitle: "Seguro de viagem para França: o que precisa"
+description: "Seguro de viagem para França: Paris, Alpes e o que o Cartão Europeu de Seguro de Doença não paga, como resgate na montanha e repatriamento."
 mandatory: false
 summary: 'Não é exigido. O Cartão Europeu dá acesso ao sistema público francês, mas o doente paga uma parte e não tem repatriamento. Nos Alpes, o resgate em pista é pago à parte.'
 checklist:

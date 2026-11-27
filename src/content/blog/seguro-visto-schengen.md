@@ -1,6 +1,7 @@
 ---
 title: 'Seguro para visto Schengen: os requisitos dos 30 000 € explicados'
-description: 'Que seguro pede o consulado para o visto Schengen? Capital mínimo, validade, repatriamento e certificado. Guia para quem vive em Angola, Cabo Verde, Moçambique e não só.'
+seoTitle: "Seguro para visto Schengen: requisitos dos 30 000 €"
+description: "Seguro para visto Schengen: mínimo de 30 000 €, válido em todo o espaço Schengen e durante toda a estadia, com repatriamento. Como obter o certificado."
 category: tipos
 pubDate: 2026-11-25
 readingTime: 7

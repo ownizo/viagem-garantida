@@ -3,7 +3,7 @@ country: 'Espanha'
 code: 'ES'
 region: europa
 title: 'Seguro de viagem para Espanha: o Cartão Europeu chega?'
-description: 'Seguro de viagem para Espanha: o que o Cartão Europeu de Seguro de Doença cobre, porque as clínicas privadas das zonas turísticas ficam de fora e o que comparar.'
+description: "Seguro de viagem para Espanha: o que o Cartão Europeu de Seguro de Doença cobre, o que fica de fora e quando compensa ter um seguro de viagem."
 mandatory: false
 summary: 'Não é exigido. O Cartão Europeu de Seguro de Doença dá acesso ao sistema público espanhol, mas não cobre clínicas privadas — muitas vezes as únicas nas zonas turísticas — nem o regresso a Portugal.'
 checklist:

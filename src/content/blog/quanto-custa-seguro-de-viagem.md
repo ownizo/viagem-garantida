@@ -1,6 +1,6 @@
 ---
 title: 'Quanto custa um seguro de viagem? O que faz variar o preço'
-description: 'O preço de um seguro de viagem depende do destino, da duração, da idade e das coberturas. Os fatores que pesam no prémio e como pagar o justo sem perder proteção.'
+description: "Destino, duração, idade, valor do cancelamento e coberturas: o que faz variar o preço de um seguro de viagem e como pagar menos sem perder proteção."
 category: tipos
 pubDate: 2026-11-21
 readingTime: 6

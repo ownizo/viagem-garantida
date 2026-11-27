@@ -1,5 +1,6 @@
 ---
 title: 'Seguro de viagem para seniores: idade, doenças preexistentes e coberturas'
+seoTitle: "Seguro de viagem para seniores: idade e coberturas"
 description: 'Seguro de viagem para maiores de 65 ou 70 anos: limites de idade, agravamentos, doenças preexistentes, medicação e o que comparar para viajar tranquilo.'
 category: tipos
 pubDate: 2026-11-21

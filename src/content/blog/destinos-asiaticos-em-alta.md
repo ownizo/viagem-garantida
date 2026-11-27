@@ -1,5 +1,6 @@
 ---
 title: 'Destinos asiáticos em alta: Japão, Coreia do Sul, Tailândia, Vietname e Bali'
+seoTitle: "Seguro de viagem para a Ásia: destinos em alta"
 description: 'Os destinos asiáticos mais procurados pelos portugueses e o que cada um exige de um seguro de viagem: custos médicos, motas, mergulho e longas distâncias.'
 category: destinos
 pubDate: 2026-11-17
